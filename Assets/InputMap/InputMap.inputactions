@@ -1,0 +1,55 @@
+{
+    "version": 1,
+    "name": "InputMap",
+    "maps": [
+        {
+            "name": "GameStatus",
+            "id": "5caf3bf9-e408-48fe-8cc1-9d20ee5507f0",
+            "actions": [
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "bef1f9b7-5746-438c-bd07-30ac2e6ef577",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PowerMode",
+                    "type": "Button",
+                    "id": "7d27793b-35a9-4cdd-bcf2-ce027342b2ef",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "82812515-d3f6-43f6-99f9-977961c91609",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6d3d0297-ac02-42ec-99b7-9c625fb9ff72",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PowerMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
