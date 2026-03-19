@@ -125,4 +125,10 @@ public class GameManager : MonoBehaviour
             //qui disabilitare i poteri
         }
     }
+
+    //metodo per uscire dal gioco
+    private void QuitGame()
+    {
+        Application.Quit();
+    }
 }

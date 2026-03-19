@@ -1,15 +1,16 @@
-using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
-    //script per il movimento dell'enemy
+    //script classe madre per il movimento dell'enemy
 
-    NavMeshAgent enemyAgent; //il nostro nemico
+    public NavMeshAgent enemyAgent; //il nostro nemico
     public Transform targetPlayer; // il player
-    public Transform cage; // la nostra gabbia
-    private bool isCaged; //lo stato del player in cui non può muoversi dalla gabbia
+    public List<Transform> waypoints; // i waypoints per cui passeranno i nemici
+    public int currentWaypoint = 0;
 
     public int triggerRadius = 30; //il raggio dell'overlap sphere entro il quale l'enemy si accorge del player
     [SerializeField] private LayerMask playerLayermask; //il layer del player
@@ -19,20 +20,13 @@ public class EnemyMovement : MonoBehaviour
         enemyAgent = GetComponent<NavMeshAgent>();
     }
 
-    void FixedUpdate()
+    protected virtual void Update()
     {
-        //se il player finisce nel raggio dell'enemy (e non è già in gabbia)
-        if (!isCaged && Physics.OverlapSphere(transform.position, triggerRadius, playerLayermask).Length > 0)
+        //se il player finisce nel raggio dell'enemy (e non è già in gabbia/ha caramelle)
+        if (Physics.OverlapSphere(transform.position, triggerRadius, playerLayermask).Length > 0 && CanChasePlayer())
         {
             //l'enemy lo insegue
             GetET();
-
-            //se raggiunge il player
-            if (!enemyAgent.pathPending && enemyAgent.remainingDistance <= enemyAgent.stoppingDistance)
-            {
-                //porta il player nella gabbia
-                CageET();
-            }
         }
 
         //altrimenti se ne va a zonzo arrrandom sperando di beccare il player
@@ -44,29 +38,34 @@ public class EnemyMovement : MonoBehaviour
 
     void SearchForET()
     {
+        //se non ci sono waypoints settati, non fa niente
+        if (waypoints.Count == 0)
+            return;
+        
+        //calcolo la distanza al prossimo waypoint
+        float distanceToNextWaypoint = Vector3.Distance(waypoints[currentWaypoint].position, transform.position); 
 
+        //se sono abbastanza vicino al waypoint
+        if (distanceToNextWaypoint <= 3)
+        {
+            //scorro la lista di waypoints (mettendo quel +1, creo il loop)
+            currentWaypoint = (currentWaypoint  + 1) % waypoints.Count;
+        }
+
+        //E ora vai, figlio mio.
+        enemyAgent.SetDestination(waypoints[currentWaypoint].position);
     }
 
     void GetET()
     {
-        enemyAgent.SetDestination(targetPlayer.position); //lo insegue
+        //lo insegue
+        enemyAgent.SetDestination(targetPlayer.position); 
     }
 
-    //poi magari trasferisco le trappole dei nemici in uno script a parte
-    void CageET()
+    //ci serve per capire se possiamo inseguirlo (se è in gabbia o se non ha caramelle, non lo inseguiamo)
+    protected virtual bool CanChasePlayer()
     {
-        //gettiamo la posizione della gabbia, ma manteniamo la y del player
-        Vector3 cagedETposition = new Vector3(cage.position.x, targetPlayer.position.y, cage.position.z);
-
-        //ci gettiamo il suo rigidbody per "freezarlo" nella gabbia
-        Rigidbody playerRB = targetPlayer.GetComponent<Rigidbody>();
-
-        //e lo spostiamo e ingabbiamo
-        playerRB.position = cagedETposition; 
-        //playerRB.constraints = RigidbodyConstraints.FreezeAll;
-
-        //settiamo lo status
-        isCaged = true;
+        return true; // di base, possiamo
     }
 
     private void OnDrawGizmos()
