@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour
     private bool isPaused = false;
     private bool isETing = false;
 
+    //oggetti da attivare quando siamo in mod ET
+    public GameObject powersLight;
+    public GameObject powersGlowStamina;
+
     //contatore dei pezzi di bici trovati (Win condition)
     public int bikePieces = 5; //pezzi da trovare
     public int bikePiecesFound = 0; //i pezzi trovati
@@ -36,7 +40,16 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
 
+        //ci gettiamo l'input map
         inputMap = new InputMap();
+
+        //ci assicuriamo che la luce della mod Poteri sia disattivata all'inizio
+        powersLight.SetActive(false);
+        powersGlowStamina.SetActive(false);
+    }
+    void Start()
+    {
+      
     }
 
     void OnEnable()
@@ -44,6 +57,8 @@ public class GameManager : MonoBehaviour
         inputMap.Enable();
         inputMap.GameStatus.Pause.performed += Pause;
         inputMap.GameStatus.PowerMode.performed += ETMode;
+        inputMap.GameStatus.PowerMode.canceled += ETMode;
+
     }
 
     void OnDisable()
@@ -51,6 +66,7 @@ public class GameManager : MonoBehaviour
         inputMap.Disable();
         inputMap.GameStatus.Pause.performed -= Pause;
         inputMap.GameStatus.PowerMode.performed -= ETMode;
+        inputMap.GameStatus.PowerMode.canceled -= ETMode;
     }
 
     public void SetGameStatus(GameStatus status)
@@ -67,7 +83,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameStatus.ETmode:
-                Time.timeScale = 0;
+                Time.timeScale = 1;
                 break;
         }
     }
@@ -119,12 +135,39 @@ public class GameManager : MonoBehaviour
         if (isETing)
         {
             SetGameStatus(GameStatus.ETmode);
-            //aggiungere qui i poteri
+            powersLight.SetActive(true);
+            powersGlowStamina.SetActive(true);
+
+            //prendiamo tutti gli oggetti in scena che hanno il tag Interactable
+            GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
+
+            foreach (GameObject interactable in interactables)
+            {
+                //e ne attiviamo i figli
+                foreach (Transform child in interactable.transform)
+                {
+                    child.gameObject.SetActive(true);
+                }
+            }
         }
+
         else
         {
             SetGameStatus(GameStatus.Running);
-            //qui disabilitare i poteri
+            powersLight.SetActive(false);
+            powersGlowStamina.SetActive(false);
+
+            //prendiamo tutti gli oggetti in scena che hanno il tag Interactable
+            GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
+
+            foreach (GameObject interactable in interactables)
+            {
+                //e ne disattiviamo i figli
+                foreach (Transform child in interactable.transform)
+                {
+                    child.gameObject.SetActive(false);
+                }
+            }
         }
     }
 

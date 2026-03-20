@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour, IInteractable
 {
     //script classe madre per il movimento dell'enemy
 
@@ -73,4 +73,10 @@ public class EnemyMovement : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, triggerRadius);
     }
+
+    public void OnInteraction()
+    {
+        //aggiungere qui il fatto che si stunnino
+    }
+
 }
