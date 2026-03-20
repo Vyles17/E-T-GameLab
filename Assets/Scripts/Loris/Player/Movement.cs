@@ -24,8 +24,11 @@ public class Movement : MonoBehaviour
     }
     private void Update()
     {
-        Camera();
-        Move();
+        if (!UIManager.Instance.pauseMenuUI.activeSelf)
+        {
+            Camera();
+            Move();
+        }
     }
     private void FixedUpdate()
     {

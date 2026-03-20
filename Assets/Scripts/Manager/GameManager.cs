@@ -79,12 +79,14 @@ public class GameManager : MonoBehaviour
         //avvio/tolgo il menu di pausa in base allo stato del gioco
         if (isPaused)
         {
+            Cursor.visible = true;
             SetGameStatus(GameStatus.Paused);
             UIManager.Instance.PauseUI();
         }
 
         else
         {
+            Cursor.visible = false;
             SetGameStatus(GameStatus.Running);
             UIManager.Instance.PauseUI();
         }
