@@ -26,7 +26,11 @@ public class Movement : MonoBehaviour
         vel.x = Direction.x * Speed * Time.fixedDeltaTime;
         vel.z = Direction.z * Speed * Time.fixedDeltaTime;
 
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            vel.x *= 3;
+            vel.z *= 3;
+        }
         rb.linearVelocity = vel;
-        
     }
 }
