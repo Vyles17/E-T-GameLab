@@ -157,6 +157,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5544705cddbc94daf62ffa27c6d302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Movement
+  turn: {x: 0, y: 0}
+  cameraPivot: {fileID: 0}
+  Sensitivity: 2
+  rotationSmoothTime: 0.1
   Speed: 100
 --- !u!1 &4895915426652459638
 GameObject:
