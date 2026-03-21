@@ -32,14 +32,13 @@ public class Movement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        //Movement velocity calculator
         currentSpeed = speed;
-
         //Sprint
         if (Input.GetKey(KeyCode.LeftShift))
         {
             currentSpeed *= 3;
         }
+        //Movement velocity calculator (la aggiorni in Update perché deve tornare alla normalità una volta che non si preme lo sprint)
         Vector3 targetVelocity = Time.fixedDeltaTime * currentSpeed * Direction;
         rb.linearVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
     }

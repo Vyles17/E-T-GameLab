@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
     }
 
     //non badare a questo doppio metodo Loris, non posso usare l'altro per il bottone del Telefono rip
+    // per Vy: per me, come ho detto su ds, non è necessario un pulsante per la pausa se il gioco è in 3D
     public void PausePhone()
     {
         isPaused = !isPaused;

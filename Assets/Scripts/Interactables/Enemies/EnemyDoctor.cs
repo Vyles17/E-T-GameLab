@@ -27,7 +27,7 @@ public class EnemyDoctor : EnemyMovement
     void CageET()
     {
         //gettiamo la posizione della gabbia, ma manteniamo la y del player
-        Vector3 cagedETposition = new Vector3(cage.position.x, targetPlayer.position.y, cage.position.z);
+        Vector3 cagedETposition = new (cage.position.x, targetPlayer.position.y, cage.position.z);
 
         //ci gettiamo il suo rigidbody per "freezarlo" nella gabbia
         Rigidbody playerRB = targetPlayer.GetComponent<Rigidbody>();
