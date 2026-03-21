@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Scena Vyles.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 0
+    path: Assets/Scenes/Scena Loris.unity
+    guid: 3384dda63ba502f419a6dcfc832c7db9
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 81fa7146ff6e4764a8416ae47bd6b094, type: 3}
   m_UseUCBPForAssetBundles: 0

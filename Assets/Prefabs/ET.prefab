@@ -5011,6 +5011,7 @@ GameObject:
   - component: {fileID: 5043018958522591658}
   - component: {fileID: 5054604083603056053}
   - component: {fileID: 1550558271544380011}
+  - component: {fileID: 6871380884082693898}
   m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5137,3 +5138,19 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &6871380884082693898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9131457363791487394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.PhysicsRaycaster
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 479
+  m_MaxRayIntersections: 0

@@ -5024,7 +5024,7 @@ GameObject:
   - component: {fileID: 7776368549860340063}
   - component: {fileID: 8233016473381499882}
   - component: {fileID: 1789992094630802168}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Thief Enemy
   m_TagString: Interactable
   m_Icon: {fileID: 0}

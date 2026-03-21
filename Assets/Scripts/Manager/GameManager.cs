@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public enum GameStatus
@@ -95,16 +96,18 @@ public class GameManager : MonoBehaviour
         //avvio/tolgo il menu di pausa in base allo stato del gioco
         if (isPaused)
         {
-            Cursor.visible = true;
             SetGameStatus(GameStatus.Paused);
             UIManager.Instance.PauseUI();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         else
         {
-            Cursor.visible = false;
             SetGameStatus(GameStatus.Running);
             UIManager.Instance.PauseUI();
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 
@@ -137,7 +140,8 @@ public class GameManager : MonoBehaviour
             SetGameStatus(GameStatus.ETmode);
             powersLight.SetActive(true);
             powersGlowStamina.SetActive(true);
-
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             //prendiamo tutti gli oggetti in scena che hanno il tag Interactable
             GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
 
@@ -156,6 +160,8 @@ public class GameManager : MonoBehaviour
             SetGameStatus(GameStatus.Running);
             powersLight.SetActive(false);
             powersGlowStamina.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
 
             //prendiamo tutti gli oggetti in scena che hanno il tag Interactable
             GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
@@ -172,8 +178,9 @@ public class GameManager : MonoBehaviour
     }
 
     //metodo per uscire dal gioco
-    private void QuitGame()
+    public void QuitGame()
     {
+        Debug.Log("Sei uscito :D");
         Application.Quit();
     }
 }

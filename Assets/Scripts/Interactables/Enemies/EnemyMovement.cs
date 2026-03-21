@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
-public class EnemyMovement : MonoBehaviour, IInteractable
+public class EnemyMovement : MonoBehaviour, IPointerClickHandler
 {
     //script classe madre per il movimento dell'enemy
 
@@ -74,9 +74,14 @@ public class EnemyMovement : MonoBehaviour, IInteractable
         Gizmos.DrawWireSphere(transform.position, triggerRadius);
     }
 
-    public void OnInteraction()
-    {
-        //aggiungere qui il fatto che si stunnino
-    }
+    //public void OnInteraction()
+    //{
+    //}
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("clicked" + gameObject.name);
+        //aggiungere qui il fatto che si stunnino
+
+    }
 }

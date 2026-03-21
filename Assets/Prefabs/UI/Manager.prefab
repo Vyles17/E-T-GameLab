@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a728d0d89a58094d93def25c22f7e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  isETing: 0
   powersLight: {fileID: 0}
   powersGlowStamina: {fileID: 0}
   bikePieces: 5
