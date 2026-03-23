@@ -25,9 +25,9 @@ public class GameManager : MonoBehaviour
     public GameObject powersLight;
     public GameObject powersGlowStamina;
 
-    //contatore dei pezzi di bici trovati (Win condition)
-    public int bikePieces = 5; //pezzi da trovare
-    public int bikePiecesFound = 0; //i pezzi trovati
+    //contatore dei pezzi di antenna trovati (Win condition)
+    public int antennaPieces = 5; //pezzi da trovare
+    public int antennaPiecesFound = 0; //i pezzi trovati
 
     //Input map per gestire i comandi per la UI
     private InputMap inputMap;
@@ -48,10 +48,7 @@ public class GameManager : MonoBehaviour
         powersLight.SetActive(false);
         powersGlowStamina.SetActive(false);
     }
-    void Start()
-    {
-      
-    }
+
 
     void OnEnable()
     {
@@ -111,26 +108,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //non badare a questo doppio metodo Loris, non posso usare l'altro per il bottone del Telefono rip
-    // per Vy: per me, come ho detto su ds, non è necessario un pulsante per la pausa se il gioco è in 3D
-    public void PausePhone()
-    {
-        isPaused = !isPaused;
-
-        //avvio/tolgo il menu di pausa in base allo stato del gioco
-        if (isPaused)
-        {
-            SetGameStatus(GameStatus.Paused);
-            UIManager.Instance.PauseUI();
-        }
-
-        else
-        {
-            SetGameStatus(GameStatus.Running);
-            UIManager.Instance.PauseUI();
-        }
-    }
-
     public void ETMode(InputAction.CallbackContext context)
     {
         isETing = !isETing;
@@ -175,6 +152,31 @@ public class GameManager : MonoBehaviour
                     child.gameObject.SetActive(false);
                 }
             }
+        }
+    }
+
+    public void AddAntennaPart(int antennaPart)
+    {
+        //se le parti di antenna che abbiamo sono meno del massimo (quello vorrebbe dire che abbiamo finito il gioco, sennò)
+        if (antennaPiecesFound < antennaPieces)
+        {
+            //aggiunge una caramella al counter
+            antennaPiecesFound += antennaPart;
+
+            //OnAntennaChange?.Invoke(); //iscritto all'evento (DA AGGIORNARE APPENA HO LA UI)
+        }
+    }
+
+    //metodo per quando ci viene rubata/usiamo una caramella Poteri
+    public void RemoveAntennaPart(int antennaPart)
+    {
+        //se abbiamo almeno una caramella
+        if (antennaPiecesFound > 0)
+        {
+            //togliamo una caramella dal counter
+            antennaPiecesFound -= antennaPart;
+
+            //OnAntennaChange?.Invoke(); //iscritto all'evento (DA AGGIORNARE APPENA HO LA UI)
         }
     }
 

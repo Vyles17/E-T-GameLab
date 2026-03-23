@@ -11,6 +11,7 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
     public NavMeshAgent enemyAgent; //il nostro nemico
     public Transform targetPlayer; // il player
     public List<Transform> waypoints; // i waypoints per cui passeranno i nemici
+    public Transform baseWaypoint; //il waypoint casa madre dove tornano dopo aver fatto le loro malefatte
     public int currentWaypoint = 0;
 
     public int triggerRadius = 30; //il raggio dell'overlap sphere entro il quale l'enemy si accorge del player
@@ -20,7 +21,7 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
     [Header("Stun Stats")]
     Rigidbody rb;
     private float speed;
-    private bool stuned = false;
+    private bool stunned = false;
     [SerializeField] float stunTime;
     private float stunTimer;
 
@@ -32,7 +33,7 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
     }
     protected virtual void Update()
     {
-        if (!stuned)
+        if (!stunned)
         {
             //se il player finisce nel raggio dell'enemy (e non è già in gabbia/ha caramelle)
             if (Physics.OverlapSphere(transform.position, triggerRadius, playerLayermask).Length > 0 && CanChasePlayer())
@@ -51,15 +52,16 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
 
     protected virtual void FixedUpdate()
     {
-        if (stuned)
+        if (stunned)
         {
             rb.constraints = RigidbodyConstraints.FreezeAll;
             stunTimer += Time.deltaTime;
             enemyAgent.speed = 0;
+
             if (stunTimer > stunTime)
             {
                 rb.constraints = RigidbodyConstraints.None;
-                stuned = false;
+                stunned = false;
                 enemyAgent.speed = speed;
                 stunTimer = 0;
             }
@@ -112,11 +114,11 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
     //Stun PowerUp
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!stuned)
+        if (!stunned)
         {
             Debug.Log("clicked" + gameObject.name);
             UsePower(1);
-            stuned = true;
+            stunned = true;
         }
     }
     private void UsePower(int candies)

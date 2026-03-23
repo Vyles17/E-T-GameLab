@@ -13,38 +13,48 @@ public class EnemyDoctor : EnemyMovement
     }
     protected override void Update()
     {
-        // prima esegue il comportamento base (movimento)
-        base.Update();
-
-        //poi se raggiunge il player
-        if (!enemyAgent.pathPending && enemyAgent.remainingDistance <= enemyAgent.stoppingDistance)
+        if (!isCaged)
         {
-            //porta il player nella gabbia
-            CageET();
+            //esegue il comportamento base (movimento)
+            base.Update();
+
+            //se raggiunge il player
+            if (!enemyAgent.pathPending && enemyAgent.remainingDistance <= enemyAgent.stoppingDistance)
+            {
+                //porta il player nella gabbia
+                CageET();
+
+                //appena ha messo al gabbio E.T., torna al waypoint della casa
+                enemyAgent.SetDestination(baseWaypoint.position);
+            }
+        }
+
+        else
+        {
+            //se l'enemy passa per il waypoint casa madre, torna a inseguire E.T.
+            if (!enemyAgent.pathPending && enemyAgent.remainingDistance <= enemyAgent.stoppingDistance)
+            {
+                isCaged = false;
+            }
         }
     }
 
     void CageET()
     {
         //gettiamo la posizione della gabbia, ma manteniamo la y del player
-        Vector3 cagedETposition = new (cage.position.x, targetPlayer.position.y, cage.position.z);
+        Vector3 cagedETposition = new(cage.position.x, targetPlayer.position.y, cage.position.z);
 
         //ci gettiamo il suo rigidbody per "freezarlo" nella gabbia
         Rigidbody playerRB = targetPlayer.GetComponent<Rigidbody>();
 
         //e lo spostiamo e ingabbiamo
         playerRB.position = cagedETposition;
-
-        //playerRB.constraints = RigidbodyConstraints.FreezeAll; //NON SO SE CI SERVE OPPURE NOOOO chiedere a giulio
-
-        isCaged = true; //DEVO RICORDARMI DI SETTARLO FALSE QUANDO DECIDIAMO COME SI LIBERA
+        isCaged = true;
     }
 
     protected override bool CanChasePlayer()
     {
-        // insegue il player solo se non è già in gabbia
+        // insegue il player solo se non l'ha appena ingabbiato
         return !isCaged;
     }
-
-
 }

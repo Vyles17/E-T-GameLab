@@ -2,44 +2,66 @@ using UnityEngine;
 
 public class EnemyThief : EnemyMovement
 {
-    public int candyToSteal = 1; //caramelle che rubiamo al player
-    private float stealCoolDown = 2f;
-    public float stealTimer = 0;
+    public int stuffToSteal = 1; //roba che rubiamo al player
+    private bool isRobbed;
 
     private void Start()
     {
-        stealTimer = 0; //settiamo il timer
+        isRobbed = false;
     }
 
     protected override void Update()
     {
-        // prima esegue il comportamento base (movimento)
-        base.Update();
-
-        //se abbiamo derubato E.T., facciamo partire il cooldown
-        if (stealTimer > 0)
-            stealTimer-= Time.deltaTime;
-
-        //poi se raggiunge il player E il timer è a 0
-        if (stealTimer <= 0 && !enemyAgent.pathPending && enemyAgent.remainingDistance <= enemyAgent.stoppingDistance)
+        if (!isRobbed)
         {
-            //lo derubiamo delle caramelle (evil)
-            RobET(candyToSteal);
+            //esegue il comportamento base (movimento)
+            base.Update();
 
-            //avviamo il cooldown
-            stealTimer = stealCoolDown;
+            //se raggiunge il player
+            if (!enemyAgent.pathPending && enemyAgent.remainingDistance <= enemyAgent.stoppingDistance)
+            {
+                //arruba i possedimenti
+                RobET(stuffToSteal);
+
+                //appena ha arrubbato E.T., torna al waypoint della casa
+                enemyAgent.SetDestination(baseWaypoint.position);
+            }
+        }
+
+        else
+        {
+            //se l'enemy passa per il waypoint casa madre, torna a inseguire E.T.
+            if (!enemyAgent.pathPending && enemyAgent.remainingDistance <= enemyAgent.stoppingDistance)
+            {
+                isRobbed = false;
+            }
         }
     }
 
-    void RobET(int candies)
+    void RobET(int stuff)
     {
-        //metodo per rubargli una caramella e aggiornare la UI
-        PowerCandyManager.Instance.RemoveCandy(candyToSteal);
+        //se il player ha dei pezzi dell'antenna
+        if (GameManager.Instance.antennaPiecesFound > 0)
+        {
+            //sto ladro piezzemmerd gli ruba uno di quelli
+            GameManager.Instance.RemoveAntennaPart(stuff);
+
+            isRobbed = true;
+        }
+
+        //sennò gli arruba le caramelle come a un bebè
+        else
+        {
+            //metodo per rubargli una caramella e aggiornare la UI
+            PowerCandyManager.Instance.RemoveCandy(stuff);
+
+            isRobbed = true;
+        }
     }
 
     protected override bool CanChasePlayer()
     {
-        // insegue il player solo se ha caramelle
-        return PowerCandyManager.Instance.currentCandies > 0;
+        // insegue il player solo se pezzi dell'antenna o delle caramelle
+        return PowerCandyManager.Instance.currentCandies > 0 || GameManager.Instance.antennaPiecesFound > 0;
     }
 }

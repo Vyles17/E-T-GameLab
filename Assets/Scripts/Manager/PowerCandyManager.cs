@@ -21,6 +21,11 @@ public class PowerCandyManager : MonoBehaviour
         }
         Instance = this;
     }
+    public void Start()
+    {
+        //all'inizio il counter di caramelle è a 0
+        currentCandies = 0;
+    }
 
     //metodo per quando raccogliamo una caramella Poteri
     public void AddCandy(int candy)

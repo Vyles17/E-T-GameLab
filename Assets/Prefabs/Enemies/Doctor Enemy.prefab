@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6719147211394305809}
   - component: {fileID: 4784447088685826724}
   - component: {fileID: 4992743103468709526}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: PowerMode
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -5024,7 +5024,7 @@ GameObject:
   - component: {fileID: 7776368549860340063}
   - component: {fileID: 8233016473381499882}
   - component: {fileID: 513802244430567129}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Doctor Enemy
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -5199,4 +5199,5 @@ MonoBehaviour:
   playerLayermask:
     serializedVersion: 2
     m_Bits: 8
+  stunTime: 0
   cage: {fileID: 0}

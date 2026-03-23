@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,10 +13,11 @@ public class UIManager : MonoBehaviour
     public GameObject pauseMenuUI;
 
     //gli oggetti UI in HUD
-    [SerializeField] Image staminaFill, powersFill;
+    [SerializeField] Image staminaFill;
     [SerializeField] Image staminaIcon;
     [SerializeField] Image bike_ruota, bike_pedale, bike_manubrio, bike_cestello, bike_sellino;
-    [SerializeField] Button phoneButton;
+    [SerializeField] TMP_Text powerCandyCounter;
+
 
     private void Awake()
     {
@@ -24,23 +26,27 @@ public class UIManager : MonoBehaviour
             Destroy(this);
             return;
         }
+
         Instance = this;
     }
 
     private void OnEnable()
     {
-        PowerCandyManager.Instance.OnCandiesChange += UpdateCandyBar; //quando viene chiamato l'evento...
-        UpdateCandyBar();  //...aggiorniamo la barra delle caramelle Poteri
+        PowerCandyManager.Instance.OnCandiesChange += UpdateCandyCounter; //quando viene chiamato l'evento...
+        UpdateCandyCounter();  //...aggiorniamo il counter delle caramelle Poteri
     }
     private void OnDisable()
     {
-        PowerCandyManager.Instance.OnCandiesChange -= UpdateCandyBar;
+        PowerCandyManager.Instance.OnCandiesChange -= UpdateCandyCounter;
     }
 
     public void Start()
     {
         //all'inizio il menu è disattivato
         pauseMenuUI.SetActive(false);
+
+        //il counter di caramelle è a 0
+        powerCandyCounter.text = "x0";
     }
 
     public void PauseUI()
@@ -60,8 +66,8 @@ public class UIManager : MonoBehaviour
     }
 
     //funzione per aggiornare la UI delle caramelle
-    public void UpdateCandyBar()
+    public void UpdateCandyCounter()
     {
-        powersFill.fillAmount = (float)PowerCandyManager.Instance.currentCandies / PowerCandyManager.Instance.candiesMaxCapacity;
+        powerCandyCounter.text = "x" + PowerCandyManager.Instance.currentCandies;
     }
 }
