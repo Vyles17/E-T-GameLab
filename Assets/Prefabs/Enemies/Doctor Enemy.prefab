@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 4992743103468709526}
   m_Layer: 8
   m_Name: PowerMode
-  m_TagString: Player
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5030,7 +5030,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7596597099891129826
 Transform:
   m_ObjectHideFlags: 0
@@ -5194,6 +5194,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  baseWaypoint: {fileID: 0}
   currentWaypoint: 0
   triggerRadius: 20
   playerLayermask:

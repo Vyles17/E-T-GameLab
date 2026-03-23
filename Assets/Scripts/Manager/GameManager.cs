@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
 
     //oggetti da attivare quando siamo in mod ET
     public GameObject powersLight;
-    public GameObject powersGlowStamina;
 
     //contatore dei pezzi di antenna trovati (Win condition)
     public int antennaPieces = 5; //pezzi da trovare
@@ -46,7 +45,6 @@ public class GameManager : MonoBehaviour
 
         //ci assicuriamo che la luce della mod Poteri sia disattivata all'inizio
         powersLight.SetActive(false);
-        powersGlowStamina.SetActive(false);
     }
 
 
@@ -112,47 +110,51 @@ public class GameManager : MonoBehaviour
     {
         isETing = !isETing;
 
-        //in base se siamo alla modalità poteri, possiamo usarli
-        if (isETing)
+        //possiamo entrare in modalità ETing solo se non siamo in pausa
+        if (!isPaused)
         {
-            SetGameStatus(GameStatus.ETmode);
-            powersLight.SetActive(true);
-            powersGlowStamina.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            //prendiamo tutti gli oggetti in scena che hanno il tag Interactable
-            GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
-
-            foreach (GameObject interactable in interactables)
+            //in base se siamo alla modalità poteri, possiamo usarli
+            if (isETing)
             {
-                //e ne attiviamo i figli
-                foreach (Transform child in interactable.transform)
+                SetGameStatus(GameStatus.ETmode);
+                powersLight.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+
+                //prendiamo tutti gli oggetti in scena che hanno il tag Interactable
+                GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
+
+                foreach (GameObject interactable in interactables)
                 {
-                    child.gameObject.SetActive(true);
+                    //e ne attiviamo i figli
+                    foreach (Transform child in interactable.transform)
+                    {
+                        child.gameObject.SetActive(true);
+                    }
+                }
+            }
+
+            else
+            {
+                SetGameStatus(GameStatus.Running);
+                powersLight.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+
+                //prendiamo tutti gli oggetti in scena che hanno il tag Interactable
+                GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
+
+                foreach (GameObject interactable in interactables)
+                {
+                    //e ne disattiviamo i figli
+                    foreach (Transform child in interactable.transform)
+                    {
+                        child.gameObject.SetActive(false);
+                    }
                 }
             }
         }
 
-        else
-        {
-            SetGameStatus(GameStatus.Running);
-            powersLight.SetActive(false);
-            powersGlowStamina.SetActive(false);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-
-            //prendiamo tutti gli oggetti in scena che hanno il tag Interactable
-            GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
-
-            foreach (GameObject interactable in interactables)
-            {
-                //e ne disattiviamo i figli
-                foreach (Transform child in interactable.transform)
-                {
-                    child.gameObject.SetActive(false);
-                }
-            }
-        }
     }
 
     public void AddAntennaPart(int antennaPart)

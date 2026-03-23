@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 7146940355737316721}
   - component: {fileID: 1703354790833916172}
   - component: {fileID: 5326350146308196501}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: PowerMode
-  m_TagString: Player
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5194,10 +5194,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  baseWaypoint: {fileID: 0}
   currentWaypoint: 0
   triggerRadius: 20
   playerLayermask:
     serializedVersion: 2
     m_Bits: 8
   stunTime: 3
-  candyToSteal: 1
+  stuffToSteal: 1
