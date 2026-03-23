@@ -13,6 +13,8 @@ public class Movement : MonoBehaviour
     [SerializeField] float speed;
     private float currentSpeed;
 
+    GameObject CollObj;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -63,5 +65,17 @@ public class Movement : MonoBehaviour
         Direction = transform.TransformDirection(localDirection); //permette al Player di seguire la Camera
 
         Direction.Normalize();
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        CollObj = other.gameObject;
+        if (CollObj.CompareTag("PowerCandy"))
+            TakeCandy(1);
+    }
+
+    private void TakeCandy(int candies)
+    {
+        PowerCandyManager.Instance.AddCandy(1);
+        Destroy(CollObj);
     }
 }

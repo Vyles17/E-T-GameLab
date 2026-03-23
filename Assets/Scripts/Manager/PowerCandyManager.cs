@@ -10,6 +10,18 @@ public class PowerCandyManager : MonoBehaviour
 
     public event Action OnCandiesChange; //evento per quando viene modificato il counter di caramelle
 
+    public static PowerCandyManager Instance;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
+    }
+
     //metodo per quando raccogliamo una caramella Poteri
     public void AddCandy(int candy)
     {

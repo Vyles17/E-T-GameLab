@@ -112,7 +112,15 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
     //Stun PowerUp
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("clicked" + gameObject.name);
-        stuned = true;
+        if (!stuned)
+        {
+            Debug.Log("clicked" + gameObject.name);
+            UsePower(1);
+            stuned = true;
+        }
+    }
+    private void UsePower(int candies)
+    {
+        PowerCandyManager.Instance.RemoveCandy(1);
     }
 }

@@ -4,15 +4,10 @@ public class EnemyThief : EnemyMovement
 {
     public int candyToSteal = 1; //caramelle che rubiamo al player
     private float stealCoolDown = 2f;
-    private float stealTimer = 0;
-
-    PowerCandyManager PCM;
+    public float stealTimer = 0;
 
     private void Start()
     {
-        //ci gettiamo lo script
-        PCM = FindAnyObjectByType<PowerCandyManager>();
-
         stealTimer = 0; //settiamo il timer
     }
 
@@ -39,12 +34,12 @@ public class EnemyThief : EnemyMovement
     void RobET(int candies)
     {
         //metodo per rubargli una caramella e aggiornare la UI
-        PCM.RemoveCandy(candyToSteal);
+        PowerCandyManager.Instance.RemoveCandy(candyToSteal);
     }
 
     protected override bool CanChasePlayer()
     {
         // insegue il player solo se ha caramelle
-        return PCM.currentCandies > 0;
+        return PowerCandyManager.Instance.currentCandies > 0;
     }
 }
