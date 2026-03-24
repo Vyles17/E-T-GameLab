@@ -4,46 +4,54 @@ using System.Collections.Generic;
 
 public class SpawnerManager : MonoBehaviour
 {
-    // script che gestirà lo spawn degli oggetti
+    // script che gestirà gli spawner
 
     [Header("Spawner Normali")]
     //lista di spawnerpoints normali
     [SerializeField] GameObject[] normalSpawners;
-    //int di quanti spawner points normali sono attivi per volta
-    [SerializeField] int activenormalSpawnersQuantity;
-    //prefabs caramelle
-    [SerializeField] GameObject powerCandyPrefab;
-    [SerializeField] GameObject lifeCandyPrefab;
+    //int di quanti spawner points normali vogliamo attivi per volta
+    [SerializeField] int activeNormalSpawnersQuantity;
+    //lista di spawner attivi
+    List<GameObject> activeNormalSpawners = new List<GameObject>();
 
-    [Header("Spawner degli Interagibili")]
+    [Header("Spawner Interagibili")]
     //lista di spawnerpoints interagibili
     [SerializeField] GameObject[] interactableSpawners;
     //int di quanti spawner points interagibili sono attivi per volta
     [SerializeField] int activeInteractablesSpawnersQuantity;
-    //prefab pezzi Antenna
-    [SerializeField] GameObject[] antennaPartsPrefabs;
-
-    [Header("Percentuali di Spawn")]
-    //percentuali di spawn
-    [SerializeField] float powerCandyChance = 35f; //il restante numero della percentuale è per le lifeCandy
-    [SerializeField] float specialItemChance = 30f;
-
     //lista di spawner attivi
-    List<GameObject> activeNormals = new List<GameObject>();
     List<GameObject> activeInteractables = new List<GameObject>();
 
+    //prefab pezzi Antenna
+    [SerializeField] GameObject[] antennaPartsPrefabs;
+    [SerializeField] float antennaPartsChance = 20f;
     bool antennaPartSpawned = false;
+
+    public static SpawnerManager Instance;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
+    }
 
     void Start()
     {
-        //ci settiamo gli spawner all'inizio
-        ActivateSpawners(normalSpawners, activenormalSpawnersQuantity, activeNormals);
+        //selezioniamo casualmente gli spawner normali attivi
+        ActivateSpawners(normalSpawners, activeNormalSpawnersQuantity, activeNormalSpawners);
 
-        //spawno solo negli spawner attivi
-        CandiesSpawn();
+        // e gli spawniamo una caramella dentro
+        foreach (GameObject spawner in activeNormalSpawners)
+        {
+            spawner.GetComponent<NormalSpawner>().CandiesSpawn();
+        }
     }
 
-    //metodo per attivare gli spawners (sia normali che interactables)
+    //metodo per attivare gli spawners all'inizio (sia normali che interactables)
     void ActivateSpawners(GameObject[] spawnersType, int quantity, List<GameObject> activeSpawns)
     {
         // ci gettiamo lista così possiamo rimuovere spawners senza problemi dopo
@@ -54,41 +62,43 @@ public class SpawnerManager : MonoBehaviour
         {
             //prendiamo uno spawner casuale
             int randomSpawner = Random.Range(0, spawnsList.Count);
-            GameObject chosenSpawn = spawnsList[randomSpawner];
 
             //lo aggiungiam alla lista degli spawner attivi
-            activeSpawns.Add(chosenSpawn);
+            activeSpawns.Add(spawnsList[randomSpawner]);
 
             // lo togliamo dalla lista per evitare duplicati (quando arrivo al numero che abbiamo scelto di spawner attivi, si ferma)
             spawnsList.RemoveAt(randomSpawner);
         }
     }
 
-    //metodo per spawnare caramelle dagli spawner normali
-    void CandiesSpawn()
+    //metodo per riempire uno spawner normale dopo che un altro è stato svuotato
+    public void RespawnCandy(GameObject justEmptiedSpawner)
     {
-        // per ogni spawner normale attivo
-        foreach (GameObject spawner in activeNormals)
+        // nuova lista per gli spawner vuoti
+        List<GameObject> emptySpawners = new List<GameObject>();
+
+        //per ogni spawner negli spawner normali
+        foreach (GameObject spawner in normalSpawners)
         {
-            // genera un numero casuale da 0 a 100
-            float randomCandy = Random.Range(0f, 100f);
-
-            GameObject prefabToSpawn;
-
-            //se rientra nella percentuale della power candy, ne spawna una
-            if (randomCandy < powerCandyChance)
+            //se lo spawner non ha già caramelle e non è appena stato svuotato
+            if (spawner.transform.childCount == 0 && spawner != justEmptiedSpawner)
             {
-                prefabToSpawn = powerCandyPrefab;
+                //lo aggiungiamo alla lista di nuovi spawner papabili per il respawn caramella
+                emptySpawners.Add(spawner);
             }
-            else
-            {
-                //altrimenti spawna la life candy
-                prefabToSpawn = lifeCandyPrefab;
-            }
-
-            //creo l'oggetto nella posizione dello spawner (e nel suo parent spawner)
-            Instantiate(prefabToSpawn, spawner.transform.position, Quaternion.identity, spawner.transform);
         }
+
+        // scegli uno spawner vuoto casuale
+        GameObject respawnSpawner = emptySpawners[Random.Range(0, emptySpawners.Count)];
+        respawnSpawner.GetComponent<NormalSpawner>().CandiesSpawn();
+        justEmptiedSpawner.GetComponent<NormalSpawner>().justEmptied = false;
+    }
+
+
+    //metodo per spawnare i pezzi di antenna (solo negli interactables!!)
+    void AntennaSpawn()
+    {
+
     }
 
 }

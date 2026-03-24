@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -69,13 +70,30 @@ public class Movement : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         CollObj = other.gameObject;
-        if (CollObj.CompareTag("PowerCandy"))
-            TakeCandy(1);
+
+        //se abbiamo pigliato una caramella
+        if (CollObj.CompareTag("PowerCandy") || other.CompareTag("LifeCandy"))
+        {
+            GameObject candy = other.gameObject;
+            GameObject spawner = candy.transform.parent.gameObject; // il parent è lo spawner
+
+            // la prendiamo, aggiorniamo l'inventario, e la distruggiamo
+            PowerCandyManager.Instance.AddCandy(1);
+            Destroy(candy);
+
+            // segnalo come appena svuotato
+            spawner.GetComponent<NormalSpawner>().justEmptied = true;
+
+            // diciamo al manager di spawnare una nuova caramella
+            SpawnerManager.Instance.RespawnCandy(spawner);
+        }
     }
 
-    private void TakeCandy(int candies)
-    {
-        PowerCandyManager.Instance.AddCandy(1);
-        Destroy(CollObj);
-    }
+    // scusa loris te lo commento perchè devo fare tutto da OnTriggerEnter :p
+
+    //private void TakeCandy(int candies)
+    //{
+    //    PowerCandyManager.Instance.AddCandy(1);
+    //    Destroy(CollObj);
+    //}
 }
