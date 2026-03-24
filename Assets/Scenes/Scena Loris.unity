@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 635712430}
   - component: {fileID: 635712429}
   - component: {fileID: 635712428}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: PowerMode
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -5525,6 +5525,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8245105017674058543, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8859609987045043656, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
+      propertyPath: currentCandies
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
