@@ -24,10 +24,6 @@ public class GameManager : MonoBehaviour
     //oggetti da attivare quando siamo in mod ET
     public GameObject powersLight;
 
-    //contatore dei pezzi di antenna trovati (Win condition)
-    public int antennaPieces = 5; //pezzi da trovare
-    public int antennaPiecesFound = 0; //i pezzi trovati
-
     //Input map per gestire i comandi per la UI
     private InputMap inputMap;
 
@@ -155,31 +151,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-    }
-
-    public void AddAntennaPart(int antennaPart)
-    {
-        //se le parti di antenna che abbiamo sono meno del massimo (quello vorrebbe dire che abbiamo finito il gioco, sennò)
-        if (antennaPiecesFound < antennaPieces)
-        {
-            //aggiunge una caramella al counter
-            antennaPiecesFound += antennaPart;
-
-            //OnAntennaChange?.Invoke(); //iscritto all'evento (DA AGGIORNARE APPENA HO LA UI)
-        }
-    }
-
-    //metodo per quando ci viene rubata/usiamo una caramella Poteri
-    public void RemoveAntennaPart(int antennaPart)
-    {
-        //se abbiamo almeno una caramella
-        if (antennaPiecesFound > 0)
-        {
-            //togliamo una caramella dal counter
-            antennaPiecesFound -= antennaPart;
-
-            //OnAntennaChange?.Invoke(); //iscritto all'evento (DA AGGIORNARE APPENA HO LA UI)
-        }
     }
 
     //metodo per uscire dal gioco
