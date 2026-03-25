@@ -42,8 +42,6 @@ public class InteractableSpawner : MonoBehaviour, IPointerClickHandler
 
         //setto il tag "Untagged" e gli assegno il bool justEmptied
         transform.tag = "Untagged";
-        
-        justEmptiedInteractable = true;
 
         //attivo un altro spawner al posto suo
         SpawnerManager.Instance.activateInteractableSpawner(gameObject);
@@ -80,7 +78,7 @@ public class InteractableSpawner : MonoBehaviour, IPointerClickHandler
             prefabToSpawn = lifeCandyPrefab;
         }
 
-       //creo l'oggetto nella posizione dello spawner (e nel suo parent spawner)
+        //creo l'oggetto nella posizione dello spawner (e nel suo parent spawner)
         GameObject spawnedObj = Instantiate(prefabToSpawn, transform.position, Quaternion.identity, transform);
 
         return spawnedObj;
@@ -116,8 +114,10 @@ public class InteractableSpawner : MonoBehaviour, IPointerClickHandler
         //se l'oggetto è una power Candy
         if (spawnedObject.CompareTag("PowerCandy"))
         {
-            // la prendiamo, aggiorniamo l'inventario, e la distruggiamo
+            // la prendiamo, aggiorniamo l'inventario
             PowerCandyManager.Instance.AddCandy(1);
+
+            //la distruggiamo
             Destroy(spawnedObject);
         }
 
@@ -130,6 +130,9 @@ public class InteractableSpawner : MonoBehaviour, IPointerClickHandler
 
         // ripristiniamo la mesh originale
         meshFilter.mesh = bush;
+
+        //e disattiviamo l'effetto glow
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
 }
