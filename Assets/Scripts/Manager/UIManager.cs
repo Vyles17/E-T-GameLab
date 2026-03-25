@@ -49,6 +49,11 @@ public class UIManager : MonoBehaviour
         powerCandyCounter.text = "x0";
     }
 
+    private void Update()
+    {
+        staminaFill.fillAmount = Movement.Instance.currentEnergy / (float)Movement.Instance.maxEnergy;
+    }
+
     public void PauseUI()
     {
         //se il menu è attivo

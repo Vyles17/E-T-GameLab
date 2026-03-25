@@ -13,16 +13,34 @@ public class Movement : MonoBehaviour
     [SerializeField] float speed;
     private float currentSpeed;
 
+    public int maxEnergy;
+    public float currentEnergy;
+    public float detractEnergy;
+    [SerializeField] float moveEnery;
+    [SerializeField] float sprintEnergy;
+    public float stunEnergy;
+
     GameObject CollObj;
+
+    public static Movement Instance;
 
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
+
         rb = GetComponent<Rigidbody>();
     }
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        currentEnergy = maxEnergy;
+        detractEnergy = moveEnery;
     }
     private void Update()
     {
@@ -39,6 +57,11 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             currentSpeed *= 3;
+            detractEnergy = sprintEnergy;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            detractEnergy = moveEnery;
         }
         //Movement velocity calculator (la aggiorni in Update perché deve tornare alla normalità una volta che non si preme lo sprint)
         Vector3 targetVelocity = Time.fixedDeltaTime * currentSpeed * Direction;
@@ -65,6 +88,10 @@ public class Movement : MonoBehaviour
         Direction = transform.TransformDirection(localDirection); //permette al Player di seguire la Camera
 
         Direction.Normalize();
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            currentEnergy -= moveEnery;
+        }
     }
     private void OnTriggerEnter(Collider other)
     {

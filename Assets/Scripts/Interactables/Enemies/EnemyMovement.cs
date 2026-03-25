@@ -116,13 +116,10 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
     {
         if (!stunned)
         {
-            Debug.Log("clicked" + gameObject.name);
-            UsePower(1);
+            Debug.Log("Initial Energy:" + Movement.Instance.currentEnergy);
+            Movement.Instance.currentEnergy -= Movement.Instance.stunEnergy;
+            Debug.Log(Movement.Instance.currentEnergy + "- Initial Energy =" + Movement.Instance.currentEnergy);
             stunned = true;
         }
-    }
-    private void UsePower(int candies)
-    {
-        PowerCandyManager.Instance.RemoveCandy(1);
     }
 }
