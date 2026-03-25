@@ -19,23 +19,24 @@ public class NormalSpawner : MonoBehaviour
         if (transform.childCount > 0) return; 
 
         // genera un numero casuale da 0 a 100
-        float randomCandy = Random.Range(0f, 100f);
+        float randomCandyChance = Random.Range(0f, 100f);
 
         //prepariamo il nostro prefab...
         GameObject prefabToSpawn;
 
         //se il numero generato rientra nella percentuale della power candy, ne spawna una
-        if (randomCandy < powerCandyChance)
+        if (randomCandyChance <= powerCandyChance)
         {
             prefabToSpawn = powerCandyPrefab;
         }
+
         else
         {
             //altrimenti spawna la life candy
             prefabToSpawn = lifeCandyPrefab;
         }
 
-        // posizione piiù in ato del suo parent dove venir spawnato
+        // posizione piiù in alto del suo parent dove venir spawnato
         Vector3 spawnPosition = transform.position + Vector3.up * 1f;
 
         //creo l'oggetto nella posizione dello spawner (e nel suo parent spawner)

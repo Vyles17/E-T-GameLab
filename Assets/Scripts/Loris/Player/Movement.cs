@@ -71,14 +71,31 @@ public class Movement : MonoBehaviour
     {
         CollObj = other.gameObject;
 
-        //se abbiamo pigliato una caramella
-        if (CollObj.CompareTag("PowerCandy") || other.CompareTag("LifeCandy"))
+        //se abbiamo pigliato una caramella poteri
+        if (CollObj.CompareTag("PowerCandy"))
         {
             GameObject candy = other.gameObject;
             GameObject spawner = candy.transform.parent.gameObject; // il parent è lo spawner
 
             // la prendiamo, aggiorniamo l'inventario, e la distruggiamo
             PowerCandyManager.Instance.AddCandy(1);
+            Destroy(candy);
+
+            // segnalo come appena svuotato
+            spawner.GetComponent<NormalSpawner>().justEmptied = true;
+
+            // diciamo al manager di spawnare una nuova caramella
+            SpawnerManager.Instance.RespawnCandy(spawner);
+        }
+
+        //se abbiamo pigliato una caramella vita
+        else if (CollObj.CompareTag("LifeCandy"))
+        {
+            GameObject candy = other.gameObject;
+            GameObject spawner = candy.transform.parent.gameObject; // il parent è lo spawner
+
+            // la prendiamo, aggiorniamo la stamina, e la distruggiamo
+            //LORIS AGGIUNGI QUI LA COSA CHE GLI RICARICA LA STAMINA
             Destroy(candy);
 
             // segnalo come appena svuotato

@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -18,14 +17,9 @@ public class SpawnerManager : MonoBehaviour
     //lista di spawnerpoints interagibili
     [SerializeField] GameObject[] interactableSpawners;
     //int di quanti spawner points interagibili sono attivi per volta
-    [SerializeField] int activeInteractablesSpawnersQuantity;
+    [SerializeField] int activeInteractableSpawnersQuantity;
     //lista di spawner attivi
-    List<GameObject> activeInteractables = new List<GameObject>();
-
-    //prefab pezzi Antenna
-    [SerializeField] GameObject[] antennaPartsPrefabs;
-    [SerializeField] float antennaPartsChance = 20f;
-    bool antennaPartSpawned = false;
+    List<GameObject> activeInteractableSpawners = new List<GameObject>();   
 
     public static SpawnerManager Instance;
 
@@ -41,13 +35,22 @@ public class SpawnerManager : MonoBehaviour
 
     void Start()
     {
-        //selezioniamo casualmente gli spawner normali attivi
+        //selezioniamo casualmente gli spawner normali attivi all'inizio
         ActivateSpawners(normalSpawners, activeNormalSpawnersQuantity, activeNormalSpawners);
 
         // e gli spawniamo una caramella dentro
         foreach (GameObject spawner in activeNormalSpawners)
         {
             spawner.GetComponent<NormalSpawner>().CandiesSpawn();
+        }
+
+        //selezioniamo casualmente gli spawner interactables attivi all'inizio
+        ActivateSpawners(interactableSpawners, activeInteractableSpawnersQuantity, activeInteractableSpawners);
+
+        // e a ognuno gli settiamo il tag "interactable"
+        foreach (GameObject spawner in activeInteractableSpawners)
+        {
+            spawner.tag = "Interactable";
         }
     }
 
@@ -88,17 +91,38 @@ public class SpawnerManager : MonoBehaviour
             }
         }
 
-        // scegli uno spawner vuoto casuale
+        // scegliamo uno spawner vuoto casuale per il respawn
         GameObject respawnSpawner = emptySpawners[Random.Range(0, emptySpawners.Count)];
         respawnSpawner.GetComponent<NormalSpawner>().CandiesSpawn();
+
+        // ora disattiviamo il bool JustEmptied
         justEmptiedSpawner.GetComponent<NormalSpawner>().justEmptied = false;
     }
 
-
-    //metodo per spawnare i pezzi di antenna (solo negli interactables!!)
-    void AntennaSpawn()
+    //metodo per attivare uno spawner interactable dopo che un altro è stato svuotato
+    public void activateInteractableSpawner(GameObject justEmptiedSpawner)
     {
+        // nuova lista per gli spawner vuoti
+        List<GameObject> emptySpawners = new List<GameObject>();
 
+        //per ogni spawner negli spawner interagibili
+        foreach (GameObject spawner in interactableSpawners)
+        {
+            //se lo spawner non è appena stato svuotato
+            if (spawner != justEmptiedSpawner)
+            {
+                //lo aggiungiamo alla lista di nuovi spawner papabili per essere attivati
+                emptySpawners.Add(spawner);
+            }
+        }
+
+        // scegliamo uno spawner vuoto casuale da attivare
+        GameObject activeSpawner = emptySpawners[Random.Range(0, emptySpawners.Count)];
+
+        // cambiamo il tag (così che possa avere anche l'effetto glow degli interagibili)
+        activeSpawner.tag = "Interactable";
+
+        // ora disattiviamo il bool JustEmptied
+        justEmptiedSpawner.GetComponent<InteractableSpawner>().justEmptiedInteractable = false;
     }
-
 }
