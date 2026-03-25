@@ -17,8 +17,9 @@ public class Movement : MonoBehaviour
     [Header("Energy Stats")]
     public int maxEnergy;
     public float currentEnergy;
+    [SerializeField] float addEnergy;
     public float detractEnergy;
-    [SerializeField] float moveEnery;
+    [SerializeField] float moveEnergy;
     [SerializeField] float sprintEnergy;
     public float stunEnergy;
     public float telekinesisEnergy;
@@ -43,7 +44,7 @@ public class Movement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         currentEnergy = maxEnergy;
-        detractEnergy = moveEnery;
+        detractEnergy = moveEnergy;
     }
     private void Update()
     {
@@ -64,7 +65,7 @@ public class Movement : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            detractEnergy = moveEnery;
+            detractEnergy = moveEnergy;
         }
         //Movement velocity calculator (la aggiorni in Update perché deve tornare alla normalità una volta che non si preme lo sprint)
         Vector3 targetVelocity = Time.fixedDeltaTime * currentSpeed * Direction;
@@ -93,7 +94,7 @@ public class Movement : MonoBehaviour
         Direction.Normalize();
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
-            currentEnergy -= moveEnery;
+            currentEnergy -= moveEnergy;
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -124,7 +125,11 @@ public class Movement : MonoBehaviour
             GameObject spawner = candy.transform.parent.gameObject; // il parent è lo spawner
 
             // la prendiamo, aggiorniamo la stamina, e la distruggiamo
-            //LORIS AGGIUNGI QUI LA COSA CHE GLI RICARICA LA STAMINA
+            currentEnergy += addEnergy;
+            if(currentEnergy > maxEnergy)
+            {
+                currentEnergy = maxEnergy;
+            }
             Destroy(candy);
 
             // segnalo come appena svuotato

@@ -5135,4 +5135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e86b4ee4b4cc94498acc096ca3efe4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Telekinesis
-  teleTime: 3
+  interacted: 0
+  startPoint: {x: 0, y: 0, z: 0}
+  endPoint: {x: -1.91, y: 2, z: 2.99}
+  transitionDuration: 3
