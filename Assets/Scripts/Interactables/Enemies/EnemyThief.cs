@@ -41,10 +41,10 @@ public class EnemyThief : EnemyMovement
     void RobET(int stuff)
     {
         //se il player ha dei pezzi dell'antenna
-        if (GameManager.Instance.antennaPiecesFound > 0)
+        if (AntennaManager.Instance.antennaPiecesFound > 0)
         {
             //sto ladro piezzemmerd gli ruba uno di quelli
-            GameManager.Instance.RemoveAntennaPart(stuff);
+            AntennaManager.Instance.RemoveAntennaPart(stuff);
 
             isRobbed = true;
         }
@@ -62,6 +62,6 @@ public class EnemyThief : EnemyMovement
     protected override bool CanChasePlayer()
     {
         // insegue il player solo se pezzi dell'antenna o delle caramelle
-        return PowerCandyManager.Instance.currentCandies > 0 || GameManager.Instance.antennaPiecesFound > 0;
+        return PowerCandyManager.Instance.currentCandies > 0 || AntennaManager.Instance.antennaPiecesFound > 0;
     }
 }

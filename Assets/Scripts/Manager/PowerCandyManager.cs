@@ -21,6 +21,7 @@ public class PowerCandyManager : MonoBehaviour
         }
         Instance = this;
     }
+
     public void Start()
     {
         //all'inizio il counter di caramelle è a 0

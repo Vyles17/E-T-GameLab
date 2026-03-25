@@ -106,10 +106,6 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
         Gizmos.DrawWireSphere(transform.position, triggerRadius);
     }
 
-    /*public void OnInteraction()
-    {
-    da togliere nel caso non utilizzata
-    }*/
 
     //Stun PowerUp
     public void OnPointerClick(PointerEventData eventData)

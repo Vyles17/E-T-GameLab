@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PowerUps : MonoBehaviour
 {
-    //private bool stuned = false;
+    //private bool stunned = false;
     //[SerializeField] float stunTime;
     //private float stunTimer;
 
@@ -13,7 +13,7 @@ public class PowerUps : MonoBehaviour
 
     //private void Update()
     //{
-    //    if (stuned)
+    //    if (stunned)
     //    {
     //        rb.constraints = RigidbodyConstraints.FreezeAll;
     //        stunTimer += Time.deltaTime;
@@ -21,7 +21,7 @@ public class PowerUps : MonoBehaviour
     //        if (stunTimer > stunTime)
     //        {
     //            rb.constraints = RigidbodyConstraints.None;
-    //            stuned = false;
+    //            stunned = false;
     //            stunTimer = 0;
     //        }
     //    }
@@ -29,6 +29,6 @@ public class PowerUps : MonoBehaviour
 
     //private void Stun()
     //{
-    //    stuned = true;
+    //    stunned = true;
     //}
 }
