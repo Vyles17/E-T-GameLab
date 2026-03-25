@@ -55,7 +55,7 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
         if (stunned)
         {
             rb.constraints = RigidbodyConstraints.FreezeAll;
-            stunTimer += Time.deltaTime;
+            stunTimer += Time.fixedDeltaTime;
             enemyAgent.speed = 0;
 
             if (stunTimer > stunTime)

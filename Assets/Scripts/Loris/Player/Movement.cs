@@ -13,12 +13,14 @@ public class Movement : MonoBehaviour
     [SerializeField] float speed;
     private float currentSpeed;
 
+    [Header("Energy Stats")]
     public int maxEnergy;
     public float currentEnergy;
     public float detractEnergy;
     [SerializeField] float moveEnery;
     [SerializeField] float sprintEnergy;
     public float stunEnergy;
+    public float telekinesisEnergy;
 
     GameObject CollObj;
 
