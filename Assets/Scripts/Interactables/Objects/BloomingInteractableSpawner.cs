@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InteractableSpawner : MonoBehaviour, IPointerClickHandler
+public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
 {
     // script per gli spawner interagibili in game che possono dare un pezzo di antenna
 
@@ -18,6 +18,9 @@ public class InteractableSpawner : MonoBehaviour, IPointerClickHandler
     //percentuale serializzata di spawn dei pezzi di antenna o delle power candy
     [SerializeField] float antennaPartChance = 15f;
     [SerializeField] float powerCandyChance = 35f; //il restante è per le life candy
+    //timer per l'animazione
+    private float teleTimer;
+    [SerializeField] float transitionDuration;
 
     //serve per cambiare la mesh del cespuglio
     MeshFilter meshFilter;
@@ -28,7 +31,7 @@ public class InteractableSpawner : MonoBehaviour, IPointerClickHandler
         meshFilter = GetComponent<MeshFilter>();
     }
 
-    //metodo per spawnare un oggetto (solo in spawner vuoti!) quando viene cliccato il prefab cespuglietto
+    //metodo per ottenere un oggetto (solo in spawner vuoti!) quando viene cliccato il prefab cespuglietto
     public void OnPointerClick(PointerEventData eventData)
     {
         //se il tag non è Interactable, ritorno
@@ -40,8 +43,13 @@ public class InteractableSpawner : MonoBehaviour, IPointerClickHandler
         // avvio animazione lerp + spawno un oggetto (e il player lo prende automaticamente)
         StartCoroutine(SpawnRoutine());
 
-        //setto il tag "Untagged" e gli assegno il bool justEmptied
+        //setto il tag "Untagged" e lo segno come JustEmptied
         transform.tag = "Untagged";
+        justEmptiedInteractable = true;
+
+        //LORIS QUA E' DA METTERE L'IF PER IL FREEZE
+        //scaliamo l'energia
+        Movement.Instance.currentEnergy -= Movement.Instance.telekinesisEnergy;
 
         //attivo un altro spawner al posto suo
         SpawnerManager.Instance.activateInteractableSpawner(gameObject);
@@ -94,15 +102,15 @@ public class InteractableSpawner : MonoBehaviour, IPointerClickHandler
         Vector3 startPos = transform.position;
         Vector3 targetPos = transform.position + Vector3.up * 2f;
 
-        float duration = 3f;
-        float time = 0f;
+        transitionDuration = 3f;
+        teleTimer = 0f;
 
         //la nostra animazione fluttuante
-        while (time < duration)
+        while (teleTimer < transitionDuration)
         {
-            spawnedObject.transform.position = Vector3.Lerp(startPos, targetPos, time / duration);
+            spawnedObject.transform.position = Vector3.Lerp(startPos, targetPos, teleTimer / transitionDuration);
 
-            time += Time.deltaTime;
+            teleTimer += Time.deltaTime;
             yield return null;
         }
 
@@ -124,15 +132,21 @@ public class InteractableSpawner : MonoBehaviour, IPointerClickHandler
         else if (spawnedObject.CompareTag("LifeCandy"))
         {
             // la prendiamo, aggiorniamo la stamina, e la distruggiamo
-            //LORIS AGGIUNGI QUI IL METODO PER AUMENTARE LA STAMINA
+            Movement.Instance.currentEnergy += Movement.Instance.addEnergy;
+            if (Movement.Instance.currentEnergy > Movement.Instance.maxEnergy)
+            {
+                Movement.Instance.currentEnergy = Movement.Instance.maxEnergy;
+            }
             Destroy(spawnedObject);
         }
 
         // ripristiniamo la mesh originale
         meshFilter.mesh = bush;
 
+        //usciamo dalla modalità ET
+        GameManager.Instance.ExitETMode();
+
         //e disattiviamo l'effetto glow
         transform.GetChild(0).gameObject.SetActive(false);
     }
-
 }

@@ -16,7 +16,7 @@ public class Movement : MonoBehaviour
     [Header("Energy Stats")]
     public int maxEnergy;
     public float currentEnergy;
-    [SerializeField] float addEnergy;
+    [SerializeField] public float addEnergy;
     public float detractEnergy;
     [SerializeField] float moveEnergy;
     [SerializeField] float sprintEnergy;
