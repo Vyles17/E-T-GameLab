@@ -49,10 +49,13 @@ public class Telekinesis : MonoBehaviour, IPointerClickHandler
     {
         if(!interacted)
         {
-            Debug.Log("Initial Energy:" + Movement.Instance.currentEnergy);
-            Movement.Instance.currentEnergy -= Movement.Instance.telekinesisEnergy;
-            Debug.Log(Movement.Instance.currentEnergy + "- Initial Energy =" + Movement.Instance.currentEnergy);
             interacted = true;
+            if (!Movement.Instance.freezed) 
+            {
+                Debug.Log("Initial Energy:" + Movement.Instance.currentEnergy);
+                Movement.Instance.currentEnergy -= Movement.Instance.telekinesisEnergy;
+                Debug.Log(Movement.Instance.currentEnergy + "- Initial Energy =" + Movement.Instance.currentEnergy);
+            }
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -23,6 +22,11 @@ public class Movement : MonoBehaviour
     [SerializeField] float sprintEnergy;
     public float stunEnergy;
     public float telekinesisEnergy;
+    public float freezeEnergy;
+
+    public bool freezed = false;
+    private float freezeTimer;
+    public float freezeTime;
 
     GameObject CollObj;
 
@@ -52,6 +56,14 @@ public class Movement : MonoBehaviour
         {
             Camera();
             Move();
+            if(freezed)
+            {
+                freezeTimer += Time.deltaTime;
+                if(freezeTimer >= freezeTime)
+                {
+                    freezed = false;
+                }
+            }
         }
     }
     private void FixedUpdate()
@@ -92,9 +104,9 @@ public class Movement : MonoBehaviour
         Direction = transform.TransformDirection(localDirection); //permette al Player di seguire la Camera
 
         Direction.Normalize();
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) ) && !freezed)
         {
-            currentEnergy -= moveEnergy;
+            currentEnergy -= detractEnergy;
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -140,6 +152,15 @@ public class Movement : MonoBehaviour
         }
     }
 
+    public void FreezeEnergy()
+    {
+        if (!freezed && PowerCandyManager.Instance.currentCandies > 0)
+        {
+            freezed = true;
+            freezeTimer = 0;
+            PowerCandyManager.Instance.RemoveCandy(1);
+        }
+    }
     // scusa loris te lo commento perchè devo fare tutto da OnTriggerEnter :p
 
     //private void TakeCandy(int candies)

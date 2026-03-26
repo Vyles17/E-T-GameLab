@@ -112,10 +112,13 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
     {
         if (!stunned)
         {
-            Debug.Log("Initial Energy:" + Movement.Instance.currentEnergy);
-            Movement.Instance.currentEnergy -= Movement.Instance.stunEnergy;
-            Debug.Log(Movement.Instance.currentEnergy + "- Initial Energy =" + Movement.Instance.currentEnergy);
             stunned = true;
+            if (!Movement.Instance.freezed)
+            {
+                Debug.Log("Initial Energy:" + Movement.Instance.currentEnergy);
+                Movement.Instance.currentEnergy -= Movement.Instance.stunEnergy;
+                Debug.Log(Movement.Instance.currentEnergy + "- Initial Energy =" + Movement.Instance.currentEnergy);
+            }
         }
     }
 }

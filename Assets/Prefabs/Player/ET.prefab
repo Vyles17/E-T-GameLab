@@ -161,9 +161,10 @@ MonoBehaviour:
   speed: 200
   maxEnergy: 100
   currentEnergy: 0
+  addEnergy: 10
   detractEnergy: 0
-  moveEnery: 0.03
-  sprintEnergy: 0.42
+  moveEnergy: 0.03
+  sprintEnergy: 0.08
   stunEnergy: 10
   telekinesisEnergy: 7
 --- !u!1 &9131457363791487394
