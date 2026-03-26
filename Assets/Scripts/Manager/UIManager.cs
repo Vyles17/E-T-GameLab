@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
 
     //gli oggetti UI in HUD
     [SerializeField] Image staminaFill;
-    [SerializeField] Image staminaIcon;
+    [SerializeField] public Image staminaIconTimer;
     [SerializeField] Image bike_ruota, bike_pedale, bike_manubrio, bike_cestello, bike_sellino;
     [SerializeField] TMP_Text powerCandyCounter;
 
@@ -47,6 +47,9 @@ public class UIManager : MonoBehaviour
 
         //il counter di caramelle è a 0
         powerCandyCounter.text = "x0";
+
+        //il timer del freeze è a 0
+        staminaIconTimer.fillAmount = 0;
     }
 
     private void Update()

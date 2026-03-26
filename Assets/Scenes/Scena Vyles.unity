@@ -129,6 +129,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6013777748082656504, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
   m_PrefabInstance: {fileID: 1083454837}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &14873653 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5910270835512646472, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
+  m_PrefabInstance: {fileID: 8881271138592592120}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &22465279
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,6 +469,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 74780346}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &78765222 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3124094749043800862, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
+  m_PrefabInstance: {fileID: 8881271138592592120}
+  m_PrefabAsset: {fileID: 0}
 --- !u!20 &100705016 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 3381685142790098276, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
@@ -2140,6 +2150,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 539342349}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &591922314 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5389108975616966119, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
+  m_PrefabInstance: {fileID: 8881271138592592120}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &594150637
 GameObject:
   m_ObjectHideFlags: 0
@@ -5315,7 +5336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1537373511
 Transform:
   m_ObjectHideFlags: 0
@@ -7899,6 +7920,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1513637954}
     - target: {fileID: 6970693790262426979, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
+      propertyPath: staminaIconTimer
+      value: 
+      objectReference: {fileID: 591922314}
+    - target: {fileID: 6970693790262426979, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: powerCandyCounter
       value: 
       objectReference: {fileID: 830840021}
@@ -7906,6 +7931,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
+      propertyPath: normalHand
+      value: 
+      objectReference: {fileID: 78765222}
+    - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
+      propertyPath: powersHand
+      value: 
+      objectReference: {fileID: 14873653}
     - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: powersLight
       value: 
@@ -8077,6 +8110,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1527720716288094687, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1527720716288094687, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1527720716288094687, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 390
+      objectReference: {fileID: 0}
     - target: {fileID: 5686679121381096560, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
       propertyPath: m_Name
       value: UI

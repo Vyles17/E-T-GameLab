@@ -56,10 +56,13 @@ public class Movement : MonoBehaviour
         {
             Camera();
             Move();
-            if(freezed)
+            if (freezed)
             {
                 freezeTimer += Time.deltaTime;
-                if(freezeTimer >= freezeTime)
+
+                UIManager.Instance.staminaIconTimer.fillAmount = 1f - (freezeTimer / freezeTime);
+
+                if (freezeTimer >= freezeTime)
                 {
                     freezed = false;
                 }
@@ -104,7 +107,7 @@ public class Movement : MonoBehaviour
         Direction = transform.TransformDirection(localDirection); //permette al Player di seguire la Camera
 
         Direction.Normalize();
-        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) ) && !freezed)
+        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && !freezed)
         {
             currentEnergy -= detractEnergy;
         }
@@ -138,7 +141,7 @@ public class Movement : MonoBehaviour
 
             // la prendiamo, aggiorniamo la stamina, e la distruggiamo
             currentEnergy += addEnergy;
-            if(currentEnergy > maxEnergy)
+            if (currentEnergy > maxEnergy)
             {
                 currentEnergy = maxEnergy;
             }
