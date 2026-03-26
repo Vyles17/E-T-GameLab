@@ -10,7 +10,7 @@ public class AntennaManager : MonoBehaviour
     public int antennaPieces = 5; //pezzi da trovare
     public int antennaPiecesFound = 0; //i pezzi trovati
 
-    //public event Action OnAntennaChange; //evento per quando viene modificato il counter di caramelle
+    public event Action OnAntennaChange; //evento per quando viene modificato il counter di caramelle
 
     public static AntennaManager Instance;
 
@@ -30,28 +30,29 @@ public class AntennaManager : MonoBehaviour
         antennaPiecesFound = 0;
     }
 
-    public void AddAntennaPart(int antennaPart)
+    //metodo per quando viene aggiunto un pezzo di antenna
+    public void AddAntennaPiece(int antennaPart)
     {
         //se le parti di antenna che abbiamo sono meno del massimo (quello vorrebbe dire che abbiamo finito il gioco, sennò)
         if (antennaPiecesFound < antennaPieces)
         {
-            //aggiunge una caramella al counter
+            //aggiunge un pezzo di antenna al counter
             antennaPiecesFound += antennaPart;
 
-            //OnAntennaChange?.Invoke(); //iscritto all'evento (DA AGGIORNARE APPENA HO LA UI)
+            OnAntennaChange?.Invoke(); //iscritto all'evento per la UI
         }
     }
 
-    //metodo per quando ci viene rubata/usiamo una caramella Poteri
-    public void RemoveAntennaPart(int antennaPart)
+    //metodo per quando ci viene rubata/usiamo un pezzo di antenna
+    public void RemoveAntennaPiece(int antennaPart)
     {
-        //se abbiamo almeno una caramella
+        //se abbiamo almeno un pezzo di antenna
         if (antennaPiecesFound > 0)
         {
-            //togliamo una caramella dal counter
+            //togliamo un pezzo di antenna dal counter
             antennaPiecesFound -= antennaPart;
 
-            //OnAntennaChange?.Invoke(); //iscritto all'evento (DA AGGIORNARE APPENA HO LA UI)
+            OnAntennaChange?.Invoke(); //iscritto all'evento per la UI
         }
     }
 }

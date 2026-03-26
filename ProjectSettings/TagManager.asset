@@ -8,6 +8,7 @@ TagManager:
   - Interactable
   - PowerCandy
   - LifeCandy
+  - AntennaPiece
   layers:
   - Default
   - TransparentFX

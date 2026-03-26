@@ -44,7 +44,7 @@ public class EnemyThief : EnemyMovement
         if (AntennaManager.Instance.antennaPiecesFound > 0)
         {
             //sto ladro piezzemmerd gli ruba uno di quelli
-            AntennaManager.Instance.RemoveAntennaPart(stuff);
+            AntennaManager.Instance.RemoveAntennaPiece(stuff);
 
             isRobbed = true;
         }

@@ -52,10 +52,11 @@ public class Movement : MonoBehaviour
     }
     private void Update()
     {
-        if (!UIManager.Instance.pauseMenuUI.activeSelf)
+        if (GameManager.Instance.isPaused == false)
         {
             Camera();
             Move();
+
             if (freezed)
             {
                 freezeTimer += Time.deltaTime;

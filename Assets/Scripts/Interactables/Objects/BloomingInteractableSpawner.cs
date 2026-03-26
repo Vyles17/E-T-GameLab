@@ -7,7 +7,7 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
     // script per gli spawner interagibili in game che possono dare un pezzo di antenna
 
     //prefabs da spawnare
-    [SerializeField] GameObject[] antennaPartsPrefabs;
+    [SerializeField] GameObject antennaPiecePrefab1, antennaPiecePrefab2, antennaPiecePrefab3, antennaPiecePrefab4, antennaPiecePrefab5;
     [SerializeField] GameObject powerCandyPrefab;
     [SerializeField] GameObject lifeCandyPrefab;
 
@@ -73,17 +73,46 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
         //prepariamo il nostro prefab...
         GameObject prefabToSpawn;
 
-        /* 
-        //se il numero generato rientra nella percentuale dell'antenna
-        if (randomObjectChance <= antennaPartChance)
+        //se il numero generato rientra nella percentuale dell'antenna e non abbiamo ancora tutti i pezzi di antenna
+        if (randomObjectChance <= antennaPartChance && AntennaManager.Instance.antennaPiecesFound < 5)
         {
             //spawno uno dei pezzi di antenna che ci mancano
-            //DA SETTARE (vyles del futuro, sotto cambia l' "if" in "else if"!!
+
+            //se non abbiamo mai trovato pezzi di antenna...
+            if (AntennaManager.Instance.antennaPiecesFound == 0)
+            {
+                //spawna il primo pezzo
+                prefabToSpawn = antennaPiecePrefab1;
+            }
+
+            //se ne abbiamo uno, spawno il secondo, and so on...
+            else if (AntennaManager.Instance.antennaPiecesFound == 1)
+            {
+                //spawna il secondo pezzo
+                prefabToSpawn = antennaPiecePrefab2;
+            }
+
+            else if (AntennaManager.Instance.antennaPiecesFound == 2)
+            {
+                //spawna il secondo pezzo
+                prefabToSpawn = antennaPiecePrefab3;
+            }
+
+            else if (AntennaManager.Instance.antennaPiecesFound == 3)
+            {
+                //spawna il secondo pezzo
+                prefabToSpawn = antennaPiecePrefab4;
+            }
+
+            else
+            {
+                //spawna il secondo pezzo
+                prefabToSpawn = antennaPiecePrefab5;
+            }
         }
-        */
 
         //se il numero generato rientra nella percentuale della power candy
-        if (randomObjectChance > antennaPartChance && randomObjectChance <= antennaPartChance + powerCandyChance)
+        else if (randomObjectChance > antennaPartChance && randomObjectChance <= antennaPartChance + powerCandyChance)
         {
             //spawno una power candy
             prefabToSpawn = powerCandyPrefab;
@@ -126,10 +155,18 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
         // una volta arrivati alla posizione finale.....
         spawnedObject.transform.position = targetPos;
 
-        //VYLES DEL FUTURO AGGIUNGI QUI IL METODO SE L'OGGETTO E' UN PEZZO DI ANTENNA
+        //se l'oggetto è un pezzo di antenna
+        if (spawnedObject.CompareTag("AntennaPiece"))
+        {
+            // la prendiamo, aggiorniamo l'inventario
+            AntennaManager.Instance.AddAntennaPiece(1);
+
+            //la distruggiamo
+            Destroy(spawnedObject);
+        }
 
         //se l'oggetto è una power Candy
-        if (spawnedObject.CompareTag("PowerCandy"))
+        else if (spawnedObject.CompareTag("PowerCandy"))
         {
             // la prendiamo, aggiorniamo l'inventario
             PowerCandyManager.Instance.AddCandy(1);
@@ -146,6 +183,7 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
             {
                 Movement.Instance.currentEnergy = Movement.Instance.maxEnergy;
             }
+
             Destroy(spawnedObject);
         }
 

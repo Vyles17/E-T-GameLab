@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   powersLight: {fileID: 0}
+  normalHand: {fileID: 0}
+  powersHand: {fileID: 0}
 --- !u!1 &2323367817949717081
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,9 +96,18 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  activeNormalSpawnersQuantity: 0
-  interactableSpawners: []
-  activeInteractableSpawnersQuantity: 0
+  - {fileID: 0}
+  activeNormalSpawnersQuantity: 3
+  interactableSpawners:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  activeInteractableSpawnersQuantity: 2
 --- !u!1 &4671017212038296858
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,12 +316,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   pauseMenuUI: {fileID: 0}
   staminaFill: {fileID: 0}
-  staminaIcon: {fileID: 0}
-  bike_ruota: {fileID: 0}
-  bike_pedale: {fileID: 0}
-  bike_manubrio: {fileID: 0}
-  bike_cestello: {fileID: 0}
-  bike_sellino: {fileID: 0}
+  staminaIconTimer: {fileID: 0}
+  antennaPiece1: {fileID: 0}
+  antennaPiece2: {fileID: 0}
+  antennaPiece3: {fileID: 0}
+  antennaPiece4: {fileID: 0}
+  antennaPiece5: {fileID: 0}
   powerCandyCounter: {fileID: 0}
 --- !u!1 &8631545171121270750
 GameObject:

@@ -14,7 +14,7 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
     [SerializeField] float transitionDuration;
 
     //prefabs da spawnare
-    [SerializeField] GameObject[] antennaPartsPrefabs;
+    [SerializeField] GameObject antennaPiecePrefab1, antennaPiecePrefab2, antennaPiecePrefab3, antennaPiecePrefab4, antennaPiecePrefab5;
     [SerializeField] GameObject powerCandyPrefab;
     [SerializeField] GameObject lifeCandyPrefab;
 
@@ -96,14 +96,43 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
         //prepariamo il nostro prefab...
         GameObject prefabToSpawn;
 
-        /* 
         //se il numero generato rientra nella percentuale dell'antenna
         if (randomObjectChance <= antennaPartChance)
         {
             //spawno uno dei pezzi di antenna che ci mancano
-            //DA SETTARE (vyles del futuro, sotto cambia l' "if" in "else if"!!
+
+            //se non abbiamo mai trovato pezzi di antenna...
+            if (AntennaManager.Instance.antennaPiecesFound == 0)
+            {
+                //spawna il primo pezzo
+                prefabToSpawn = antennaPiecePrefab1;
+            }
+
+            //se ne abbiamo uno, spawno il secondo, and so on...
+            else if (AntennaManager.Instance.antennaPiecesFound == 1)
+            {
+                //spawna il secondo pezzo
+                prefabToSpawn = antennaPiecePrefab2;
+            }
+
+            else if (AntennaManager.Instance.antennaPiecesFound == 2)
+            {
+                //spawna il secondo pezzo
+                prefabToSpawn = antennaPiecePrefab3;
+            }
+
+            else if (AntennaManager.Instance.antennaPiecesFound == 3)
+            {
+                //spawna il secondo pezzo
+                prefabToSpawn = antennaPiecePrefab4;
+            }
+
+            else
+            {
+                //spawna il secondo pezzo
+                prefabToSpawn = antennaPiecePrefab5;
+            }
         }
-        */
 
         //se il numero generato rientra nella percentuale della power candy
         if (randomObjectChance > antennaPartChance && randomObjectChance <= antennaPartChance + powerCandyChance)
@@ -148,10 +177,18 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
         // una volta arrivati alla posizione finale.....
         spawnedObject.transform.position = targetPos;
 
-        //VYLES DEL FUTURO AGGIUNGI QUI IL METODO SE L'OGGETTO E' UN PEZZO DI ANTENNA
+        //se l'oggetto è un pezzo di antenna
+        if (spawnedObject.CompareTag("AntennaPiece"))
+        {
+            // la prendiamo, aggiorniamo l'inventario
+            AntennaManager.Instance.AddAntennaPiece(1);
+
+            //la distruggiamo
+            Destroy(spawnedObject);
+        }
 
         //se l'oggetto è una power Candy
-        if (spawnedObject.CompareTag("PowerCandy"))
+        else if (spawnedObject.CompareTag("PowerCandy"))
         {
             // la prendiamo, aggiorniamo l'inventario
             PowerCandyManager.Instance.AddCandy(1);

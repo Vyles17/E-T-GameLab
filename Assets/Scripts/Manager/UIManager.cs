@@ -10,14 +10,13 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     //i vari menu
-    public GameObject pauseMenuUI;
+    public GameObject pauseMenuUI1, pauseMenuUI2, pauseMenuUI3;
 
     //gli oggetti UI in HUD
     [SerializeField] Image staminaFill;
     [SerializeField] public Image staminaIconTimer;
-    [SerializeField] Image bike_ruota, bike_pedale, bike_manubrio, bike_cestello, bike_sellino;
+    [SerializeField] GameObject antennaPiece1, antennaPiece2, antennaPiece3, antennaPiece4, antennaPiece5;
     [SerializeField] TMP_Text powerCandyCounter;
-
 
     private void Awake()
     {
@@ -34,22 +33,34 @@ public class UIManager : MonoBehaviour
     {
         PowerCandyManager.Instance.OnCandiesChange += UpdateCandyCounter; //quando viene chiamato l'evento...
         UpdateCandyCounter();  //...aggiorniamo il counter delle caramelle Poteri
+        AntennaManager.Instance.OnAntennaChange += UpdateAntennaPieces;
     }
     private void OnDisable()
     {
         PowerCandyManager.Instance.OnCandiesChange -= UpdateCandyCounter;
+        AntennaManager.Instance.OnAntennaChange -= UpdateAntennaPieces;
     }
 
     public void Start()
     {
         //all'inizio il menu è disattivato
-        pauseMenuUI.SetActive(false);
+        pauseMenuUI1.SetActive(false);
+        pauseMenuUI2.SetActive(false);
+        pauseMenuUI3.SetActive(false);
 
         //il counter di caramelle è a 0
         powerCandyCounter.text = "x0";
 
         //il timer del freeze è a 0
         staminaIconTimer.fillAmount = 0;
+
+        //i pezzi di antenna sono vuoti
+        antennaPiece1.SetActive(false);
+        antennaPiece2.SetActive(false);
+        antennaPiece3.SetActive(false);
+        antennaPiece4.SetActive(false);
+        antennaPiece5.SetActive(false);
+
     }
 
     private void Update()
@@ -60,16 +71,18 @@ public class UIManager : MonoBehaviour
     public void PauseUI()
     {
         //se il menu è attivo
-        if (pauseMenuUI.activeSelf)
+        if (pauseMenuUI1.activeSelf || pauseMenuUI2.activeSelf || pauseMenuUI3.activeSelf)
         {
             //lo disttivo
-            pauseMenuUI.SetActive(false);
+            pauseMenuUI1.SetActive(false);
+            pauseMenuUI2.SetActive(false);
+            pauseMenuUI3.SetActive(false);
         }
 
-        else
+        else if (!pauseMenuUI1.activeSelf && !pauseMenuUI2.activeSelf && !pauseMenuUI3.activeSelf) 
         {
             //e viceversa
-            pauseMenuUI.SetActive(true);
+            pauseMenuUI1.SetActive(true);
         }
     }
 
@@ -77,5 +90,65 @@ public class UIManager : MonoBehaviour
     public void UpdateCandyCounter()
     {
         powerCandyCounter.text = "x" + PowerCandyManager.Instance.currentCandies;
+    }
+
+    //metodo per aggiornare i pezzi di antenna in UI
+    public void UpdateAntennaPieces()
+    {
+        if (AntennaManager.Instance.antennaPiecesFound == 1)
+        {
+            antennaPiece1.SetActive(true);
+            antennaPiece2.SetActive(false);
+            antennaPiece3.SetActive(false);
+            antennaPiece4.SetActive(false);
+            antennaPiece5.SetActive(false);
+        }
+
+        else if (AntennaManager.Instance.antennaPiecesFound == 2)
+        {
+            antennaPiece1.SetActive(true);
+            antennaPiece2.SetActive(true);
+            antennaPiece3.SetActive(false);
+            antennaPiece4.SetActive(false);
+            antennaPiece5.SetActive(false);
+        }
+
+        else if (AntennaManager.Instance.antennaPiecesFound == 3)
+        {
+            antennaPiece1.SetActive(true);
+            antennaPiece2.SetActive(true);
+            antennaPiece3.SetActive(true);
+            antennaPiece4.SetActive(false);
+            antennaPiece5.SetActive(false);
+        }
+
+        else if (AntennaManager.Instance.antennaPiecesFound == 4)
+        {
+            antennaPiece1.SetActive(true);
+            antennaPiece2.SetActive(true);
+            antennaPiece3.SetActive(true);
+            antennaPiece4.SetActive(true);
+            antennaPiece5.SetActive(false);
+        }
+
+        else if (AntennaManager.Instance.antennaPiecesFound == 5)
+        {
+            antennaPiece1.SetActive(true);
+            antennaPiece2.SetActive(true);
+            antennaPiece3.SetActive(true);
+            antennaPiece4.SetActive(true);
+            antennaPiece5.SetActive(true);
+        }
+
+        else
+        {
+            antennaPiece1.SetActive(false);
+            antennaPiece2.SetActive(false);
+            antennaPiece3.SetActive(false);
+            antennaPiece4.SetActive(false);
+            antennaPiece5.SetActive(false);
+        }
+
+
     }
 }

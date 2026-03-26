@@ -126,7 +126,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f67d0356efc9d945b2094986b5ac1bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BloomingInteractableSpawner
-  antennaPartsPrefabs: []
+  antennaPiecePrefab1: {fileID: 5931367005313955187, guid: 85836293c48493146ab3e60ec479d77c, type: 3}
+  antennaPiecePrefab2: {fileID: 2931672149006583595, guid: 029d65987d7ad524a9255c525e0a7f42, type: 3}
+  antennaPiecePrefab3: {fileID: 7930157261527993931, guid: 08a19b360e4a731458f9cec70a68b3f7, type: 3}
+  antennaPiecePrefab4: {fileID: 5439480212809355173, guid: 1d4fa302ac41cec49bdd61fa9aa136e0, type: 3}
+  antennaPiecePrefab5: {fileID: 8752973242414258611, guid: 23cabbc76dd8e3f4a8664393c3f54a6e, type: 3}
   powerCandyPrefab: {fileID: 436324345054128620, guid: 1d99a467236527146ad7751ed41a11a8, type: 3}
   lifeCandyPrefab: {fileID: 436324345054128620, guid: 4a478f56a62847d4fba62202d34f5bc5, type: 3}
   bush: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
@@ -135,6 +139,7 @@ MonoBehaviour:
   antennaPartChance: 15
   powerCandyChance: 35
   transitionDuration: 0
+  interacted: 0
 --- !u!1 &4401358546644280199
 GameObject:
   m_ObjectHideFlags: 0

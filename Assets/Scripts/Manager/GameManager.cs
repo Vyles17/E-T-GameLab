@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public enum GameStatus
 {
@@ -16,7 +17,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     //bools per gli stati di gioco
-    private bool isPaused = false;
+    [HideInInspector] public bool isPaused = false;
     private bool isETing = false;
 
     //oggetti da attivare quando siamo in mod ET
@@ -183,6 +184,16 @@ public class GameManager : MonoBehaviour
             }
         }
 
+    }
+
+    //metodo per ricominciare una partita
+    public void RestartGame()
+    {
+        // la scena attiva
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        // ricarica la scena
+        SceneManager.LoadScene(currentScene.name);
     }
 
     //metodo per uscire dal gioco
