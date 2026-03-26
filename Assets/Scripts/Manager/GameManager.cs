@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public enum GameStatus
@@ -23,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     //oggetti da attivare quando siamo in mod ET
     public GameObject powersLight;
+    public GameObject normalHand, powersHand;
 
     //Input map per gestire i comandi per la UI
     private InputMap inputMap;
@@ -113,6 +112,8 @@ public class GameManager : MonoBehaviour
                 powersLight.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                normalHand.SetActive(false);
+                powersHand.SetActive(true);
 
                 //prendiamo tutti gli oggetti in scena che hanno il tag Interactable
                 GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
@@ -133,6 +134,8 @@ public class GameManager : MonoBehaviour
                 powersLight.SetActive(false);
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+                normalHand.SetActive(true);
+                powersHand.SetActive(false);
 
                 //prendiamo tutti gli oggetti in scena che hanno il tag Interactable
                 GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
@@ -164,6 +167,8 @@ public class GameManager : MonoBehaviour
             powersLight.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            normalHand.SetActive(true);
+            powersHand.SetActive(false);
 
             //prendiamo tutti gli oggetti in scena che hanno il tag Interactable
             GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
