@@ -116,6 +116,9 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
             Movement.Instance.currentEnergy -= Movement.Instance.stunEnergy;
             Debug.Log(Movement.Instance.currentEnergy + "- Initial Energy =" + Movement.Instance.currentEnergy);
             stunned = true;
+
+            //usciamo dalla modalità ET
+            GameManager.Instance.ExitETMode();
         }
     }
 }

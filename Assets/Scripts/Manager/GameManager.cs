@@ -49,16 +49,13 @@ public class GameManager : MonoBehaviour
         inputMap.Enable();
         inputMap.GameStatus.Pause.performed += Pause;
         inputMap.GameStatus.PowerMode.performed += ETMode;
-        inputMap.GameStatus.PowerMode.canceled += ETMode;
-
     }
 
     void OnDisable()
     {
         inputMap.Disable();
         inputMap.GameStatus.Pause.performed -= Pause;
-        inputMap.GameStatus.PowerMode.performed -= ETMode;
-        inputMap.GameStatus.PowerMode.canceled -= ETMode;
+        inputMap.GameStatus.PowerMode.performed -= ETMode;        
     }
 
     public void SetGameStatus(GameStatus status)
@@ -142,11 +139,41 @@ public class GameManager : MonoBehaviour
 
                 foreach (GameObject interactable in interactables)
                 {
-                    //e ne disattiviamo i figli
+                    //e ne disattiviamo i figli  (che è l'oggetto "powerMode")
                     foreach (Transform child in interactable.transform)
                     {
                         child.gameObject.SetActive(false);
                     }
+                }
+            }
+        }
+
+    }
+
+    //mini metodo che mi serve per forzare l'uscita dalla modalità ET
+    public void ExitETMode()
+    {
+        if (isETing)
+        {
+            //setto lo stato
+            isETing = false;
+
+            SetGameStatus(GameStatus.Running);
+
+            //disattivo le varie luci / cursori, ecc
+            powersLight.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            //prendiamo tutti gli oggetti in scena che hanno il tag Interactable
+            GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
+
+            foreach (GameObject interactable in interactables)
+            {
+                //e ne disattiviamo i figli (che è l'oggetto "powerMode")
+                foreach (Transform child in interactable.transform)
+                {
+                    child.gameObject.SetActive(false);
                 }
             }
         }

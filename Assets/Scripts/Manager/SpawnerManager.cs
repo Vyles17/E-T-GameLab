@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public class SpawnerManager : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class SpawnerManager : MonoBehaviour
     //int di quanti spawner points interagibili sono attivi per volta
     [SerializeField] int activeInteractableSpawnersQuantity;
     //lista di spawner attivi
-    List<GameObject> activeInteractableSpawners = new List<GameObject>();   
+    List<GameObject> activeInteractableSpawners = new List<GameObject>();
 
     public static SpawnerManager Instance;
 
@@ -123,6 +124,11 @@ public class SpawnerManager : MonoBehaviour
         activeSpawner.tag = "Interactable";
 
         // ora disattiviamo il bool JustEmptied
-        justEmptiedSpawner.GetComponent<InteractableSpawner>().justEmptiedInteractable = false;
+        if (justEmptiedSpawner.GetComponent<BloomingInteractableSpawner>())
+            justEmptiedSpawner.GetComponent<BloomingInteractableSpawner>().justEmptiedInteractable = false;
+
+        else if (justEmptiedSpawner.GetComponent<TelekinesisInteractableSpawner>())
+            justEmptiedSpawner.GetComponent<TelekinesisInteractableSpawner>().justEmptiedInteractable = false;
+
     }
 }
