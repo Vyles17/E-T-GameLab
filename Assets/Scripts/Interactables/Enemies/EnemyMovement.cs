@@ -21,7 +21,7 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
     [Header("Stun Stats")]
     Rigidbody rb;
     private float speed;
-    private bool stunned = false;
+    public bool stunned = false;
     [SerializeField] float stunTime;
     private float stunTimer;
 

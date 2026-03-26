@@ -357,4 +357,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerCandyManager
   candiesMaxCapacity: 5
-  currentCandies: 5
+  currentCandies: 0

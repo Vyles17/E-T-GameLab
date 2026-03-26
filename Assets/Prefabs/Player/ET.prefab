@@ -167,6 +167,9 @@ MonoBehaviour:
   sprintEnergy: 0.08
   stunEnergy: 10
   telekinesisEnergy: 7
+  freezeEnergy: 0
+  freezed: 0
+  freezeTime: 3
 --- !u!1 &9131457363791487394
 GameObject:
   m_ObjectHideFlags: 0

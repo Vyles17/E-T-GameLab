@@ -10,6 +10,9 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
     [SerializeField] GameObject[] antennaPartsPrefabs;
     [SerializeField] GameObject powerCandyPrefab;
     [SerializeField] GameObject lifeCandyPrefab;
+
+    //serve per cambiare la mesh del cespuglio
+    MeshFilter meshFilter;
     //le mesh del cespuglio e del cespuglio in fiore da sostituire quando interagiamo
     public Mesh bush;
     public Mesh bloomedBush;
@@ -22,8 +25,7 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
     private float teleTimer;
     [SerializeField] float transitionDuration;
 
-    //serve per cambiare la mesh del cespuglio
-    MeshFilter meshFilter;
+    public bool interacted;
 
     void Start()
     {
@@ -49,8 +51,15 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
 
         //LORIS QUA E' DA METTERE L'IF PER IL FREEZE
         //scaliamo l'energia
-        Movement.Instance.currentEnergy -= Movement.Instance.telekinesisEnergy;
-
+        if (!interacted)
+        {
+            //usciamo dalla modalità ET
+            GameManager.Instance.ExitETMode();
+            if (!Movement.Instance.freezed)
+            {
+                Movement.Instance.currentEnergy -= Movement.Instance.telekinesisEnergy;
+            }
+        }
         //attivo un altro spawner al posto suo
         SpawnerManager.Instance.activateInteractableSpawner(gameObject);
     }
@@ -142,9 +151,6 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
 
         // ripristiniamo la mesh originale
         meshFilter.mesh = bush;
-
-        //usciamo dalla modalità ET
-        GameManager.Instance.ExitETMode();
 
         //e disattiviamo l'effetto glow
         transform.GetChild(0).gameObject.SetActive(false);

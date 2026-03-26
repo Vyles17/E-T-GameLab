@@ -129,27 +129,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6013777748082656504, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
   m_PrefabInstance: {fileID: 1083454837}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &190888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 190882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f67d0356efc9d945b2094986b5ac1bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BloomingInteractableSpawner
-  antennaPartsPrefabs: []
-  powerCandyPrefab: {fileID: 0}
-  lifeCandyPrefab: {fileID: 0}
-  bush: {fileID: 0}
-  bloomedBush: {fileID: 0}
-  justEmptiedInteractable: 0
-  antennaPartChance: 15
-  powerCandyChance: 35
-  transitionDuration: 0
 --- !u!1 &22465279
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,27 +1777,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6013777748082656504, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
   m_PrefabInstance: {fileID: 1039684022}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &427866807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 427866797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f67d0356efc9d945b2094986b5ac1bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BloomingInteractableSpawner
-  antennaPartsPrefabs: []
-  powerCandyPrefab: {fileID: 0}
-  lifeCandyPrefab: {fileID: 0}
-  bush: {fileID: 0}
-  bloomedBush: {fileID: 0}
-  justEmptiedInteractable: 0
-  antennaPartChance: 15
-  powerCandyChance: 35
-  transitionDuration: 0
 --- !u!1001 &475596608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1875,10 +1833,7 @@ PrefabInstance:
     - {fileID: 7572544657439204389, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2305633606739622275, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1354217121}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
 --- !u!1 &519438877
 GameObject:
@@ -3099,27 +3054,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6013777748082656504, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
   m_PrefabInstance: {fileID: 1691877508}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &677570030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677570024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f67d0356efc9d945b2094986b5ac1bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BloomingInteractableSpawner
-  antennaPartsPrefabs: []
-  powerCandyPrefab: {fileID: 0}
-  lifeCandyPrefab: {fileID: 0}
-  bush: {fileID: 0}
-  bloomedBush: {fileID: 0}
-  justEmptiedInteractable: 0
-  antennaPartChance: 15
-  powerCandyChance: 35
-  transitionDuration: 0
 --- !u!1 &677617882 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5687839206827272586, guid: bd4c40e645eb9de478df62d537895525, type: 3}
@@ -4310,10 +4244,7 @@ PrefabInstance:
     - {fileID: 7572544657439204389, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2305633606739622275, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 427866807}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
 --- !u!1001 &1083454837
 PrefabInstance:
@@ -4371,10 +4302,7 @@ PrefabInstance:
     - {fileID: 7572544657439204389, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2305633606739622275, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 190888}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
 --- !u!4 &1133064191 stripped
 Transform:
@@ -4520,27 +4448,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6013777748082656504, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
   m_PrefabInstance: {fileID: 1766799576}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1236522955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1236522949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f67d0356efc9d945b2094986b5ac1bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BloomingInteractableSpawner
-  antennaPartsPrefabs: []
-  powerCandyPrefab: {fileID: 0}
-  lifeCandyPrefab: {fileID: 0}
-  bush: {fileID: 0}
-  bloomedBush: {fileID: 0}
-  justEmptiedInteractable: 0
-  antennaPartChance: 15
-  powerCandyChance: 35
-  transitionDuration: 0
 --- !u!1 &1266503117
 GameObject:
   m_ObjectHideFlags: 0
@@ -5001,6 +4908,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3654804704249711249, guid: b1401a04edf609d48915999a32a2945c, type: 3}
   m_PrefabInstance: {fileID: 2062826610}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1320907789 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
+  m_PrefabInstance: {fileID: 2062826610}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5544705cddbc94daf62ffa27c6d302, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Movement
 --- !u!1 &1354217115 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2305633606739622275, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
@@ -5011,27 +4929,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6013777748082656504, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
   m_PrefabInstance: {fileID: 475596608}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1354217121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1354217115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f67d0356efc9d945b2094986b5ac1bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BloomingInteractableSpawner
-  antennaPartsPrefabs: []
-  powerCandyPrefab: {fileID: 0}
-  lifeCandyPrefab: {fileID: 0}
-  bush: {fileID: 0}
-  bloomedBush: {fileID: 0}
-  justEmptiedInteractable: 0
-  antennaPartChance: 15
-  powerCandyChance: 35
-  transitionDuration: 0
 --- !u!4 &1356235546 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4151500135904438778, guid: 0e6dbb6b625ab794bb0c45a2377bd55e, type: 3}
@@ -5984,10 +5881,7 @@ PrefabInstance:
     - {fileID: 7572544657439204389, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2305633606739622275, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 677570030}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
 --- !u!1001 &1759220033
 PrefabInstance:
@@ -6231,10 +6125,7 @@ PrefabInstance:
     - {fileID: 7572544657439204389, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2305633606739622275, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1236522955}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad1b43f6dffb9e34e86e1ffa540a3dcd, type: 3}
 --- !u!1 &1771935593
 GameObject:
@@ -8230,6 +8121,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8539656443206534893, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1320907789}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

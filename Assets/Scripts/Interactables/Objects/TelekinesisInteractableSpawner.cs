@@ -5,12 +5,11 @@ using UnityEngine.EventSystems;
 
 public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandler
 {
-    //[SerializeField] float teleTime;
+    [SerializeField] float teleTime;
 
-    //public bool interacted;
+    public bool interacted;
 
     private Vector3 startPoint;
-    // [SerializeField] Vector3 endPoint;
     private float teleTimer;
     [SerializeField] float transitionDuration;
 
@@ -30,39 +29,32 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
     {
         startPoint = transform.position;
     }
-    private void Update()
-    {
-        //elapsedTime += Time.deltaTime;
-        //float percentageComplate = elapsedTime / transitionDuration;
+    //private void Update()
+    //{
+    //    elapsedTime += Time.deltaTime;
+    //    float percentageComplate = elapsedTime / transitionDuration;
 
-        //transform.position = Vector3.Lerp(startPoint, endPoint, percentageComplate);
-    }
-    protected virtual void FixedUpdate()
-    {
-        /*
-        if (interacted)
-        {
-            teleTimer += Time.fixedDeltaTime;
-            float percentageComplate = teleTimer / transitionDuration;
+    //    transform.position = Vector3.Lerp(startPoint, endPoint, percentageComplate);
+    //}
+    //protected virtual void FixedUpdate()
+    //{
+        
+    //    if (interacted)
+    //    {
+    //        teleTimer += Time.fixedDeltaTime;
+    //        float percentageComplate = teleTimer / transitionDuration;
 
-            transform.position = Vector3.Lerp(startPoint, endPoint, percentageComplate);
+    //        transform.position = Vector3.Lerp(startPoint, endPoint, percentageComplate);
 
-            if (transform.position == endPoint)
-            { 
-                interacted = false;
-                //transform.position = startPoint;
-                gameObject.SetActive(false);
-            }
-
-
-            //if (teleTimer > teleTime)
-            //{
-            //    //aggiungere Lerp
-            //    teleTimer = 0;
-            //}
-        }
-        */
-    }
+    //        if (transform.position == endPoint)
+    //        { 
+    //            interacted = false;
+    //            //transform.position = startPoint;
+    //            gameObject.SetActive(false);
+    //        }
+    //    }
+        
+    //}
     public void OnPointerClick(PointerEventData eventData)
     {
         //se il tag non è Interactable, ritorno
@@ -78,23 +70,25 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
         //attivo un altro spawner al posto suo
         SpawnerManager.Instance.activateInteractableSpawner(gameObject);
 
-        //LORIS QUA E' DA EMTTERE L'IF PER IL FREEZE
         //scaliamo l'energia
-        Movement.Instance.currentEnergy -= Movement.Instance.telekinesisEnergy;
-
-        /*
         if (!interacted)
         {
-            Debug.Log("Initial Energy:" + Movement.Instance.currentEnergy);
-            Movement.Instance.currentEnergy -= Movement.Instance.telekinesisEnergy;
-            Debug.Log(Movement.Instance.currentEnergy + "- Initial Energy =" + Movement.Instance.currentEnergy);
             interacted = true;
+            
+            //usciamo dalla modalità ET
+            GameManager.Instance.ExitETMode();
+
+            if (!Movement.Instance.freezed)
+            {
+                Debug.Log("Initial Energy:" + Movement.Instance.currentEnergy);
+                Movement.Instance.currentEnergy -= Movement.Instance.telekinesisEnergy;
+                Debug.Log(Movement.Instance.currentEnergy + "- Initial Energy =" + Movement.Instance.currentEnergy);
+            }
         }
-        */
     }
 
-    //metodo per generare un oggetto
-    GameObject ObjectSpawn()
+        //metodo per generare un oggetto
+        GameObject ObjectSpawn()
     {
         // genera un numero casuale da 0 a 100
         float randomObjectChance = Random.Range(0f, 100f);
@@ -183,11 +177,10 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
         //poi torna alla sua posizione originale
         transform.position = startPoint;
 
-        //usciamo dalla modalità ET
-        GameManager.Instance.ExitETMode();
-
         //e disattiviamo l'effetto glow
         transform.GetChild(0).gameObject.SetActive(false);
+
+        interacted = false;
     }
 
 }
