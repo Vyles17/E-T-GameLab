@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2086000227030117962}
   - component: {fileID: 7435598009643092795}
   - component: {fileID: 191499735192918047}
-  - component: {fileID: 8752007854229243331}
   - component: {fileID: 3933027043939540015}
   - component: {fileID: 8404952077551652200}
   - component: {fileID: 683135117120649953}
@@ -45,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3497708560367764950}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 33ebf3440b12ec245bd008cd464f8d9a, type: 3}
 --- !u!23 &191499735192918047
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -94,24 +93,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8752007854229243331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3497708560367764950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 0
-  outlineColor: {r: 0.6784314, g: 1, b: 0.1843137, a: 1}
-  outlineWidth: 10
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!108 &3933027043939540015
 Light:
   m_ObjectHideFlags: 0
@@ -5020,8 +5001,8 @@ GameObject:
   - component: {fileID: 51198114982732023}
   - component: {fileID: 2625715979096006968}
   - component: {fileID: 6353608224531660398}
-  - component: {fileID: 6247852568801882944}
   - component: {fileID: 1597630885685072081}
+  - component: {fileID: 8763988234737176556}
   m_Layer: 0
   m_Name: RockInteractableSpawner
   m_TagString: Untagged
@@ -5038,9 +5019,9 @@ Transform:
   m_GameObject: {fileID: 5687839206827272586}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.91, y: 0.72, z: 2.99}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2086000227030117962}
   m_Father: {fileID: 0}
@@ -5052,7 +5033,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5687839206827272586}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 33ebf3440b12ec245bd008cd464f8d9a, type: 3}
 --- !u!23 &6353608224531660398
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5102,7 +5083,32 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6247852568801882944
+--- !u!114 &1597630885685072081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5687839206827272586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91b11aae0caa95d4b8a55c7ae40f9afb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TelekinesisInteractableSpawner
+  teleTime: 0
+  interacted: 0
+  transitionDuration: 3
+  antennaPiecePrefab1: {fileID: 3340579038639441089, guid: 78dc70052abbd5847b1f1a7c9a7f651e, type: 3}
+  antennaPiecePrefab2: {fileID: 1739451914918076108, guid: 89a0bf0645592e047b1e1698d95e6a99, type: 3}
+  antennaPiecePrefab3: {fileID: 1602831372678801285, guid: 774cf759799915c4ea3bec3eff0991b6, type: 3}
+  antennaPiecePrefab4: {fileID: 2130098830423007061, guid: 2826f8bc650aacb44a7bad2c9c679896, type: 3}
+  antennaPiecePrefab5: {fileID: 7992519891168757943, guid: daa5708d764d54d43b95504e18f104bb, type: 3}
+  powerCandyPrefab: {fileID: 436324345054128620, guid: 1d99a467236527146ad7751ed41a11a8, type: 3}
+  lifeCandyPrefab: {fileID: 436324345054128620, guid: 4a478f56a62847d4fba62202d34f5bc5, type: 3}
+  justEmptiedInteractable: 0
+  antennaPartChance: 15
+  powerCandyChance: 35
+--- !u!65 &8763988234737176556
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5121,31 +5127,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 4, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1597630885685072081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5687839206827272586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91b11aae0caa95d4b8a55c7ae40f9afb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TelekinesisInteractableSpawner
-  teleTime: 0
-  interacted: 0
-  transitionDuration: 3
-  antennaPartsPrefabs:
-  - {fileID: 5931367005313955187, guid: 85836293c48493146ab3e60ec479d77c, type: 3}
-  - {fileID: 2931672149006583595, guid: 029d65987d7ad524a9255c525e0a7f42, type: 3}
-  - {fileID: 7930157261527993931, guid: 08a19b360e4a731458f9cec70a68b3f7, type: 3}
-  - {fileID: 5439480212809355173, guid: 1d4fa302ac41cec49bdd61fa9aa136e0, type: 3}
-  - {fileID: 8752973242414258611, guid: 23cabbc76dd8e3f4a8664393c3f54a6e, type: 3}
-  powerCandyPrefab: {fileID: 436324345054128620, guid: 1d99a467236527146ad7751ed41a11a8, type: 3}
-  lifeCandyPrefab: {fileID: 436324345054128620, guid: 4a478f56a62847d4fba62202d34f5bc5, type: 3}
-  justEmptiedInteractable: 0
-  antennaPartChance: 15
-  powerCandyChance: 35
+  m_Size: {x: 1.0532092, y: 3.1343856, z: 0.954778}
+  m_Center: {x: 0.039473593, y: 0.31081682, z: 0.011028647}

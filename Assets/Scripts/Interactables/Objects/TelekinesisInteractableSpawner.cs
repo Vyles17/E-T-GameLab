@@ -96,8 +96,8 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
         //prepariamo il nostro prefab...
         GameObject prefabToSpawn;
 
-        //se il numero generato rientra nella percentuale dell'antenna
-        if (randomObjectChance <= antennaPartChance)
+        //se il numero generato rientra nella percentuale dell'antennae non abbiamo ancora tutti i pezzi di antenna
+        if (randomObjectChance <= antennaPartChance && AntennaManager.Instance.antennaPiecesFound < 5)
         {
             //spawno uno dei pezzi di antenna che ci mancano
 
