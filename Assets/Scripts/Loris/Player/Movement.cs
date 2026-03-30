@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -9,7 +10,7 @@ public class Movement : MonoBehaviour
 
     //Movement variables
     Rigidbody rb;
-    Vector3 Direction;
+    public Vector3 Direction;
     [SerializeField] float speed;
     private float currentSpeed;
 
@@ -30,6 +31,11 @@ public class Movement : MonoBehaviour
 
     GameObject CollObj;
 
+    //sounds
+    [SerializeField] AudioClip footSteps;
+    [SerializeField] AudioClip runnningSteps;
+
+
     public static Movement Instance;
 
     private void Awake()
@@ -42,6 +48,7 @@ public class Movement : MonoBehaviour
         Instance = this;
 
         rb = GetComponent<Rigidbody>();
+
     }
     private void Start()
     {
@@ -49,6 +56,8 @@ public class Movement : MonoBehaviour
         Cursor.visible = false;
         currentEnergy = maxEnergy;
         detractEnergy = moveEnergy;
+        StartCoroutine(PlayFootsteps());
+        StartCoroutine(PlayRun());
     }
     private void Update()
     {
@@ -104,7 +113,7 @@ public class Movement : MonoBehaviour
         Direction = transform.TransformDirection(localDirection); //permette al Player di seguire la Camera
 
         Direction.Normalize();
-        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) ) && !freezed)
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) && !freezed)
         {
             currentEnergy -= detractEnergy;
         }
@@ -159,6 +168,28 @@ public class Movement : MonoBehaviour
             freezed = true;
             freezeTimer = 0;
             PowerCandyManager.Instance.RemoveCandy(1);
+        }
+    }
+    IEnumerator PlayFootsteps()
+    {
+        while (true)
+        {
+            if (Direction.magnitude > 0.1f && !Input.GetKey(KeyCode.LeftShift))
+            {
+                AudioManager.instance.PlaySfx(footSteps);
+            }
+            yield return new WaitForSeconds(0.7f);
+        }
+    }
+    IEnumerator PlayRun()
+    {
+        while (true)
+        {
+            if (Direction.magnitude > 0.1f && Input.GetKey(KeyCode.LeftShift))
+            {
+                AudioManager.instance.PlaySfx(runnningSteps);
+            }
+            yield return new WaitForSeconds(0.5f);
         }
     }
     // scusa loris te lo commento perchè devo fare tutto da OnTriggerEnter :p

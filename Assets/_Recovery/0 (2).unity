@@ -5177,6 +5177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8714d75a7a33b948bbd5a0f0e214fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFootsteps
+  footSteps: {fileID: 8300000, guid: 6e3a6e26d88c64947aacd0afddd62701, type: 3}
 --- !u!1 &1474914342
 GameObject:
   m_ObjectHideFlags: 0
@@ -7013,14 +7014,6 @@ PrefabInstance:
       propertyPath: audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 6e3a6e26d88c64947aacd0afddd62701, type: 3}
-    - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
-      propertyPath: footSteps
-      value: 
-      objectReference: {fileID: 8300000, guid: 857d2d8c30397e64e89f85f1c587585f, type: 3}
-    - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
-      propertyPath: runnningSteps
-      value: 
-      objectReference: {fileID: 8300000, guid: 554ab013bbf7b5044a127712c05e12fe, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
