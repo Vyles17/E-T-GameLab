@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     //bools per gli stati di gioco
     [HideInInspector] public bool isPaused = false;
-    private bool isETing = false;
+    [HideInInspector] public bool isETing = false;
 
     //oggetti da attivare quando siamo in mod ET
     public GameObject powersLight;

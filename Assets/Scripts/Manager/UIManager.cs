@@ -14,9 +14,23 @@ public class UIManager : MonoBehaviour
 
     //gli oggetti UI in HUD
     [SerializeField] Image staminaFill;
+    [SerializeField] Image freezedStaminaFill;
+    private Sprite defaultStaminaSprite;
     [SerializeField] public Image staminaIconTimer;
     [SerializeField] GameObject antennaPiece1, antennaPiece2, antennaPiece3, antennaPiece4, antennaPiece5;
     [SerializeField] TMP_Text powerCandyCounter;
+    [SerializeField] RectTransform handET;
+    [SerializeField] RectTransform powerHandET;
+
+
+    //per il lerp della mano
+    private Vector2 handStartPos;
+    private Vector2 handEndPos;
+    private Vector2 powerHandStartPos;
+    private Vector2 powerHandEndPos;
+    private float animDuration = 1f;
+    private float powerAnimDuration = 0.3f;
+    private float handTimer;
 
     private void Awake()
     {
@@ -53,6 +67,7 @@ public class UIManager : MonoBehaviour
 
         //il timer del freeze è a 0
         staminaIconTimer.fillAmount = 0;
+        defaultStaminaSprite = staminaFill.sprite;
 
         //i pezzi di antenna sono vuoti
         antennaPiece1.SetActive(false);
@@ -61,11 +76,49 @@ public class UIManager : MonoBehaviour
         antennaPiece4.SetActive(false);
         antennaPiece5.SetActive(false);
 
+        //settiamo le posizioni per l'animazione della mano
+        handStartPos = handET.anchoredPosition;
+        powerHandStartPos = powerHandET.anchoredPosition;
+        handEndPos = new Vector2(handStartPos.x - 10, handStartPos.y - 20);
+        powerHandEndPos = new Vector2(powerHandStartPos.x - 15, powerHandStartPos.y);
     }
 
     private void Update()
     {
-        staminaFill.fillAmount = Movement.Instance.currentEnergy / (float)Movement.Instance.maxEnergy;
+        //se ho la stamina freezata, sostituisco la sprite
+        if (Movement.Instance.freezed)
+        {
+            staminaFill.sprite = freezedStaminaFill.sprite;
+            freezedStaminaFill.fillAmount = Movement.Instance.currentEnergy / (float)Movement.Instance.maxEnergy;
+        }
+
+        else if (!Movement.Instance.freezed)
+        {
+            staminaFill.sprite = defaultStaminaSprite;
+            staminaFill.fillAmount = Movement.Instance.currentEnergy / (float)Movement.Instance.maxEnergy;
+        }
+
+
+
+        if (!GameManager.Instance.isETing && !GameManager.Instance.isPaused)
+        {
+            //lerp per l'animazione della manina di ET (ondeggia su e giu in loop)
+            handTimer += Time.deltaTime;
+            float anim = Mathf.PingPong(handTimer / animDuration, 1f);
+
+            handET.anchoredPosition = Vector2.Lerp(handStartPos, handEndPos, anim);
+        }
+
+        else if (GameManager.Instance.isETing == true)
+        {
+            //lerp per l'animazione della manina di ET in PowerMode (vibra sull'asse X)
+            handTimer += Time.deltaTime;
+            float powerAnim = Mathf.PingPong(handTimer / powerAnimDuration, 1f);
+
+            powerHandET.anchoredPosition = Vector2.Lerp(powerHandStartPos, powerHandEndPos, powerAnim);
+        }
+
+
     }
 
     public void PauseUI()
@@ -79,7 +132,7 @@ public class UIManager : MonoBehaviour
             pauseMenuUI3.SetActive(false);
         }
 
-        else if (!pauseMenuUI1.activeSelf && !pauseMenuUI2.activeSelf && !pauseMenuUI3.activeSelf) 
+        else if (!pauseMenuUI1.activeSelf && !pauseMenuUI2.activeSelf && !pauseMenuUI3.activeSelf)
         {
             //e viceversa
             pauseMenuUI1.SetActive(true);
