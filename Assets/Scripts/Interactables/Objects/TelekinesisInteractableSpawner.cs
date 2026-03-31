@@ -38,7 +38,7 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
     //}
     //protected virtual void FixedUpdate()
     //{
-        
+
     //    if (interacted)
     //    {
     //        teleTimer += Time.fixedDeltaTime;
@@ -53,7 +53,7 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
     //            gameObject.SetActive(false);
     //        }
     //    }
-        
+
     //}
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -74,7 +74,7 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
         if (!interacted)
         {
             interacted = true;
-            
+
             //usciamo dalla modalità ET
             GameManager.Instance.ExitETMode();
 
@@ -87,8 +87,8 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
         }
     }
 
-        //metodo per generare un oggetto
-        GameObject ObjectSpawn()
+    //metodo per generare un oggetto
+    GameObject ObjectSpawn()
     {
         // genera un numero casuale da 0 a 100
         float randomObjectChance = Random.Range(0f, 100f);
@@ -147,8 +147,10 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
             prefabToSpawn = lifeCandyPrefab;
         }
 
+        Vector3 objSpawnPos = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+
         //creo l'oggetto nella posizione originale del parent 
-        GameObject spawnedObj = Instantiate(prefabToSpawn, startPoint, Quaternion.identity);
+        GameObject spawnedObj = Instantiate(prefabToSpawn, objSpawnPos, Quaternion.identity);
 
         return spawnedObj;
     }
