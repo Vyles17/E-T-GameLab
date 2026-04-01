@@ -19,16 +19,7 @@ public class AudioManager : MonoBehaviour
     {
         StartCoroutine(playSFX(audioClip, volume));        
     }
-    //public void PauseSfx(AudioClip audioClip)
-    //{
-    //    AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-    //}
-    public void StopSfx()
-    {
-        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.Stop();
-        Destroy(audioSource);
-    }
+
     IEnumerator playSFX(AudioClip audioClip, float volume = 1f)
     {
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
