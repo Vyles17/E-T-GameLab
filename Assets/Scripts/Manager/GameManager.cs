@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
                     //e ne attiviamo i figli
                     foreach (Transform child in interactable.transform)
                     {
-                        child.gameObject.SetActive(true);
+                        interactable.transform.GetChild(0).gameObject.SetActive(true);
                     }
                 }
             }
@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
                     //e ne disattiviamo i figli  (che è l'oggetto "powerMode")
                     foreach (Transform child in interactable.transform)
                     {
-                        child.gameObject.SetActive(false);
+                        interactable.transform.GetChild(0).gameObject.SetActive(false);
                     }
                 }
             }
