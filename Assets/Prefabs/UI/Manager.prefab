@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a728d0d89a58094d93def25c22f7e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  isPaused: 0
+  isETing: 0
   powersLight: {fileID: 0}
   normalHand: {fileID: 0}
   powersHand: {fileID: 0}
@@ -107,7 +109,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  activeInteractableSpawnersQuantity: 2
+  activeInteractableSpawnersQuantity: 3
 --- !u!1 &4671017212038296858
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,8 +316,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88d3cd211fcd9f74a92f47eab439a310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
-  pauseMenuUI: {fileID: 0}
+  pauseMenuUI1: {fileID: 0}
+  pauseMenuUI2: {fileID: 0}
+  pauseMenuUI3: {fileID: 0}
   staminaFill: {fileID: 0}
+  freezedStaminaFill: {fileID: 0}
   staminaIconTimer: {fileID: 0}
   antennaPiece1: {fileID: 0}
   antennaPiece2: {fileID: 0}
@@ -323,6 +328,8 @@ MonoBehaviour:
   antennaPiece4: {fileID: 0}
   antennaPiece5: {fileID: 0}
   powerCandyCounter: {fileID: 0}
+  handET: {fileID: 0}
+  powerHandET: {fileID: 0}
 --- !u!1 &8631545171121270750
 GameObject:
   m_ObjectHideFlags: 0

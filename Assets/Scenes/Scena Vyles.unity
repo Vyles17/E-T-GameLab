@@ -5421,7 +5421,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1537373511
 Transform:
   m_ObjectHideFlags: 0
@@ -7815,7 +7815,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7596597099891129826, guid: 5f2837e06598cc94db5dd85f851b8fa5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7596597099891129826, guid: 5f2837e06598cc94db5dd85f851b8fa5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7887,14 +7887,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 309135875}
     - target: {fileID: 302996820644297141, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
-      propertyPath: interactableSpawners.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 302996820644297141, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
-      propertyPath: activeInteractableSpawnersQuantity
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 302996820644297141, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: 'interactableSpawners.Array.data[0]'
       value: 
       objectReference: {fileID: 1188242561}
@@ -7930,10 +7922,6 @@ PrefabInstance:
       propertyPath: handET
       value: 
       objectReference: {fileID: 78765225}
-    - target: {fileID: 6970693790262426979, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
-      propertyPath: pauseMenuUI
-      value: 
-      objectReference: {fileID: 743369184}
     - target: {fileID: 6970693790262426979, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: powerHandET
       value: 
@@ -8177,18 +8165,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 259563222}
-    - target: {fileID: 201565631459971470, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ExitETMode
-      objectReference: {fileID: 0}
-    - target: {fileID: 201565631459971470, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: GameManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 201565631459971470, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 5686679121381096560, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
       propertyPath: m_Name
       value: UI

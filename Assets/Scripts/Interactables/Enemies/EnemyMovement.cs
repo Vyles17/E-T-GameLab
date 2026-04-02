@@ -17,7 +17,7 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
     public int triggerRadius = 30; //il raggio dell'overlap sphere entro il quale l'enemy si accorge del player
     [SerializeField] private LayerMask playerLayermask; //il layer del player
 
-    [Header ("Agent Legs settings")]
+    [Header("Agent Legs settings")]
     [SerializeField] Transform leftLeg; //mesh gamba sx da far lerpare per il movimento
     [SerializeField] Transform rightLeg; //mesh gamba dx da far lerpare per il movimento
     [SerializeField] float maxAngle = 15f; // quanto si muovono le gambe
@@ -56,13 +56,16 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
             }
         }
 
-        //lerp per l'animazione delle gambe del nemico
-        legsTimer += Time.deltaTime;
-        float anim = Mathf.PingPong(legsTimer / animDuration, 1f);
-        float angle = Mathf.Lerp(-maxAngle, maxAngle, anim);
+        if (!stunned)
+        {
+            //lerp per l'animazione delle gambe del nemico
+            legsTimer += Time.deltaTime;
+            float anim = Mathf.PingPong(legsTimer / animDuration, 1f);
+            float angle = Mathf.Lerp(-maxAngle, maxAngle, anim);
 
-        leftLeg.localRotation = Quaternion.Euler(angle, 0, 0);
-        rightLeg.localRotation = Quaternion.Euler(-angle, 0, 0);
+            leftLeg.localRotation = Quaternion.Euler(angle, 0, 0);
+            rightLeg.localRotation = Quaternion.Euler(-angle, 0, 0);
+        }
 
     }
 
