@@ -35,6 +35,7 @@ public class Movement : MonoBehaviour
     [SerializeField] AudioClip footSteps;
     [SerializeField] AudioClip runnningSteps;
     public AudioClip pickUp;
+    [SerializeField] AudioClip freezeEnergySfx;
 
 
     public static Movement Instance;
@@ -114,7 +115,7 @@ public class Movement : MonoBehaviour
         Direction = transform.TransformDirection(localDirection); //permette al Player di seguire la Camera
 
         Direction.Normalize();
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) && !freezed)
+        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && !freezed)
         {
             currentEnergy -= detractEnergy;
         }
@@ -169,6 +170,7 @@ public class Movement : MonoBehaviour
         if (!freezed && PowerCandyManager.Instance.currentCandies > 0)
         {
             freezed = true;
+            AudioManager.instance.PlaySfx(freezeEnergySfx);
             freezeTimer = 0;
             PowerCandyManager.Instance.RemoveCandy(1);
         }

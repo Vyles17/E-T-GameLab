@@ -6993,6 +6993,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
+      propertyPath: pickUp
+      value: 
+      objectReference: {fileID: 8300000, guid: 2c9d87cb73e4b3045af13a7270406b43, type: 3}
+    - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 6e3a6e26d88c64947aacd0afddd62701, type: 3}
@@ -7001,9 +7005,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 857d2d8c30397e64e89f85f1c587585f, type: 3}
     - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
+      propertyPath: freezeTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: runnningSteps
       value: 
       objectReference: {fileID: 8300000, guid: 554ab013bbf7b5044a127712c05e12fe, type: 3}
+    - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
+      propertyPath: freezeEnergySfx
+      value: 
+      objectReference: {fileID: 8300000, guid: e64f5c3a07ca31a4eb6bb9ad6c24b14f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
