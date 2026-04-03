@@ -148,6 +148,7 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
             }
             Destroy(spawnedObject);
         }
+        AudioManager.instance.PlaySfx(Movement.Instance.pickUp);
 
         // ripristiniamo la mesh originale
         meshFilter.mesh = bush;

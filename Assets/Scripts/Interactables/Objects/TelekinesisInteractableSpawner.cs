@@ -170,6 +170,7 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
             }
             Destroy(spawnedObject);
         }
+        AudioManager.instance.PlaySfx(Movement.Instance.pickUp);
 
         // l'oggetto interagito aspetta 2 secondi
         yield return new WaitForSeconds(2f);

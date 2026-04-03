@@ -34,6 +34,7 @@ public class Movement : MonoBehaviour
     //sounds
     [SerializeField] AudioClip footSteps;
     [SerializeField] AudioClip runnningSteps;
+    public AudioClip pickUp;
 
 
     public static Movement Instance;
@@ -120,6 +121,8 @@ public class Movement : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        AudioManager.instance.PlaySfx(pickUp);
+
         CollObj = other.gameObject;
 
         //se abbiamo pigliato una caramella poteri
@@ -178,7 +181,7 @@ public class Movement : MonoBehaviour
             {
                 AudioManager.instance.PlaySfx(footSteps);
             }
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(0.6f);
         }
     }
     IEnumerator PlayRun()
