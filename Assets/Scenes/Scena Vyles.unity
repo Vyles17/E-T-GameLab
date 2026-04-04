@@ -6929,21 +6929,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 525053396}
     m_Modifications:
     - target: {fileID: 1550558271544380011, guid: b1401a04edf609d48915999a32a2945c, type: 3}
-      propertyPath: m_Cameras.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1550558271544380011, guid: b1401a04edf609d48915999a32a2945c, type: 3}
-      propertyPath: m_RenderPostProcessing
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1550558271544380011, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: 'm_Cameras.Array.data[0]'
       value: 
       objectReference: {fileID: 100705016}
-    - target: {fileID: 1550558271544380011, guid: b1401a04edf609d48915999a32a2945c, type: 3}
-      propertyPath: m_VolumeLayerMask.m_Bits
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3381997317373874790, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: m_Name
       value: ET
@@ -6988,34 +6976,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5043018958522591658, guid: b1401a04edf609d48915999a32a2945c, type: 3}
-      propertyPath: m_AllowDynamicResolution
-      value: 1
+    - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
+      propertyPath: moveEnergy
+      value: 0.03
       objectReference: {fileID: 0}
-    - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
-      propertyPath: pickUp
-      value: 
-      objectReference: {fileID: 8300000, guid: 2c9d87cb73e4b3045af13a7270406b43, type: 3}
-    - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
-      propertyPath: audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 6e3a6e26d88c64947aacd0afddd62701, type: 3}
-    - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
-      propertyPath: footSteps
-      value: 
-      objectReference: {fileID: 8300000, guid: 857d2d8c30397e64e89f85f1c587585f, type: 3}
-    - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
-      propertyPath: freezeTime
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
-      propertyPath: runnningSteps
-      value: 
-      objectReference: {fileID: 8300000, guid: 554ab013bbf7b5044a127712c05e12fe, type: 3}
-    - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
-      propertyPath: freezeEnergySfx
-      value: 
-      objectReference: {fileID: 8300000, guid: e64f5c3a07ca31a4eb6bb9ad6c24b14f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7911,6 +7875,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 192054056}
     - target: {fileID: 6970693790262426979, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
+      propertyPath: GameOverSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: d28d045943b7cc04abf560a159ed15ad, type: 3}
+    - target: {fileID: 6970693790262426979, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: pauseMenuUI
       value: 
       objectReference: {fileID: 1572945740}
@@ -7922,6 +7890,10 @@ PrefabInstance:
       propertyPath: staminaIcon
       value: 
       objectReference: {fileID: 1513637954}
+    - target: {fileID: 6970693790262426979, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
+      propertyPath: GameOverMenuUI
+      value: 
+      objectReference: {fileID: 8881271138592592121}
     - target: {fileID: 6970693790262426979, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: powerCandyCounter
       value: 
@@ -8101,6 +8073,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5175715391063659653, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5686679121381096560, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
       propertyPath: m_Name
       value: UI
@@ -8154,6 +8130,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
+--- !u!1 &8881271138592592121 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5175715391063659653, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
+  m_PrefabInstance: {fileID: 8881271138592592120}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

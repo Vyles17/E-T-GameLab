@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class Movement : MonoBehaviour
     public Vector3 Direction;
     [SerializeField] float speed;
     private float currentSpeed;
+    public static event Action OnGameOver;
 
     [Header("Energy Stats")]
     public int maxEnergy;
@@ -31,12 +33,16 @@ public class Movement : MonoBehaviour
 
     GameObject CollObj;
 
-    //sounds
-    [SerializeField] AudioClip footSteps;
-    [SerializeField] AudioClip runnningSteps;
-    public AudioClip pickUp;
-    [SerializeField] AudioClip freezeEnergySfx;
+    [Header("Sounds")]
+    //moving
+    [SerializeField] AudioClip footStepsSfx;
+    [SerializeField] AudioClip runnningStepsSfx;
 
+    //items
+    public AudioClip pickUpSfx;
+
+    //Powerups
+    [SerializeField] AudioClip freezeEnergySfx;
 
     public static Movement Instance;
 
@@ -63,7 +69,7 @@ public class Movement : MonoBehaviour
     }
     private void Update()
     {
-        if (!UIManager.Instance.pauseMenuUI.activeSelf)
+        if (!UIManager.Instance.pauseMenuUI.activeSelf && !UIManager.Instance.GameOverMenuUI.activeSelf)
         {
             Camera();
             Move();
@@ -115,14 +121,19 @@ public class Movement : MonoBehaviour
         Direction = transform.TransformDirection(localDirection); //permette al Player di seguire la Camera
 
         Direction.Normalize();
-        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && !freezed)
+        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && currentEnergy > 0 && !freezed)
         {
             currentEnergy -= detractEnergy;
+        }
+
+        if (currentEnergy <= 0)
+        {
+            OnGameOver?.Invoke();
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        AudioManager.instance.PlaySfx(pickUp);
+        AudioManager.instance.PlaySfx(pickUpSfx);
 
         CollObj = other.gameObject;
 
@@ -181,7 +192,7 @@ public class Movement : MonoBehaviour
         {
             if (Direction.magnitude > 0.1f && !Input.GetKey(KeyCode.LeftShift))
             {
-                AudioManager.instance.PlaySfx(footSteps);
+                AudioManager.instance.PlaySfx(footStepsSfx);
             }
             yield return new WaitForSeconds(0.6f);
         }
@@ -192,7 +203,7 @@ public class Movement : MonoBehaviour
         {
             if (Direction.magnitude > 0.1f && Input.GetKey(KeyCode.LeftShift))
             {
-                AudioManager.instance.PlaySfx(runnningSteps);
+                AudioManager.instance.PlaySfx(runnningStepsSfx);
             }
             yield return new WaitForSeconds(0.5f);
         }
