@@ -135,6 +135,8 @@ MonoBehaviour:
   antennaPartChance: 15
   powerCandyChance: 35
   transitionDuration: 0
+  telekinesisSfx: {fileID: 8300000, guid: 5836146a9ad52fe4dada2765abf2d3dd, type: 3}
+  interacted: 0
 --- !u!1 &4401358546644280199
 GameObject:
   m_ObjectHideFlags: 0

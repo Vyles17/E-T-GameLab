@@ -1,7 +1,7 @@
-using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public enum GameStatus
 {
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     {
         inputMap.Disable();
         inputMap.GameStatus.Pause.performed -= Pause;
-        inputMap.GameStatus.PowerMode.performed -= ETMode;        
+        inputMap.GameStatus.PowerMode.performed -= ETMode;
     }
 
     public void SetGameStatus(GameStatus status)
@@ -180,10 +180,14 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void Reload()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     //metodo per uscire dal gioco
     public void QuitGame()
     {
-        Debug.Log("Sei uscito :D");
         Application.Quit();
     }
 }

@@ -25,6 +25,9 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
     private float teleTimer;
     [SerializeField] float transitionDuration;
 
+    //Sound
+    [SerializeField] AudioClip telekinesisSfx;
+
     public bool interacted;
 
     void Start()
@@ -36,6 +39,9 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
     //metodo per ottenere un oggetto (solo in spawner vuoti!) quando viene cliccato il prefab cespuglietto
     public void OnPointerClick(PointerEventData eventData)
     {
+        //faccio partire il suono della telecinesi
+        AudioManager.instance.PlaySfx(telekinesisSfx);
+
         //se il tag non è Interactable, ritorno
         if (!transform.CompareTag("Interactable")) return;
 
