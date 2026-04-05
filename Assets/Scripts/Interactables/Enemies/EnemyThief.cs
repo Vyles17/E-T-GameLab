@@ -5,6 +5,8 @@ public class EnemyThief : EnemyMovement
     public int stuffToSteal = 1; //roba che rubiamo al player
     private bool isRobbed;
 
+    [SerializeField] AudioClip stealSfx;
+
     private void Start()
     {
         isRobbed = false;
@@ -45,7 +47,7 @@ public class EnemyThief : EnemyMovement
         {
             //sto ladro piezzemmerd gli ruba uno di quelli
             AntennaManager.Instance.RemoveAntennaPart(stuff);
-
+            AudioManager.instance.PlaySfx(stealSfx);
             isRobbed = true;
         }
 
@@ -54,7 +56,7 @@ public class EnemyThief : EnemyMovement
         {
             //metodo per rubargli una caramella e aggiornare la UI
             PowerCandyManager.Instance.RemoveCandy(stuff);
-
+            AudioManager.instance.PlaySfx(stealSfx);
             isRobbed = true;
         }
     }

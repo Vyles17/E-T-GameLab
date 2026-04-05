@@ -5204,3 +5204,4 @@ MonoBehaviour:
   stunTime: 3
   stunSfx: {fileID: 8300000, guid: 1f3b8be40aa1b99469e9b1ca6f00c18e, type: 3}
   stuffToSteal: 1
+  stealSfx: {fileID: 8300000, guid: 33fb27a417951f747b07a6889a00243a, type: 3}
