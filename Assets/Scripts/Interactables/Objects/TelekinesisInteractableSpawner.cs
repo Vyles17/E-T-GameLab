@@ -62,7 +62,7 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
     {
         
         //se il tag non è Interactable, ritorno
-        if (!transform.CompareTag("Interactable")) return;
+        if (!transform.CompareTag("Interactable") && Time.timeScale > 0) return;
 
         // avvio animazione lerp + spawno un oggetto (e il player lo prende automaticamente)
         StartCoroutine(SpawnRoutine());

@@ -1,11 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyThief : EnemyMovement
 {
     public int stuffToSteal = 1; //roba che rubiamo al player
     private bool isRobbed;
-
-    [SerializeField] AudioClip stealSfx;
 
     private void Start()
     {
@@ -47,16 +46,15 @@ public class EnemyThief : EnemyMovement
         {
             //sto ladro piezzemmerd gli ruba uno di quelli
             AntennaManager.Instance.RemoveAntennaPart(stuff);
-            AudioManager.instance.PlaySfx(stealSfx);
             isRobbed = true;
         }
 
         //sennò gli arruba le caramelle come a un bebè
-        else
+        else if (PowerCandyManager.Instance.currentCandies > 0)
         {
             //metodo per rubargli una caramella e aggiornare la UI
             PowerCandyManager.Instance.RemoveCandy(stuff);
-            AudioManager.instance.PlaySfx(stealSfx);
+            PowerCandyManager.Instance.RemoveSFX();
             isRobbed = true;
         }
     }

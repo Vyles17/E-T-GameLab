@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 
 public class EnemyMovement : MonoBehaviour, IPointerClickHandler
 {
@@ -24,8 +26,12 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
     public bool stunned = false;
     [SerializeField] float stunTime;
     private float stunTimer;
+
     //Sound
     [SerializeField] AudioClip stunSfx;
+    [SerializeField] AudioClip walkingSfx;
+
+    AudioSource audioSource;
 
 
     void Awake()
@@ -33,11 +39,14 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
         enemyAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
         speed = enemyAgent.speed;
+        audioSource = GetComponent<AudioSource>();
     }
     protected virtual void Update()
     {
-        if (!stunned)
+        audioSource.clip = walkingSfx;
+        if (!stunned && Time.timeScale == 1)
         {
+            HandleWalkingAudio();
             //se il player finisce nel raggio dell'enemy (e non è già in gabbia/ha caramelle)
             if (Physics.OverlapSphere(transform.position, triggerRadius, playerLayermask).Length > 0 && CanChasePlayer())
             {
@@ -51,8 +60,31 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
                 SearchForET();
             }
         }
+        else
+        {
+            // Se è stunnato o il gioco è in pausa, fermiamo l'audio
+            if (audioSource.isPlaying) audioSource.Stop();
+        }
     }
+    void HandleWalkingAudio()
+    {
+        // Controlliamo se l'agente si sta effettivamente muovendo
+        if (enemyAgent.velocity.magnitude > 0.1f)
+        {
+            audioSource.clip = walkingSfx;
 
+            // IMPORTANTE: Play() viene chiamato solo se non sta già suonando
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            // Se è fermo stoppiamo l'audio
+            audioSource.Stop();
+        }
+    }
     protected virtual void FixedUpdate()
     {
         if (stunned)
@@ -60,7 +92,6 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
             rb.constraints = RigidbodyConstraints.FreezeAll;
             stunTimer += Time.fixedDeltaTime;
             enemyAgent.speed = 0;
-
             if (stunTimer > stunTime)
             {
                 rb.constraints = RigidbodyConstraints.None;
@@ -113,7 +144,7 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
     //Stun PowerUp
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!stunned)
+        if (!stunned && Time.timeScale > 0)
         {
             //faccio partire il suono dello stun
             AudioManager.instance.PlaySfx(stunSfx);

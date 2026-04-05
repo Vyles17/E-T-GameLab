@@ -178,7 +178,7 @@ public class Movement : MonoBehaviour
 
     public void FreezeEnergy()
     {
-        if (!freezed && PowerCandyManager.Instance.currentCandies > 0)
+        if (!freezed && PowerCandyManager.Instance.currentCandies > 0 && Time.timeScale > 0)
         {
             freezed = true;
             AudioManager.instance.PlaySfx(freezeEnergySfx);

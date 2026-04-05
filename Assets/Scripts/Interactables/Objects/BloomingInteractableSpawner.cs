@@ -40,7 +40,7 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         //se il tag non è Interactable, ritorno
-        if (!transform.CompareTag("Interactable")) return;
+        if (!transform.CompareTag("Interactable") && Time.timeScale > 0) return;
 
         //appena clicco, il cespuglio cambia mesh in un cespuglio fiorito
         meshFilter.mesh = bloomedBush;

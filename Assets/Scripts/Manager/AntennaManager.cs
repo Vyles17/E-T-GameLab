@@ -9,6 +9,7 @@ public class AntennaManager : MonoBehaviour
     //contatore dei pezzi di antenna trovati (Win condition)
     public int antennaPieces = 5; //pezzi da trovare
     public int antennaPiecesFound = 0; //i pezzi trovati
+    [SerializeField] AudioClip stealSfx;
 
     //public event Action OnAntennaChange; //evento per quando viene modificato il counter di caramelle
 
@@ -50,6 +51,7 @@ public class AntennaManager : MonoBehaviour
         {
             //togliamo una caramella dal counter
             antennaPiecesFound -= antennaPart;
+            AudioManager.instance.PlaySfx(stealSfx);
 
             //OnAntennaChange?.Invoke(); //iscritto all'evento (DA AGGIORNARE APPENA HO LA UI)
         }

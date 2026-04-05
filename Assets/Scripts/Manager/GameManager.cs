@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
 
     //Singleton del GM
     public static GameManager Instance;
-
     //bools per gli stati di gioco
     private bool isPaused = false;
     private bool isETing = false;
@@ -41,6 +40,7 @@ public class GameManager : MonoBehaviour
 
         //ci assicuriamo che la luce della mod Poteri sia disattivata all'inizio
         powersLight.SetActive(false);
+        
     }
 
 
