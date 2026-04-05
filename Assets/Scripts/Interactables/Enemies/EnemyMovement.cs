@@ -24,6 +24,9 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
     public bool stunned = false;
     [SerializeField] float stunTime;
     private float stunTimer;
+    //Sound
+    [SerializeField] AudioClip stunSfx;
+
 
     void Awake()
     {
@@ -112,6 +115,9 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
     {
         if (!stunned)
         {
+            //faccio partire il suono dello stun
+            AudioManager.instance.PlaySfx(stunSfx);
+
             stunned = true;
             if (!Movement.Instance.freezed)
             {

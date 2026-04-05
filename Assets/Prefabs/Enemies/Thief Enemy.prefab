@@ -5200,5 +5200,7 @@ MonoBehaviour:
   playerLayermask:
     serializedVersion: 2
     m_Bits: 8
+  stunned: 0
   stunTime: 3
+  stunSfx: {fileID: 8300000, guid: 1f3b8be40aa1b99469e9b1ca6f00c18e, type: 3}
   stuffToSteal: 1

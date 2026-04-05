@@ -60,8 +60,6 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
     //}
     public void OnPointerClick(PointerEventData eventData)
     {
-        //faccio partire il suono della telecinesi
-        AudioManager.instance.PlaySfx(telekinesisSfx);
         
         //se il tag non è Interactable, ritorno
         if (!transform.CompareTag("Interactable")) return;
@@ -79,7 +77,11 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
         //scaliamo l'energia
         if (!interacted)
         {
+
             interacted = true;
+
+            //faccio partire il suono della telecinesi
+            AudioManager.instance.PlaySfx(telekinesisSfx);
 
 
             //usciamo dalla modalità ET
