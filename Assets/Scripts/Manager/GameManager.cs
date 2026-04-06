@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -19,6 +20,8 @@ public class GameManager : MonoBehaviour
     //bools per gli stati di gioco
     [HideInInspector] public bool isPaused = false;
     [HideInInspector] public bool isETing = false;
+    [HideInInspector] public bool isGameOver = false;
+
 
     //oggetti da attivare quando siamo in mod ET
     public GameObject powersLight;
@@ -26,6 +29,11 @@ public class GameManager : MonoBehaviour
 
     //Input map per gestire i comandi per la UI
     private InputMap inputMap;
+
+    //variabili per la win condition
+    [SerializeField] GameObject enemies, spawner, assembledAntenna;
+    private bool isWinning;
+    private float timerDuration = 3f;
 
     private void Awake()
     {
@@ -55,7 +63,7 @@ public class GameManager : MonoBehaviour
     {
         inputMap.Disable();
         inputMap.GameStatus.Pause.performed -= Pause;
-        inputMap.GameStatus.PowerMode.performed -= ETMode;        
+        inputMap.GameStatus.PowerMode.performed -= ETMode;
     }
 
     public void SetGameStatus(GameStatus status)
@@ -79,6 +87,10 @@ public class GameManager : MonoBehaviour
 
     public void Pause(InputAction.CallbackContext context)
     {
+        //se abbiamo perso o abbiamo vinto, non possiamo mettere in pausa
+        if (isGameOver || isWinning)
+            return;
+
         isPaused = !isPaused;
 
         //avvio/tolgo il menu di pausa in base allo stato del gioco
@@ -103,8 +115,8 @@ public class GameManager : MonoBehaviour
     {
         isETing = !isETing;
 
-        //possiamo entrare in modalità ETing solo se non siamo in pausa
-        if (!isPaused)
+        //possiamo entrare in modalità ETing solo se non siamo in pausa, non siamo morti o non abbiamo vinto
+        if (!isPaused && !isWinning && !isGameOver)
         {
             //in base se siamo alla modalità poteri, possiamo usarli
             if (isETing)
@@ -183,17 +195,87 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
 
+    public void WinTransition()
+    {
+        //settiamo la variabile
+        isWinning = true;
+
+        //freeziamo il movimento del player
+        Movement.Instance.FreezeMovement();
+
+        //inizia la prima coroutine
     }
 
     //metodo per ricominciare una partita
     public void RestartGame()
     {
+        //resettiamo gli stati
+        if (isWinning)
+            isWinning = false;
+        if (isGameOver)
+            isGameOver = false;
+
+        //sblocchiamo il player, se era bloccato dal game Over/ Win
+        Movement.Instance.rb.constraints = RigidbodyConstraints.None;
+        Movement.Instance.rb.constraints = RigidbodyConstraints.FreezePositionY;
+
+        //sblocchiamo la timescale
+        SetGameStatus(GameStatus.Running);
+
         // la scena attiva
         Scene currentScene = SceneManager.GetActiveScene();
 
         // ricarica la scena
         SceneManager.LoadScene(currentScene.name);
+    }
+
+    //metodo per il Game Over
+    public void GameOver()
+    {
+        if (isETing)
+        {
+            ExitETMode();
+        }
+
+        isGameOver = true;
+
+        StartCoroutine(FaintingETRoutine());
+    }
+
+    IEnumerator FaintingETRoutine()
+    {
+        //la rotazione iniziale di E.T.
+        Vector3 currentEuler = Movement.Instance.rb.rotation.eulerAngles;
+        Quaternion startRot = Quaternion.Euler(currentEuler);
+
+        //rotazione a cui arriva E.T. quando sviene
+        Quaternion endRot = Quaternion.Euler(currentEuler.x - 90f, currentEuler.y, currentEuler.z);
+
+        Movement.Instance.rb.constraints = RigidbodyConstraints.FreezePosition;
+
+        float time = 0f;
+
+        while (time < timerDuration)
+        {
+            float t = time / timerDuration;
+            Movement.Instance.rb.rotation = Quaternion.Lerp(startRot, endRot, t);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        // assicura che arrivi esattamente alla rotazione finale
+        Movement.Instance.rb.rotation = endRot;
+
+        //Attiva il panel in UI del Game Over
+        UIManager.Instance.gameOverPanel.gameObject.SetActive(true);
+
+        //settiamo la TimeScale in 0
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SetGameStatus(GameStatus.Paused);
     }
 
     //metodo per uscire dal gioco

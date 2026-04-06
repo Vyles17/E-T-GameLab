@@ -8,7 +8,7 @@ public class Movement : MonoBehaviour
     private float cameraPitch;
 
     //Movement variables
-    Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
     Vector3 Direction;
     [SerializeField] float speed;
     private float currentSpeed;
@@ -52,7 +52,7 @@ public class Movement : MonoBehaviour
     }
     private void Update()
     {
-        if (GameManager.Instance.isPaused == false)
+        if (GameManager.Instance.isPaused == false && GameManager.Instance.isGameOver == false)
         {
             Camera();
             Move();
@@ -68,6 +68,11 @@ public class Movement : MonoBehaviour
                     freezed = false;
                 }
             }
+        }
+
+        if (currentEnergy <= 0)
+        {
+            GameManager.Instance.GameOver();
         }
     }
     private void FixedUpdate()
@@ -156,6 +161,11 @@ public class Movement : MonoBehaviour
         }
     }
 
+    public void FreezeMovement()
+    {
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+    }
+
     public void FreezeEnergy()
     {
         if (!freezed && PowerCandyManager.Instance.currentCandies > 0)
@@ -165,6 +175,7 @@ public class Movement : MonoBehaviour
             PowerCandyManager.Instance.RemoveCandy(1);
         }
     }
+
     // scusa loris te lo commento perchè devo fare tutto da OnTriggerEnter :p
 
     //private void TakeCandy(int candies)

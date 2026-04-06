@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     //i vari menu
-    public GameObject pauseMenuUI1, pauseMenuUI2, pauseMenuUI3;
+    public GameObject pauseMenuUI1, pauseMenuUI2, pauseMenuUI3, winPanel, gameOverPanel;
 
     //gli oggetti UI in HUD
     [SerializeField] Image staminaFill;
@@ -19,8 +19,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] public Image staminaIconTimer;
     [SerializeField] GameObject antennaPiece1, antennaPiece2, antennaPiece3, antennaPiece4, antennaPiece5;
     [SerializeField] TMP_Text powerCandyCounter;
-    [SerializeField] RectTransform handET;
-    [SerializeField] RectTransform powerHandET;
+    [SerializeField] public RectTransform handET;
+    [SerializeField] public RectTransform powerHandET;
 
 
     //per il lerp della mano
