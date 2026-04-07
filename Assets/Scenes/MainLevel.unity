@@ -1856,6 +1856,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 244016778}
     - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
+      propertyPath: GameOverSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: d28d045943b7cc04abf560a159ed15ad, type: 3}
+    - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: powersLight
       value: 
       objectReference: {fileID: 1823711601}

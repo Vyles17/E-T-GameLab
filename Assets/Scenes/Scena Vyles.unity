@@ -4943,10 +4943,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 1537373511}
     m_Modifications:
     - target: {fileID: 1789992094630802168, guid: 5e9bb3f6e2c6cc342b7373fb5229b3d5, type: 3}
-      propertyPath: walkingSfx
-      value: 
-      objectReference: {fileID: 8300000, guid: 2f9be12d50c4048479c78a3e15e2a43e, type: 3}
-    - target: {fileID: 1789992094630802168, guid: 5e9bb3f6e2c6cc342b7373fb5229b3d5, type: 3}
       propertyPath: baseWaypoint
       value: 
       objectReference: {fileID: 693697077}
@@ -4966,18 +4962,6 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[2]'
       value: 
       objectReference: {fileID: 1133064191}
-    - target: {fileID: 4231287396923497428, guid: 5e9bb3f6e2c6cc342b7373fb5229b3d5, type: 3}
-      propertyPath: m_Resource
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4231287396923497428, guid: 5e9bb3f6e2c6cc342b7373fb5229b3d5, type: 3}
-      propertyPath: MaxDistance
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 4231287396923497428, guid: 5e9bb3f6e2c6cc342b7373fb5229b3d5, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7596597099891129826, guid: 5e9bb3f6e2c6cc342b7373fb5229b3d5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 23.603577
@@ -7738,10 +7722,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 131871821}
     - target: {fileID: 513802244430567129, guid: 5f2837e06598cc94db5dd85f851b8fa5, type: 3}
-      propertyPath: walkingSfx
-      value: 
-      objectReference: {fileID: 8300000, guid: 2f9be12d50c4048479c78a3e15e2a43e, type: 3}
-    - target: {fileID: 513802244430567129, guid: 5f2837e06598cc94db5dd85f851b8fa5, type: 3}
       propertyPath: baseWaypoint
       value: 
       objectReference: {fileID: 693697077}
@@ -7761,10 +7741,6 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[2]'
       value: 
       objectReference: {fileID: 1356235546}
-    - target: {fileID: 600857861502806920, guid: 5f2837e06598cc94db5dd85f851b8fa5, type: 3}
-      propertyPath: m_Resource
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7596597099891129826, guid: 5f2837e06598cc94db5dd85f851b8fa5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -28.88504
@@ -7890,10 +7866,6 @@ PrefabInstance:
       propertyPath: 'interactableSpawners.Array.data[7]'
       value: 
       objectReference: {fileID: 192054056}
-    - target: {fileID: 5760221724168008472, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
-      propertyPath: stealSfx
-      value: 
-      objectReference: {fileID: 8300000, guid: 33fb27a417951f747b07a6889a00243a, type: 3}
     - target: {fileID: 6970693790262426979, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: GameOverSfx
       value: 
@@ -7913,7 +7885,7 @@ PrefabInstance:
     - target: {fileID: 6970693790262426979, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: GameOverMenuUI
       value: 
-      objectReference: {fileID: 8881271138592592121}
+      objectReference: {fileID: 0}
     - target: {fileID: 6970693790262426979, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: powerCandyCounter
       value: 
@@ -7970,10 +7942,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8859609987045043656, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
-      propertyPath: stealSfx
-      value: 
-      objectReference: {fileID: 8300000, guid: 33fb27a417951f747b07a6889a00243a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8261,11 +8229,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
---- !u!1 &8881271138592592121 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5175715391063659653, guid: 81f67d60ff36638498c547d292380ea9, type: 3}
-  m_PrefabInstance: {fileID: 8881271138592592120}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

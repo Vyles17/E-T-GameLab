@@ -34,6 +34,10 @@ public class GameManager : MonoBehaviour
     //variabili per la win condition
     [SerializeField] GameObject enemies, assembledAntenna, winSpot;
     private float timerDuration = 3f;
+    
+    //GameOver
+    [SerializeField] AudioClip GameOverSfx;
+    bool played = false;
 
     private void Awake()
     {
@@ -262,6 +266,10 @@ public class GameManager : MonoBehaviour
 
     IEnumerator FaintingETRoutine()
     {
+        if (!played)
+            AudioManager.instance.PlaySfx(GameOverSfx);
+        played = true;
+
         //la rotazione iniziale di E.T.
         Vector3 currentEuler = Movement.Instance.rb.rotation.eulerAngles;
         Quaternion startRot = Quaternion.Euler(currentEuler);

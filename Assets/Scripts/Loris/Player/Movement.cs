@@ -14,7 +14,7 @@ public class Movement : MonoBehaviour
     public Vector3 Direction;
     [SerializeField] float speed;
     private float currentSpeed;
-    public static event Action OnGameOver;
+    //public static event Action OnGameOver;
 
     [Header("Energy Stats")]
     public int maxEnergy;
@@ -140,7 +140,7 @@ public class Movement : MonoBehaviour
 
         if (currentEnergy <= 0)
         {
-            OnGameOver?.Invoke();
+            GameManager.Instance.GameOver();
         }
     }
     private void OnTriggerEnter(Collider other)

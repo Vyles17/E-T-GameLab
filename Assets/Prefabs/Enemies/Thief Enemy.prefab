@@ -5201,11 +5201,14 @@ MonoBehaviour:
   playerLayermask:
     serializedVersion: 2
     m_Bits: 8
+  leftLeg: {fileID: 0}
+  rightLeg: {fileID: 0}
+  maxAngle: 15
   stunned: 0
   stunTime: 3
   stunSfx: {fileID: 8300000, guid: 1f3b8be40aa1b99469e9b1ca6f00c18e, type: 3}
+  walkingSfx: {fileID: 8300000, guid: 2f9be12d50c4048479c78a3e15e2a43e, type: 3}
   stuffToSteal: 1
-  stealSfx: {fileID: 8300000, guid: 33fb27a417951f747b07a6889a00243a, type: 3}
 --- !u!82 &4231287396923497428
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5217,8 +5220,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 2f9be12d50c4048479c78a3e15e2a43e, type: 3}
-  m_PlayOnAwake: 1
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
