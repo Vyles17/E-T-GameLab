@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum GameStatus
 {
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool isPaused = false;
     [HideInInspector] public bool isETing = false;
     [HideInInspector] public bool isGameOver = false;
-
+    [HideInInspector] public bool isWinning = false;
 
     //oggetti da attivare quando siamo in mod ET
     public GameObject powersLight;
@@ -31,8 +32,7 @@ public class GameManager : MonoBehaviour
     private InputMap inputMap;
 
     //variabili per la win condition
-    [SerializeField] GameObject enemies, spawner, assembledAntenna;
-    private bool isWinning;
+    [SerializeField] GameObject enemies, assembledAntenna, winSpot;
     private float timerDuration = 3f;
 
     private void Awake()
@@ -197,7 +197,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void WinTransition()
+    public void Win()
     {
         //settiamo la variabile
         isWinning = true;
@@ -206,6 +206,7 @@ public class GameManager : MonoBehaviour
         Movement.Instance.FreezeMovement();
 
         //inizia la prima coroutine
+        StartCoroutine(WinningSequence());
     }
 
     //metodo per ricominciare una partita
@@ -216,6 +217,14 @@ public class GameManager : MonoBehaviour
             isWinning = false;
         if (isGameOver)
             isGameOver = false;
+
+        //disattiviamo i pezzi di antenna, se sono rimasti attivi dopo una vincita
+        if (assembledAntenna.activeSelf)
+            assembledAntenna.SetActive(false);
+
+        //riattiviamo i nemici
+        if (!enemies.activeSelf)
+            enemies.SetActive(true);
 
         //sblocchiamo il player, se era bloccato dal game Over/ Win
         Movement.Instance.rb.constraints = RigidbodyConstraints.None;
@@ -270,7 +279,74 @@ public class GameManager : MonoBehaviour
         Movement.Instance.rb.rotation = endRot;
 
         //Attiva il panel in UI del Game Over
-        UIManager.Instance.gameOverPanel.gameObject.SetActive(true);
+        UIManager.Instance.gameOverPanel.SetActive(true);
+
+        //settiamo la TimeScale in 0
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SetGameStatus(GameStatus.Paused);
+    }
+
+    IEnumerator WinningSequence()
+    {
+        //dopo che spawna l'ultimo pezzo dell'antenna, aspettiamo 3 secondi 
+
+        //(Loris non so se vuoi metterci un mini jingle qua ?)
+        yield return new WaitForSeconds(3f);
+
+        //passati i 3 secondi, parte l'animazione della schermata che diventa nera
+        UIManager.Instance.blackPanel.SetActive(true);
+
+        float time = 0f;
+        Image blackPanelIMG = UIManager.Instance.blackPanel.GetComponent<Image>();
+        Color color = blackPanelIMG.color;
+
+        while (time < timerDuration)
+        {
+            time += Time.deltaTime;
+            float opacity = Mathf.Lerp(0f, 1f, time / timerDuration);
+
+            color.a = opacity;
+            blackPanelIMG.color = color;
+
+            yield return null;
+        }
+
+        // lo schermo rimane nero finchè sposto il mio player e gli resetto la camera
+        yield return new WaitForSeconds(2f);
+
+        Movement.Instance.rb.transform.position = winSpot.transform.position;
+        Movement.Instance.rb.rotation = winSpot.transform.rotation;
+
+        Movement.Instance.cameraPitch = 0f;
+        Movement.Instance.playerCamera.localRotation = Quaternion.Euler(0f, 0f, 0f); 
+
+        //attivo l'antenna assemblata e disattivo i nemici
+        assembledAntenna.SetActive(true);
+        enemies.SetActive(false);
+
+        //quindi la schermata torna trasparente
+        time = 0f;
+
+        while (time < timerDuration)
+        {
+            time += Time.deltaTime;
+            float opacity = Mathf.Lerp(1f, 0f, time / timerDuration);
+
+            color.a = opacity;
+            blackPanelIMG.color = color;
+
+            yield return null;
+        }
+
+        UIManager.Instance.blackPanel.SetActive(false);
+
+        //(Loris metti qui il rumore dell'antenna segnale)
+
+        yield return new WaitForSeconds(5f);
+
+        //trascorsi questi ultimi secondi, compare il panel di vincita
+        UIManager.Instance.winPanel.SetActive(true);
 
         //settiamo la TimeScale in 0
         Cursor.lockState = CursorLockMode.None;

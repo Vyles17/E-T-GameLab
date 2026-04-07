@@ -103,32 +103,30 @@ public class SpawnerManager : MonoBehaviour
     //metodo per attivare uno spawner interactable dopo che un altro è stato svuotato
     public void activateInteractableSpawner(GameObject justEmptiedSpawner)
     {
-        // nuova lista per gli spawner vuoti
-        List<GameObject> emptySpawners = new List<GameObject>();
+        // rimuovo lo spawner appena usato dalla lista degli attivi
+        activeInteractableSpawners.Remove(justEmptiedSpawner);
 
-        //per ogni spawner negli spawner interagibili
-        foreach (GameObject spawner in interactableSpawners)
-        {
-            //se lo spawner non è appena stato svuotato
-            if (spawner != justEmptiedSpawner)
-            {
-                //lo aggiungiamo alla lista di nuovi spawner papabili per essere attivati
-                emptySpawners.Add(spawner);
-            }
-        }
+        // nuova lista per gli spawner vuoti
+        List<GameObject> emptySpawners = new List<GameObject>(interactableSpawners);
+
+        //rimuoviamo dalla lista degli spanwer "attivabili" quelli già attivi
+        foreach (GameObject spawner in activeInteractableSpawners)
+            emptySpawners.Remove(spawner);
 
         // scegliamo uno spawner vuoto casuale da attivare
         GameObject activeSpawner = emptySpawners[Random.Range(0, emptySpawners.Count)];
 
+        // lo aggiungo alla lista degli spawner attivi
+        activeInteractableSpawners.Add(activeSpawner);
+
         // cambiamo il tag (così che possa avere anche l'effetto glow degli interagibili)
         activeSpawner.tag = "Interactable";
 
-        // ora disattiviamo il bool JustEmptied
-        if (justEmptiedSpawner.GetComponent<BloomingInteractableSpawner>())
-            justEmptiedSpawner.GetComponent<BloomingInteractableSpawner>().justEmptiedInteractable = false;
+        // resettiamo il justEmptied sullo spawner appena svuotato
+        var bloom = justEmptiedSpawner.GetComponent<BloomingInteractableSpawner>();
+        if (bloom != null) bloom.justEmptiedInteractable = false;
 
-        else if (justEmptiedSpawner.GetComponent<TelekinesisInteractableSpawner>())
-            justEmptiedSpawner.GetComponent<TelekinesisInteractableSpawner>().justEmptiedInteractable = false;
-
+        var telekinesis = justEmptiedSpawner.GetComponent<TelekinesisInteractableSpawner>();
+        if (telekinesis != null) telekinesis.justEmptiedInteractable = false;
     }
 }

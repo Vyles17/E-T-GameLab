@@ -42,26 +42,31 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
         //appena clicco, il cespuglio cambia mesh in un cespuglio fiorito
         meshFilter.mesh = bloomedBush;
 
-        // avvio animazione lerp + spawno un oggetto (e il player lo prende automaticamente)
-        StartCoroutine(SpawnRoutine());
-
         //setto il tag "Untagged" e lo segno come JustEmptied
         transform.tag = "Untagged";
         justEmptiedInteractable = true;
 
-        //LORIS QUA E' DA METTERE L'IF PER IL FREEZE
+        //usciamo dalla modalità ET
+        GameManager.Instance.ExitETMode();
+
+        // avvio animazione lerp + spawno un oggetto (e il player lo prende automaticamente)
+        StartCoroutine(SpawnRoutine());
+
+        //attivo un altro spawner al posto suo
+        SpawnerManager.Instance.activateInteractableSpawner(gameObject);
+
         //scaliamo l'energia
         if (!interacted)
         {
-            //usciamo dalla modalità ET
-            GameManager.Instance.ExitETMode();
+            interacted = true;
+
             if (!Movement.Instance.freezed)
             {
+                Debug.Log("Initial Energy:" + Movement.Instance.currentEnergy);
                 Movement.Instance.currentEnergy -= Movement.Instance.telekinesisEnergy;
+                Debug.Log(Movement.Instance.currentEnergy + "- Initial Energy =" + Movement.Instance.currentEnergy);
             }
         }
-        //attivo un altro spawner al posto suo
-        SpawnerManager.Instance.activateInteractableSpawner(gameObject);
     }
 
     //metodo per generare un oggetto
@@ -163,6 +168,12 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
 
             //la distruggiamo
             Destroy(spawnedObject);
+
+            //se abbiamo trovato tutti i pezzi dell'antenna, parte la sequenza di vittoria
+            if (AntennaManager.Instance.antennaPiecesFound == AntennaManager.Instance.antennaPieces)
+            {
+                GameManager.Instance.Win();
+            }
         }
 
         //se l'oggetto è una power Candy

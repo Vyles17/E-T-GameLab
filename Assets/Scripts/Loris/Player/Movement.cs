@@ -5,7 +5,7 @@ public class Movement : MonoBehaviour
     //Camera turning variables
     public Transform playerCamera;
     [SerializeField] float sensitivity;
-    private float cameraPitch;
+    [HideInInspector] public float cameraPitch;
 
     //Movement variables
     [HideInInspector] public Rigidbody rb;
@@ -49,10 +49,14 @@ public class Movement : MonoBehaviour
         Cursor.visible = false;
         currentEnergy = maxEnergy;
         detractEnergy = moveEnergy;
+
+        //all'inizio la camera è puntata davanti al player
+        cameraPitch = 0f;
+        playerCamera.localRotation = Quaternion.Euler(0f, 0f, 0f);
     }
     private void Update()
     {
-        if (GameManager.Instance.isPaused == false && GameManager.Instance.isGameOver == false)
+        if (GameManager.Instance.isPaused == false && GameManager.Instance.isGameOver == false && GameManager.Instance.isWinning == false)
         {
             Camera();
             Move();

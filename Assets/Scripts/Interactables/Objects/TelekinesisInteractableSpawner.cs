@@ -60,12 +60,15 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
         //se il tag non è Interactable, ritorno
         if (!transform.CompareTag("Interactable")) return;
 
-        // avvio animazione lerp + spawno un oggetto (e il player lo prende automaticamente)
-        StartCoroutine(SpawnRoutine());
-
         //setto il tag "Untagged" e lo segno come JustEmptied
         transform.tag = "Untagged";
         justEmptiedInteractable = true;
+
+        //usciamo dalla modalità ET
+        GameManager.Instance.ExitETMode();
+
+        // avvio animazione lerp + spawno un oggetto (e il player lo prende automaticamente)
+        StartCoroutine(SpawnRoutine());
 
         //attivo un altro spawner al posto suo
         SpawnerManager.Instance.activateInteractableSpawner(gameObject);
@@ -74,9 +77,6 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
         if (!interacted)
         {
             interacted = true;
-
-            //usciamo dalla modalità ET
-            GameManager.Instance.ExitETMode();
 
             if (!Movement.Instance.freezed)
             {
@@ -187,6 +187,12 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
 
             //la distruggiamo
             Destroy(spawnedObject);
+
+            //se abbiamo trovato tutti i pezzi dell'antenna, parte la sequenza di vittoria
+            if (AntennaManager.Instance.antennaPiecesFound == AntennaManager.Instance.antennaPieces)
+            {
+                GameManager.Instance.Win();
+            }
         }
 
         //se l'oggetto è una power Candy
@@ -210,8 +216,8 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
             Destroy(spawnedObject);
         }
 
-        // l'oggetto interagito aspetta 2 secondi
-        yield return new WaitForSeconds(2f);
+        // l'oggetto interagito aspetta un secondo
+        yield return new WaitForSeconds(1f);
 
         //poi torna alla sua posizione originale
         transform.position = startPoint;

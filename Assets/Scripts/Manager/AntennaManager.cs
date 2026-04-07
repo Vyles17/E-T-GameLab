@@ -41,6 +41,7 @@ public class AntennaManager : MonoBehaviour
 
             OnAntennaChange?.Invoke(); //iscritto all'evento per la UI
         }
+
     }
 
     //metodo per quando ci viene rubata/usiamo un pezzo di antenna

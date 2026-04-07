@@ -10,18 +10,17 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     //i vari menu
-    public GameObject pauseMenuUI1, pauseMenuUI2, pauseMenuUI3, winPanel, gameOverPanel;
+    public GameObject pauseMenuUI1, pauseMenuUI2, pauseMenuUI3, winPanel, gameOverPanel, blackPanel;
 
     //gli oggetti UI in HUD
     [SerializeField] Image staminaFill;
     [SerializeField] Image freezedStaminaFill;
     private Sprite defaultStaminaSprite;
-    [SerializeField] public Image staminaIconTimer;
+    public Image staminaIconTimer;
     [SerializeField] GameObject antennaPiece1, antennaPiece2, antennaPiece3, antennaPiece4, antennaPiece5;
     [SerializeField] TMP_Text powerCandyCounter;
-    [SerializeField] public RectTransform handET;
-    [SerializeField] public RectTransform powerHandET;
-
+    public RectTransform handET;
+    public RectTransform powerHandET;
 
     //per il lerp della mano
     private Vector2 handStartPos;
@@ -61,6 +60,7 @@ public class UIManager : MonoBehaviour
         pauseMenuUI1.SetActive(false);
         pauseMenuUI2.SetActive(false);
         pauseMenuUI3.SetActive(false);
+        blackPanel.SetActive(false);
 
         //il counter di caramelle è a 0
         powerCandyCounter.text = "x0";
