@@ -56,7 +56,7 @@ public class Movement : MonoBehaviour
     }
     private void Update()
     {
-        if (GameManager.Instance.isPaused == false && GameManager.Instance.isGameOver == false && GameManager.Instance.isWinning == false)
+        if (GameManager.Instance.isPaused == false && GameManager.Instance.isGameOver == false && GameManager.Instance.isWinning == false && !UIManager.Instance.tutorialPanel.activeSelf)
         {
             Camera();
             Move();

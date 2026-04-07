@@ -46,9 +46,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   isPaused: 0
   isETing: 0
+  isGameOver: 0
+  isWinning: 0
   powersLight: {fileID: 0}
   normalHand: {fileID: 0}
   powersHand: {fileID: 0}
+  enemies: {fileID: 0}
+  assembledAntenna: {fileID: 0}
+  winSpot: {fileID: 0}
 --- !u!1 &2323367817949717081
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,7 +104,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  activeNormalSpawnersQuantity: 3
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  activeNormalSpawnersQuantity: 6
   interactableSpawners:
   - {fileID: 0}
   - {fileID: 0}
@@ -109,7 +119,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  activeInteractableSpawnersQuantity: 3
+  - {fileID: 0}
+  - {fileID: 0}
+  activeInteractableSpawnersQuantity: 6
 --- !u!1 &4671017212038296858
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,6 +331,9 @@ MonoBehaviour:
   pauseMenuUI1: {fileID: 0}
   pauseMenuUI2: {fileID: 0}
   pauseMenuUI3: {fileID: 0}
+  winPanel: {fileID: 0}
+  gameOverPanel: {fileID: 0}
+  blackPanel: {fileID: 0}
   staminaFill: {fileID: 0}
   freezedStaminaFill: {fileID: 0}
   staminaIconTimer: {fileID: 0}

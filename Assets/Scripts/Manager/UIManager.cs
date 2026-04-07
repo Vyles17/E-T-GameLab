@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     //i vari menu
-    public GameObject pauseMenuUI1, pauseMenuUI2, pauseMenuUI3, winPanel, gameOverPanel, blackPanel;
+    public GameObject tutorialPanel, pauseMenuUI1, pauseMenuUI2, pauseMenuUI3, winPanel, gameOverPanel, blackPanel;
 
     //gli oggetti UI in HUD
     [SerializeField] Image staminaFill;
@@ -56,7 +56,6 @@ public class UIManager : MonoBehaviour
 
     public void Start()
     {
-        //all'inizio il menu è disattivato
         pauseMenuUI1.SetActive(false);
         pauseMenuUI2.SetActive(false);
         pauseMenuUI3.SetActive(false);
@@ -98,8 +97,6 @@ public class UIManager : MonoBehaviour
             staminaFill.fillAmount = Movement.Instance.currentEnergy / (float)Movement.Instance.maxEnergy;
         }
 
-
-
         if (!GameManager.Instance.isETing && !GameManager.Instance.isPaused)
         {
             //lerp per l'animazione della manina di ET (ondeggia su e giu in loop)
@@ -117,8 +114,6 @@ public class UIManager : MonoBehaviour
 
             powerHandET.anchoredPosition = Vector2.Lerp(powerHandStartPos, powerHandEndPos, powerAnim);
         }
-
-
     }
 
     public void PauseUI()
@@ -201,7 +196,5 @@ public class UIManager : MonoBehaviour
             antennaPiece4.SetActive(false);
             antennaPiece5.SetActive(false);
         }
-
-
     }
 }

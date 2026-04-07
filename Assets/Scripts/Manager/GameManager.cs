@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool isETing = false;
     [HideInInspector] public bool isGameOver = false;
     [HideInInspector] public bool isWinning = false;
+    bool isTutorialing = true;
 
     //oggetti da attivare quando siamo in mod ET
     public GameObject powersLight;
@@ -46,11 +47,7 @@ public class GameManager : MonoBehaviour
 
         //ci gettiamo l'input map
         inputMap = new InputMap();
-
-        //ci assicuriamo che la luce della mod Poteri sia disattivata all'inizio
-        powersLight.SetActive(false);
     }
-
 
     void OnEnable()
     {
@@ -73,22 +70,28 @@ public class GameManager : MonoBehaviour
         {
             case GameStatus.Running:
                 Time.timeScale = 1;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 break;
 
             case GameStatus.Paused:
                 Time.timeScale = 0;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 break;
 
             case GameStatus.ETmode:
                 Time.timeScale = 1;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 break;
         }
     }
 
     public void Pause(InputAction.CallbackContext context)
     {
-        //se abbiamo perso o abbiamo vinto, non possiamo mettere in pausa
-        if (isGameOver || isWinning)
+        //se abbiamo appena iniziato il livello, se abbiamo perso o abbiamo vinto, non possiamo mettere in pausa
+        if (isGameOver || isWinning || UIManager.Instance.tutorialPanel.activeSelf)
             return;
 
         isPaused = !isPaused;
@@ -98,21 +101,21 @@ public class GameManager : MonoBehaviour
         {
             SetGameStatus(GameStatus.Paused);
             UIManager.Instance.PauseUI();
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
         }
 
         else
         {
             SetGameStatus(GameStatus.Running);
             UIManager.Instance.PauseUI();
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
     }
 
     public void ETMode(InputAction.CallbackContext context)
     {
+        //se abbiamo appena iniziato il livello, se abbiamo perso o abbiamo vinto, non possiamo mettere in pausa
+        if (isGameOver || isWinning || UIManager.Instance.tutorialPanel.activeSelf)
+            return;
+
         isETing = !isETing;
 
         //possiamo entrare in modalità ETing solo se non siamo in pausa, non siamo morti o non abbiamo vinto
@@ -123,8 +126,6 @@ public class GameManager : MonoBehaviour
             {
                 SetGameStatus(GameStatus.ETmode);
                 powersLight.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
                 normalHand.SetActive(false);
                 powersHand.SetActive(true);
 
@@ -145,8 +146,6 @@ public class GameManager : MonoBehaviour
             {
                 SetGameStatus(GameStatus.Running);
                 powersLight.SetActive(false);
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
                 normalHand.SetActive(true);
                 powersHand.SetActive(false);
 
@@ -163,7 +162,6 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-
     }
 
     //mini metodo che mi serve per forzare l'uscita dalla modalità ET
@@ -178,8 +176,6 @@ public class GameManager : MonoBehaviour
 
             //disattivo le varie luci / cursori, ecc
             powersLight.SetActive(false);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
             normalHand.SetActive(true);
             powersHand.SetActive(false);
 
@@ -218,6 +214,10 @@ public class GameManager : MonoBehaviour
         if (isGameOver)
             isGameOver = false;
 
+        //ci assicuriamo che la luce della mod Poteri sia disattivata all'inizio
+        if (powersLight.activeSelf)
+            powersLight.SetActive(false);
+
         //disattiviamo i pezzi di antenna, se sono rimasti attivi dopo una vincita
         if (assembledAntenna.activeSelf)
             assembledAntenna.SetActive(false);
@@ -233,11 +233,19 @@ public class GameManager : MonoBehaviour
         //sblocchiamo la timescale
         SetGameStatus(GameStatus.Running);
 
-        // la scena attiva
-        Scene currentScene = SceneManager.GetActiveScene();
+        // la scena con il livello di gioco
+        Scene mainScene = SceneManager.GetActiveScene();
 
         // ricarica la scena
-        SceneManager.LoadScene(currentScene.name);
+        SceneManager.LoadScene(mainScene.name);
+    }
+    public void StartLevel()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void ToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
     //metodo per il Game Over
@@ -282,8 +290,6 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.gameOverPanel.SetActive(true);
 
         //settiamo la TimeScale in 0
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
         SetGameStatus(GameStatus.Paused);
     }
 
@@ -319,7 +325,7 @@ public class GameManager : MonoBehaviour
         Movement.Instance.rb.rotation = winSpot.transform.rotation;
 
         Movement.Instance.cameraPitch = 0f;
-        Movement.Instance.playerCamera.localRotation = Quaternion.Euler(0f, 0f, 0f); 
+        Movement.Instance.playerCamera.localRotation = Quaternion.Euler(0f, 0f, 0f);
 
         //attivo l'antenna assemblata e disattivo i nemici
         assembledAntenna.SetActive(true);
@@ -349,8 +355,6 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.winPanel.SetActive(true);
 
         //settiamo la TimeScale in 0
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
         SetGameStatus(GameStatus.Paused);
     }
 

@@ -5482,6 +5482,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   baseWaypoint: {fileID: 0}
   currentWaypoint: 0
   triggerRadius: 20

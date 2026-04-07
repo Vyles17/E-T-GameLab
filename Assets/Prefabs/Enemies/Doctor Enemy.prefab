@@ -188,7 +188,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c6eb47b6e7ba1214e87ebb54203c17bb, type: 2}
+  - {fileID: 2100000, guid: b132951e4c259ed42a80081f536d68b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5476,6 +5476,8 @@ MonoBehaviour:
   enemyAgent: {fileID: 0}
   targetPlayer: {fileID: 0}
   waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
