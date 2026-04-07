@@ -6,6 +6,7 @@ public class EnemyDoctor : EnemyMovement
 
     public Transform cage; // la nostra gabbia
     private bool isCaged = false; //il bool per sapere se è in gabbia
+    [SerializeField] AudioClip cageSfx;
 
     private void Start()
     {
@@ -41,6 +42,8 @@ public class EnemyDoctor : EnemyMovement
 
     void CageET()
     {
+        AudioManager.instance.PlaySfx(cageSfx);
+
         //gettiamo la posizione della gabbia, ma manteniamo la y del player
         Vector3 cagedETposition = new(cage.position.x, targetPlayer.position.y, cage.position.z);
 

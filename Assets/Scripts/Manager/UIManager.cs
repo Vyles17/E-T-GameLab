@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +23,11 @@ public class UIManager : MonoBehaviour
     public RectTransform handET;
     public RectTransform powerHandET;
 
+/*
+    //GameOver
+    [SerializeField] AudioClip GameOverSfx;
+    bool played = false;
+*/
     //per il lerp della mano
     private Vector2 handStartPos;
     private Vector2 handEndPos;
@@ -44,12 +50,14 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
+        Movement.OnGameOver += GameOver;
         PowerCandyManager.Instance.OnCandiesChange += UpdateCandyCounter; //quando viene chiamato l'evento...
         UpdateCandyCounter();  //...aggiorniamo il counter delle caramelle Poteri
         AntennaManager.Instance.OnAntennaChange += UpdateAntennaPieces;
     }
     private void OnDisable()
     {
+        Movement.OnGameOver -= GameOver;
         PowerCandyManager.Instance.OnCandiesChange -= UpdateCandyCounter;
         AntennaManager.Instance.OnAntennaChange -= UpdateAntennaPieces;
     }
@@ -139,7 +147,17 @@ public class UIManager : MonoBehaviour
     {
         powerCandyCounter.text = "x" + PowerCandyManager.Instance.currentCandies;
     }
-
+/*
+    public void GameOver()
+    {
+        if(!played)
+            AudioManager.instance.PlaySfx(GameOverSfx);
+        played = true;
+        GameManager.Instance.SetGameStatus(GameStatus.Paused);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        GameOverMenuUI.SetActive(true);
+        */
     //metodo per aggiornare i pezzi di antenna in UI
     public void UpdateAntennaPieces()
     {

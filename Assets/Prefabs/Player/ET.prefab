@@ -158,6 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Movement
   playerCamera: {fileID: 5652960743412251863}
   sensitivity: 5
+  Direction: {x: 0, y: 0, z: 0}
   speed: 200
   maxEnergy: 100
   currentEnergy: 0
@@ -170,6 +171,11 @@ MonoBehaviour:
   freezeEnergy: 0
   freezed: 0
   freezeTime: 3
+  footStepsSfx: {fileID: 8300000, guid: 857d2d8c30397e64e89f85f1c587585f, type: 3}
+  runnningStepsSfx: {fileID: 8300000, guid: 554ab013bbf7b5044a127712c05e12fe, type: 3}
+  pickUpSfx: {fileID: 8300000, guid: 2c9d87cb73e4b3045af13a7270406b43, type: 3}
+  freezeEnergySfx: {fileID: 8300000, guid: e64f5c3a07ca31a4eb6bb9ad6c24b14f, type: 3}
+  GameOverSfx: {fileID: 8300000, guid: d28d045943b7cc04abf560a159ed15ad, type: 3}
 --- !u!1 &9131457363791487394
 GameObject:
   m_ObjectHideFlags: 0

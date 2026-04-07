@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -9,9 +11,10 @@ public class Movement : MonoBehaviour
 
     //Movement variables
     [HideInInspector] public Rigidbody rb;
-    Vector3 Direction;
+    public Vector3 Direction;
     [SerializeField] float speed;
     private float currentSpeed;
+    public static event Action OnGameOver;
 
     [Header("Energy Stats")]
     public int maxEnergy;
@@ -30,6 +33,17 @@ public class Movement : MonoBehaviour
 
     GameObject CollObj;
 
+    [Header("Sounds")]
+    //moving
+    [SerializeField] AudioClip footStepsSfx;
+    [SerializeField] AudioClip runnningStepsSfx;
+
+    //items
+    public AudioClip pickUpSfx;
+
+    //Powerups
+    [SerializeField] AudioClip freezeEnergySfx;
+
     public static Movement Instance;
 
     private void Awake()
@@ -42,6 +56,7 @@ public class Movement : MonoBehaviour
         Instance = this;
 
         rb = GetComponent<Rigidbody>();
+
     }
     private void Start()
     {
@@ -49,8 +64,9 @@ public class Movement : MonoBehaviour
         Cursor.visible = false;
         currentEnergy = maxEnergy;
         detractEnergy = moveEnergy;
-
-        //all'inizio la camera è puntata davanti al player
+        StartCoroutine(PlayFootsteps());
+        StartCoroutine(PlayRun());
+        //all'inizio la camera ï¿½ puntata davanti al player
         cameraPitch = 0f;
         playerCamera.localRotation = Quaternion.Euler(0f, 0f, 0f);
     }
@@ -92,7 +108,7 @@ public class Movement : MonoBehaviour
         {
             detractEnergy = moveEnergy;
         }
-        //Movement velocity calculator (la aggiorni in Update perché deve tornare alla normalità una volta che non si preme lo sprint)
+        //Movement velocity calculator (la aggiorni in Update perchï¿½ deve tornare alla normalitï¿½ una volta che non si preme lo sprint)
         Vector3 targetVelocity = Time.fixedDeltaTime * currentSpeed * Direction;
         rb.linearVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
     }
@@ -117,20 +133,27 @@ public class Movement : MonoBehaviour
         Direction = transform.TransformDirection(localDirection); //permette al Player di seguire la Camera
 
         Direction.Normalize();
-        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && !freezed)
+        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && currentEnergy > 0 && !freezed)
         {
             currentEnergy -= detractEnergy;
+        }
+
+        if (currentEnergy <= 0)
+        {
+            OnGameOver?.Invoke();
         }
     }
     private void OnTriggerEnter(Collider other)
     {
+        AudioManager.instance.PlaySfx(pickUpSfx);
+
         CollObj = other.gameObject;
 
         //se abbiamo pigliato una caramella poteri
         if (CollObj.CompareTag("PowerCandy"))
         {
             GameObject candy = other.gameObject;
-            GameObject spawner = candy.transform.parent.gameObject; // il parent è lo spawner
+            GameObject spawner = candy.transform.parent.gameObject; // il parent ï¿½ lo spawner
 
             // la prendiamo, aggiorniamo l'inventario, e la distruggiamo
             PowerCandyManager.Instance.AddCandy(1);
@@ -147,7 +170,7 @@ public class Movement : MonoBehaviour
         else if (CollObj.CompareTag("LifeCandy"))
         {
             GameObject candy = other.gameObject;
-            GameObject spawner = candy.transform.parent.gameObject; // il parent è lo spawner
+            GameObject spawner = candy.transform.parent.gameObject; // il parent ï¿½ lo spawner
 
             // la prendiamo, aggiorniamo la stamina, e la distruggiamo
             currentEnergy += addEnergy;
@@ -172,15 +195,38 @@ public class Movement : MonoBehaviour
 
     public void FreezeEnergy()
     {
-        if (!freezed && PowerCandyManager.Instance.currentCandies > 0)
+        if (!freezed && PowerCandyManager.Instance.currentCandies > 0 && Time.timeScale > 0)
         {
             freezed = true;
+            AudioManager.instance.PlaySfx(freezeEnergySfx);
             freezeTimer = 0;
             PowerCandyManager.Instance.RemoveCandy(1);
         }
     }
+    IEnumerator PlayFootsteps()
+    {
+        while (true)
+        {
+            if (Direction.magnitude > 0.1f && !Input.GetKey(KeyCode.LeftShift))
+            {
+                AudioManager.instance.PlaySfx(footStepsSfx);
+            }
+            yield return new WaitForSeconds(0.6f);
+        }
+    }
+    IEnumerator PlayRun()
+    {
+        while (true)
+        {
+            if (Direction.magnitude > 0.1f && Input.GetKey(KeyCode.LeftShift))
+            {
+                AudioManager.instance.PlaySfx(runnningStepsSfx);
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
 
-    // scusa loris te lo commento perchè devo fare tutto da OnTriggerEnter :p
+    // scusa loris te lo commento perchï¿½ devo fare tutto da OnTriggerEnter :p
 
     //private void TakeCandy(int candies)
     //{

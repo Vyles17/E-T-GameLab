@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyThief : EnemyMovement
@@ -50,11 +51,11 @@ public class EnemyThief : EnemyMovement
         }
 
         //sennò gli arruba le caramelle come a un bebè
-        else
+        else if (PowerCandyManager.Instance.currentCandies > 0)
         {
             //metodo per rubargli una caramella e aggiornare la UI
             PowerCandyManager.Instance.RemoveCandy(stuff);
-
+            PowerCandyManager.Instance.RemoveSFX();
             isRobbed = true;
         }
     }

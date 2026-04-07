@@ -13,6 +13,9 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
     private float teleTimer;
     [SerializeField] float transitionDuration;
 
+    //Sound
+    [SerializeField] AudioClip telekinesisSfx;
+
     //prefabs da spawnare
     [SerializeField] GameObject antennaPiecePrefab1, antennaPiecePrefab2, antennaPiecePrefab3, antennaPiecePrefab4, antennaPiecePrefab5;
     [SerializeField] GameObject powerCandyPrefab;
@@ -57,8 +60,9 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
     //}
     public void OnPointerClick(PointerEventData eventData)
     {
+        
         //se il tag non è Interactable, ritorno
-        if (!transform.CompareTag("Interactable")) return;
+        if (!transform.CompareTag("Interactable") && Time.timeScale > 0) return;
 
         //setto il tag "Untagged" e lo segno come JustEmptied
         transform.tag = "Untagged";
@@ -76,7 +80,15 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
         //scaliamo l'energia
         if (!interacted)
         {
+
             interacted = true;
+
+            //faccio partire il suono della telecinesi
+            AudioManager.instance.PlaySfx(telekinesisSfx);
+
+
+            //usciamo dalla modalità ET
+            GameManager.Instance.ExitETMode();
 
             if (!Movement.Instance.freezed)
             {
@@ -215,6 +227,7 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
             }
             Destroy(spawnedObject);
         }
+        AudioManager.instance.PlaySfx(Movement.Instance.pickUpSfx);
 
         // l'oggetto interagito aspetta un secondo
         yield return new WaitForSeconds(1f);

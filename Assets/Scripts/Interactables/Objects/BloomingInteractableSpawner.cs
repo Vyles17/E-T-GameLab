@@ -25,6 +25,9 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
     private float teleTimer;
     [SerializeField] float transitionDuration;
 
+    //Sound
+    [SerializeField] AudioClip telekinesisSfx;
+
     public bool interacted;
 
     void Start()
@@ -37,7 +40,7 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         //se il tag non è Interactable, ritorno
-        if (!transform.CompareTag("Interactable")) return;
+        if (!transform.CompareTag("Interactable") && Time.timeScale > 0) return;
 
         //appena clicco, il cespuglio cambia mesh in un cespuglio fiorito
         meshFilter.mesh = bloomedBush;
@@ -60,6 +63,11 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
         {
             interacted = true;
 
+            //faccio partire il suono della telecinesi
+            AudioManager.instance.PlaySfx(telekinesisSfx);
+
+            //usciamo dalla modalità ET
+            GameManager.Instance.ExitETMode();
             if (!Movement.Instance.freezed)
             {
                 Debug.Log("Initial Energy:" + Movement.Instance.currentEnergy);
@@ -197,11 +205,13 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
 
             Destroy(spawnedObject);
         }
+        AudioManager.instance.PlaySfx(Movement.Instance.pickUpSfx);
 
         // ripristiniamo la mesh originale
         meshFilter.mesh = bush;
 
         //e disattiviamo l'effetto glow
         transform.GetChild(0).gameObject.SetActive(false);
+        interacted = false;
     }
 }

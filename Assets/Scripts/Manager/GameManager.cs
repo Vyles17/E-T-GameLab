@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
 
     //Singleton del GM
     public static GameManager Instance;
-
     //bools per gli stati di gioco
     [HideInInspector] public bool isPaused = false;
     [HideInInspector] public bool isETing = false;
@@ -358,10 +357,14 @@ public class GameManager : MonoBehaviour
         SetGameStatus(GameStatus.Paused);
     }
 
+    public void Reload()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     //metodo per uscire dal gioco
     public void QuitGame()
     {
-        Debug.Log("Sei uscito :D");
         Application.Quit();
     }
 }
