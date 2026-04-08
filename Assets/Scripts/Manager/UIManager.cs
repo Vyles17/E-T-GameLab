@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text powerCandyCounter;
     public RectTransform handET;
     public RectTransform powerHandET;
+    public GameObject inGameUI, winText;
 
     //per il lerp della mano
     private Vector2 handStartPos;

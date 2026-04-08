@@ -35,7 +35,7 @@ public class Movement : MonoBehaviour
 
     [Header("Sounds")]
     //moving
-    [SerializeField] AudioClip footStepsSfx;
+    public AudioClip footStepsSfx;
     [SerializeField] AudioClip runnningStepsSfx;
 
     //items
@@ -207,7 +207,7 @@ public class Movement : MonoBehaviour
     {
         while (true)
         {
-            if (Direction.magnitude > 0.1f && !Input.GetKey(KeyCode.LeftShift))
+            if (Direction.magnitude > 0.1f && !Input.GetKey(KeyCode.LeftShift) && currentEnergy > 0)
             {
                 AudioManager.instance.PlaySfx(footStepsSfx);
             }
@@ -218,7 +218,7 @@ public class Movement : MonoBehaviour
     {
         while (true)
         {
-            if (Direction.magnitude > 0.1f && Input.GetKey(KeyCode.LeftShift))
+            if (Direction.magnitude > 0.1f && Input.GetKey(KeyCode.LeftShift) && currentEnergy > 0)
             {
                 AudioManager.instance.PlaySfx(runnningStepsSfx);
             }
