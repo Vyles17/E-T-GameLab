@@ -48,13 +48,19 @@ MonoBehaviour:
   isETing: 0
   isGameOver: 0
   isWinning: 0
+  backgroundMusic: {fileID: 8300000, guid: 239d0793d56d51349a218149e2764dfc, type: 3}
+  musicDuration: 28
   powersLight: {fileID: 0}
   normalHand: {fileID: 0}
   powersHand: {fileID: 0}
+  enemyInteractionDistance: 15
+  objectInteractionDistance: 5
+  signalSfx: {fileID: 8300000, guid: 393bd6285ea68c34f92489c423f8956f, type: 3}
   enemies: {fileID: 0}
   assembledAntenna: {fileID: 0}
   winSpot: {fileID: 0}
-  GameOverSfx: {fileID: 0}
+  GameOverSfx: {fileID: 8300000, guid: d28d045943b7cc04abf560a159ed15ad, type: 3}
+  clickSfx: {fileID: 8300000, guid: 8aff5c74c65e38241be9899d77435147, type: 3}
 --- !u!1 &2323367817949717081
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +355,8 @@ MonoBehaviour:
   powerCandyCounter: {fileID: 0}
   handET: {fileID: 0}
   powerHandET: {fileID: 0}
+  inGameUI: {fileID: 0}
+  winText: {fileID: 0}
 --- !u!1 &8631545171121270750
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,7 +403,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PowerCandyManager
   candiesMaxCapacity: 5
   currentCandies: 0
-  stealSfx: {fileID: 8300000, guid: 33fb27a417951f747b07a6889a00243a, type: 3}
 --- !u!1 &8998334588255933509
 GameObject:
   m_ObjectHideFlags: 0
