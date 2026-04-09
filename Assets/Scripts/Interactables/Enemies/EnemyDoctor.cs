@@ -42,7 +42,8 @@ public class EnemyDoctor : EnemyMovement
 
     void CageET()
     {
-        AudioManager.instance.PlaySfx(cageSfx);
+        if(AntennaManager.Instance.antennaPiecesFound != AntennaManager.Instance.antennaPieces)
+            AudioManager.instance.PlaySfx(cageSfx);
 
         //gettiamo la posizione della gabbia, ma manteniamo la y del player
         Vector3 cagedETposition = new(cage.position.x, targetPlayer.position.y, cage.position.z);

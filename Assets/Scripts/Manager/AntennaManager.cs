@@ -53,6 +53,7 @@ public class AntennaManager : MonoBehaviour
         {
             //togliamo un pezzo di antenna dal counter
             antennaPiecesFound -= antennaPart;
+
             AudioManager.instance.PlaySfx(stealSfx);
 
             OnAntennaChange?.Invoke(); //iscritto all'evento per la UI

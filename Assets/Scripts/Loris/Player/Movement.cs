@@ -207,7 +207,7 @@ public class Movement : MonoBehaviour
     {
         while (true)
         {
-            if (Direction.magnitude > 0.1f && !Input.GetKey(KeyCode.LeftShift) && currentEnergy > 0)
+            if (Direction.magnitude > 0.1f && !Input.GetKey(KeyCode.LeftShift) && currentEnergy > 0 && AntennaManager.Instance.antennaPiecesFound != AntennaManager.Instance.antennaPieces)
             {
                 AudioManager.instance.PlaySfx(footStepsSfx);
             }
@@ -218,7 +218,7 @@ public class Movement : MonoBehaviour
     {
         while (true)
         {
-            if (Direction.magnitude > 0.1f && Input.GetKey(KeyCode.LeftShift) && currentEnergy > 0)
+            if (Direction.magnitude > 0.1f && Input.GetKey(KeyCode.LeftShift) && currentEnergy > 0 && AntennaManager.Instance.antennaPiecesFound != AntennaManager.Instance.antennaPieces)
             {
                 AudioManager.instance.PlaySfx(runnningStepsSfx);
             }

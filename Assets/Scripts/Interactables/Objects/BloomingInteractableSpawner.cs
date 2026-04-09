@@ -27,6 +27,8 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
 
     //Sound
     [SerializeField] AudioClip telekinesisSfx;
+    [SerializeField] AudioClip antennaSfx;
+
 
     public bool interacted;
 
@@ -183,6 +185,9 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
         //se l'oggetto è un pezzo di antenna
         if (spawnedObject.CompareTag("AntennaPiece"))
         {
+            //faccio partire l'SFX
+            AudioManager.instance.PlaySfx(antennaSfx);
+
             // la prendiamo, aggiorniamo l'inventario
             AntennaManager.Instance.AddAntennaPiece(1);
 

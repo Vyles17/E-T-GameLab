@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     private InputMap inputMap;
 
     //variabili per la win condition
+    [SerializeField] AudioClip signalSfx;
     [SerializeField] GameObject enemies, assembledAntenna, winSpot;
     private float timerDuration = 2.5f;
 
@@ -436,7 +437,8 @@ public class GameManager : MonoBehaviour
         assembledAntenna.SetActive(true);
         enemies.SetActive(false);
 
-        //LORIS FAI PARTIRE QUI IL SEGNALE DELL'ANTENNA BEEP BEEP
+        //faccio partire l'SFX
+        AudioManager.instance.PlaySfx(signalSfx);
 
         //quindi la schermata torna trasparente
         time = 0f;
