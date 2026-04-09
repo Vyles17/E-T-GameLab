@@ -2037,7 +2037,7 @@ PrefabInstance:
       objectReference: {fileID: 1609067053}
     - target: {fileID: 5760221724168008472, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: antennaPiecesFound
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6970693790262426979, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: handET
@@ -2165,11 +2165,7 @@ PrefabInstance:
       objectReference: {fileID: 821142354}
     - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: gameOverJDuration
-      value: 19
-      objectReference: {fileID: 0}
-    - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
-      propertyPath: objectInteractionDistance
-      value: 7
+      value: 19.5
       objectReference: {fileID: 0}
     - target: {fileID: 8245105017674058543, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4525,7 +4521,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: moveEnergy
-      value: 0.02
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: sprintEnergy

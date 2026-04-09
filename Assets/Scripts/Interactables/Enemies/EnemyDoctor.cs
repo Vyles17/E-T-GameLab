@@ -20,7 +20,7 @@ public class EnemyDoctor : EnemyMovement
             base.Update();
 
             //se raggiunge il player
-            if (!enemyAgent.pathPending && enemyAgent.remainingDistance <= enemyAgent.stoppingDistance)
+            if (!enemyAgent.pathPending && enemyAgent.remainingDistance <= enemyAgent.stoppingDistance && !stunned)
             {
                 //porta il player nella gabbia
                 CageET();

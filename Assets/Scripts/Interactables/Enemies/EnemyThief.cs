@@ -21,7 +21,7 @@ public class EnemyThief : EnemyMovement
             base.Update();
 
             //se raggiunge il player
-            if (!enemyAgent.pathPending && enemyAgent.remainingDistance <= enemyAgent.stoppingDistance)
+            if (!enemyAgent.pathPending && enemyAgent.remainingDistance <= enemyAgent.stoppingDistance && !stunned)
             {
                 //arruba i possedimenti
                 RobET(stuffToSteal);

@@ -1,7 +1,6 @@
 
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -28,6 +27,9 @@ public class GameManager : MonoBehaviour
     //Musics (menu e level)
     [SerializeField] AudioClip backgroundMusic;
     [SerializeField] float musicDuration;
+    [SerializeField] float gameOverJDuration;
+    [SerializeField] float winJDuration;
+    [SerializeField] bool isPlaying = false;
 
     //oggetti da attivare quando siamo in mod ET
     GameObject[] interactables => GameObject.FindGameObjectsWithTag("Interactable");
@@ -41,12 +43,12 @@ public class GameManager : MonoBehaviour
     private InputMap inputMap;
 
     //variabili per la win condition
-    [SerializeField] AudioClip signalSfx;
+    [SerializeField] AudioClip signalSfx, WinJingle;
     [SerializeField] GameObject enemies, assembledAntenna, winSpot;
     private float timerDuration = 2.5f;
 
     //GameOver
-    [SerializeField] AudioClip GameOverSfx;
+    [SerializeField] AudioClip GameOverSfx, GameoverJingle;
     bool played = false;
 
     //BTN sfx
@@ -389,6 +391,8 @@ public class GameManager : MonoBehaviour
         enemies.SetActive(false);
         UIManager.Instance.inGameUI.SetActive(false);
 
+        StartCoroutine(GameOverJingles());
+
         //Attivo il panel in UI del Game Over
         UIManager.Instance.gameOverPanel.SetActive(true);
 
@@ -405,11 +409,9 @@ public class GameManager : MonoBehaviour
 
             yield return null;
         }
-
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         UIManager.Instance.blackPanel.SetActive(false);
-
-        //settiamo la TimeScale in 0
-        SetGameStatus(GameStatus.Paused);
     }
 
     IEnumerator WinningSequence()
@@ -505,14 +507,17 @@ public class GameManager : MonoBehaviour
         }
 
         UIManager.Instance.blackPanel.SetActive(false);
+        //aggiungi qua il jingle (forse)
+        StartCoroutine(WinJingles());
 
         //aspetto che trascorra l'animazione
         yield return new WaitForSeconds(5f);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         //attivo il testo della schermata finale
         UIManager.Instance.winText.SetActive(true);
-
-        //settiamo la TimeScale in 0
-        SetGameStatus(GameStatus.Paused);
     }
     IEnumerator bgMusic()
     {
@@ -520,8 +525,8 @@ public class GameManager : MonoBehaviour
         {
             if (!isPaused)
             {
-                MusicManager.instance.PlaySfx(backgroundMusic);
-                if (AntennaManager.Instance.antennaPiecesFound == AntennaManager.Instance.antennaPieces && Movement.Instance.currentEnergy <= 0)
+                MusicManager.instance.PlayBg(backgroundMusic);
+                if (isWinning || isGameOver)
                 {
                     Destroy(MusicManager.instance.audioSource);
                 }
@@ -529,6 +534,28 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(musicDuration);
         }
     }
+
+    IEnumerator GameOverJingles()
+    {
+        while (!isPlaying)
+        {
+            isPlaying = true;
+            MusicManager.instance.PlayFinal(GameoverJingle);
+            yield return new WaitForSeconds(gameOverJDuration);
+            isPlaying = false;
+        }
+    }
+    IEnumerator WinJingles()
+    {
+        while (!isPlaying)
+        {
+            isPlaying = true;
+            MusicManager.instance.PlayFinal(WinJingle);
+            yield return new WaitForSeconds(winJDuration);
+            isPlaying = false;
+        }
+    }
+
     public void ClickSfx()
     {
         //faccio partire l'SFX

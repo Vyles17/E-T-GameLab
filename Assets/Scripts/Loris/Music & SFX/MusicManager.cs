@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class MusicManager : MonoBehaviour
 {
@@ -15,12 +16,16 @@ public class MusicManager : MonoBehaviour
         instance = this;
     }
 
-    public void PlaySfx(AudioClip audioClip, float volume = 1f)
+    public void PlayBg(AudioClip audioClip, float volume = 1f)
     {
-        StartCoroutine(playSFX(audioClip, volume));
+        StartCoroutine(PlayBgMusic(audioClip, volume));
     }
 
-    IEnumerator playSFX(AudioClip audioClip, float volume = 1f)
+    public void PlayFinal(AudioClip audioClip, float volume = 1f)
+    {
+        StartCoroutine(PlayWinOrGO(audioClip, volume));
+    }
+    IEnumerator PlayBgMusic(AudioClip audioClip, float volume = 1f)
     {
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = audioClip;
@@ -34,5 +39,15 @@ public class MusicManager : MonoBehaviour
         yield return new WaitForSeconds(audioSource.clip.length);
 
         Destroy(audioSource);
+    }
+    IEnumerator PlayWinOrGO(AudioClip audioClip, float volume = 1f)
+    {
+        AudioSource AS = gameObject.AddComponent<AudioSource>();
+        AS.clip = audioClip;
+        AS.volume = volume;
+        AS.Play();
+        yield return new WaitForSeconds(AS.clip.length);
+
+        Destroy(AS);
     }
 }
