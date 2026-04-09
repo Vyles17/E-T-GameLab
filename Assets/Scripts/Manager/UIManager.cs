@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     //gli oggetti UI in HUD
     [SerializeField] Image staminaFill;
     [SerializeField] Image freezedStaminaFill;
+    public GameObject staminaOutline;
     private Sprite defaultStaminaSprite;
     public Image staminaIconTimer;
     [SerializeField] GameObject antennaPiece1, antennaPiece2, antennaPiece3, antennaPiece4, antennaPiece5;

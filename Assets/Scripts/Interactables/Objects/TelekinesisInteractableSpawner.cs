@@ -232,8 +232,10 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
             {
                 Movement.Instance.currentEnergy = Movement.Instance.maxEnergy;
             }
+
             Destroy(spawnedObject);
         }
+
         AudioManager.instance.PlaySfx(Movement.Instance.pickUpSfx);
 
         // l'oggetto interagito aspetta un secondo

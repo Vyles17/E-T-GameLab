@@ -224,7 +224,7 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
 
         //e disattiviamo l'effetto glow
         transform.GetChild(0).gameObject.SetActive(false);
-        transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(false);
 
         interacted = false;
     }

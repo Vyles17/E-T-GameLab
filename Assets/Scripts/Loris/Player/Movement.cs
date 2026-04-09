@@ -86,6 +86,8 @@ public class Movement : MonoBehaviour
                 {
                     freezed = false;
                 }
+
+                UIManager.Instance.staminaOutline.SetActive(false);
             }
         }
 
