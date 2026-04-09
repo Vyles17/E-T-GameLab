@@ -43,8 +43,8 @@ public class GameManager : MonoBehaviour
     private InputMap inputMap;
 
     //variabili per la win condition
-    [SerializeField] AudioClip signalSfx, WinJingle;
     [SerializeField] GameObject enemies, assembledAntenna, winSpot;
+    [SerializeField] AudioClip signalSfx,winSfx, WinJingle;
     private float timerDuration = 2.5f;
 
     //GameOver
@@ -420,6 +420,7 @@ public class GameManager : MonoBehaviour
 
         //(Loris non so se vuoi metterci un mini jingle qua ?)
         yield return new WaitForSeconds(3f);
+        AudioManager.instance.PlaySfx(winSfx);
 
         //passati i 3 secondi, parte l'animazione della schermata che diventa nera
         UIManager.Instance.blackPanel.SetActive(true);

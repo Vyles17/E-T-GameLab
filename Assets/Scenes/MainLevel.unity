@@ -2124,6 +2124,10 @@ PrefabInstance:
       value: Manager
       objectReference: {fileID: 0}
     - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
+      propertyPath: winSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 81eea9c7b9a5112488c8c535c75ed41b, type: 3}
+    - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: enemies
       value: 
       objectReference: {fileID: 1933645909}
