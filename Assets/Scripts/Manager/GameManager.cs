@@ -1,5 +1,7 @@
+
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -46,7 +48,7 @@ public class GameManager : MonoBehaviour
     //GameOver
     [SerializeField] AudioClip GameOverSfx;
     bool played = false;
-    
+
     //BTN sfx
     [SerializeField] AudioClip clickSfx;
     private void Awake()
@@ -288,6 +290,7 @@ public class GameManager : MonoBehaviour
 
     public void Win()
     {
+        Destroy(MusicManager.instance.audioSource);
         //settiamo la variabile
         isWinning = true;
 
@@ -319,6 +322,8 @@ public class GameManager : MonoBehaviour
     //metodo per il Game Over
     public void GameOver()
     {
+        Destroy(MusicManager.instance.audioSource);
+
         if (isETing)
         {
             ExitETMode();
@@ -516,6 +521,10 @@ public class GameManager : MonoBehaviour
             if (!isPaused)
             {
                 MusicManager.instance.PlaySfx(backgroundMusic);
+                if (AntennaManager.Instance.antennaPiecesFound == AntennaManager.Instance.antennaPieces && Movement.Instance.currentEnergy <= 0)
+                {
+                    Destroy(MusicManager.instance.audioSource);
+                }
             }
             yield return new WaitForSeconds(musicDuration);
         }
@@ -537,3 +546,5 @@ public class GameManager : MonoBehaviour
         Debug.Log("Sei uscito! :D");
     }
 }
+
+
