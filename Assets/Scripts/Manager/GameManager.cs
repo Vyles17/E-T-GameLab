@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool isGameOver = false;
     [HideInInspector] public bool isWinning = false;
 
+    //Musics (menu e level)
+    [SerializeField] AudioClip backgroundMusic;
+    [SerializeField] float musicDuration;
+
     //oggetti da attivare quando siamo in mod ET
     GameObject[] interactables => GameObject.FindGameObjectsWithTag("Interactable");
     public GameObject powersLight;
@@ -73,6 +77,8 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        StartCoroutine(bgMusic());
+
         //se siamo nella prima schermata main, non possiamo mettere in pausa
         Scene mainMenu = SceneManager.GetSceneByBuildIndex(0);
         Scene mainLevel = SceneManager.GetSceneByBuildIndex(1);
@@ -503,7 +509,17 @@ public class GameManager : MonoBehaviour
         //settiamo la TimeScale in 0
         SetGameStatus(GameStatus.Paused);
     }
-
+    IEnumerator bgMusic()
+    {
+        while (true)
+        {
+            if (!isPaused)
+            {
+                MusicManager.instance.PlaySfx(backgroundMusic);
+            }
+            yield return new WaitForSeconds(musicDuration);
+        }
+    }
     public void ClickSfx()
     {
         //faccio partire l'SFX
