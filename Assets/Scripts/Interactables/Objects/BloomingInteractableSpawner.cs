@@ -42,6 +42,18 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
         //se il tag non è Interactable, ritorno
         if (!transform.CompareTag("Interactable") && Time.timeScale > 0) return;
 
+        //calcolo se il player è abbastanza vicino per interagire con l'oggetto
+        float dist = Vector3.Distance(transform.position, Movement.Instance.transform.position);
+
+        if (dist > GameManager.Instance.objectInteractionDistance)
+        {
+            Debug.Log("Troppo lontano per interagire");
+            return;
+        }
+
+        //se il tag non è Interactable, ritorno
+        if (!transform.CompareTag("Interactable") && Time.timeScale > 0) return;
+
         //appena clicco, il cespuglio cambia mesh in un cespuglio fiorito
         meshFilter.mesh = bloomedBush;
 
@@ -212,6 +224,8 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
 
         //e disattiviamo l'effetto glow
         transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
+
         interacted = false;
     }
 }

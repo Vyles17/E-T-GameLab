@@ -1,4 +1,3 @@
-using NUnit.Framework.Internal;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -64,6 +63,15 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
         //se il tag non è Interactable, ritorno
         if (!transform.CompareTag("Interactable") && Time.timeScale > 0) return;
 
+        //calcolo se il player è abbastanza vicino per interagire con l'oggetto
+        float dist = Vector3.Distance(transform.position, Movement.Instance.transform.position);
+
+        if (dist > GameManager.Instance.objectInteractionDistance)
+        {
+            Debug.Log("Troppo lontano per interagire");
+            return;
+        }
+
         //setto il tag "Untagged" e lo segno come JustEmptied
         transform.tag = "Untagged";
         justEmptiedInteractable = true;
@@ -80,7 +88,6 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
         //scaliamo l'energia
         if (!interacted)
         {
-
             interacted = true;
 
             //faccio partire il suono della telecinesi
@@ -90,7 +97,7 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
             //usciamo dalla modalità ET
             GameManager.Instance.ExitETMode();
 
-            if (!Movement.Instance.freezed)
+            if (!Movement.Instance.freezed || !GameManager.Instance.isWinning)
             {
                 Debug.Log("Initial Energy:" + Movement.Instance.currentEnergy);
                 Movement.Instance.currentEnergy -= Movement.Instance.telekinesisEnergy;
@@ -237,6 +244,7 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
 
         //e disattiviamo l'effetto glow
         transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(false);
 
         interacted = false;
     }

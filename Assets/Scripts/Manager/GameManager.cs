@@ -24,8 +24,12 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool isWinning = false;
 
     //oggetti da attivare quando siamo in mod ET
+    GameObject[] interactables => GameObject.FindGameObjectsWithTag("Interactable");
     public GameObject powersLight;
     public GameObject normalHand, powersHand;
+    //distanza a cui vogliamo rendere interagibile gli oggetti
+    public float enemyInteractionDistance = 15f;
+    public float objectInteractionDistance = 5f;
 
     //Input map per gestire i comandi per la UI
     private InputMap inputMap;
@@ -76,6 +80,56 @@ public class GameManager : MonoBehaviour
 
         else if (currentScene == mainLevel)
             SetGameStatus(GameStatus.Running);
+    }
+
+    private void Update()
+    {
+        if (isETing)
+        {
+            foreach (GameObject interactable in interactables)
+            {
+                //calcolo se il player è abbastanza vicino per interagire con l'oggetto
+                float dist = Vector3.Distance(interactable.transform.position, Movement.Instance.transform.position);
+
+
+                //se lo è (in base al tipo di oggetto) attivo il figlio col componente del particle system
+                if (interactable.TryGetComponent<EnemyMovement>(out var enemy))
+                {
+                    if (dist < enemyInteractionDistance)
+                    {
+                        interactable.transform.GetChild(1).gameObject.SetActive(true);
+                    }
+                    else if (dist > enemyInteractionDistance)
+                    {
+                        interactable.transform.GetChild(1).gameObject.SetActive(false);
+                    }
+                }
+
+                else if (interactable.TryGetComponent<TelekinesisInteractableSpawner>(out var obj))
+                {
+                    if (dist < objectInteractionDistance)
+                    {
+                        interactable.transform.GetChild(1).gameObject.SetActive(true);
+                    }
+                    else if (dist > objectInteractionDistance)
+                    {
+                        interactable.transform.GetChild(1).gameObject.SetActive(false);
+                    }
+                }
+
+                else if (interactable.TryGetComponent<BloomingInteractableSpawner>(out var obj2))
+                {
+                    if (dist < objectInteractionDistance)
+                    {
+                        interactable.transform.GetChild(1).gameObject.SetActive(true);
+                    }
+                    else if (dist > objectInteractionDistance)
+                    {
+                        interactable.transform.GetChild(1).gameObject.SetActive(false);
+                    }
+                }
+            }
+        }
     }
     public void SetGameStatus(GameStatus status)
     {
@@ -133,11 +187,11 @@ public class GameManager : MonoBehaviour
 
     public void ETMode(InputAction.CallbackContext context)
     {
-        // se abbiamo perso o abbiamo vinto, non possiamo mettere in pausa
+        // se abbiamo perso o abbiamo vinto, non possiamo mettere in mod poteri
         if (isGameOver || isWinning)
             return;
 
-        //se siamo nella prima schermata main, non possiamo mettere in pausa
+        //se siamo nella prima schermata main, non possiamo mettere in mod poteri
         Scene mainMenu = SceneManager.GetSceneByBuildIndex(0);
         Scene currentScene = SceneManager.GetActiveScene();
 
@@ -157,12 +211,9 @@ public class GameManager : MonoBehaviour
                 normalHand.SetActive(false);
                 powersHand.SetActive(true);
 
-                //prendiamo tutti gli oggetti in scena che hanno il tag Interactable
-                GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
-
                 foreach (GameObject interactable in interactables)
                 {
-                    //e ne attiviamo i figli
+                    //e ne attiviamo il figlio powermode
                     foreach (Transform child in interactable.transform)
                     {
                         interactable.transform.GetChild(0).gameObject.SetActive(true);
@@ -177,15 +228,16 @@ public class GameManager : MonoBehaviour
                 normalHand.SetActive(true);
                 powersHand.SetActive(false);
 
-                //prendiamo tutti gli oggetti in scena che hanno il tag Interactable
-                GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
-
                 foreach (GameObject interactable in interactables)
                 {
-                    //e ne disattiviamo i figli  (che è l'oggetto "powerMode")
+                    //e ne disattiviamo i figli  (che è l'oggetto "powerMode" e l'oggetto "nearDistance Power Mode")
                     foreach (Transform child in interactable.transform)
                     {
                         interactable.transform.GetChild(0).gameObject.SetActive(false);
+                        if (interactable.transform.childCount > 1)
+                        {
+                            interactable.transform.GetChild(1).gameObject.SetActive(false);
+                        }
                     }
                 }
             }
@@ -210,15 +262,16 @@ public class GameManager : MonoBehaviour
             normalHand.SetActive(true);
             powersHand.SetActive(false);
 
-            //prendiamo tutti gli oggetti in scena che hanno il tag Interactable
-            GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
-
             foreach (GameObject interactable in interactables)
             {
-                //e ne disattiviamo i figli (che è l'oggetto "powerMode")
+                //e ne disattiviamo i figli (che è l'oggetto "powerMode" e l'oggetto "nearDistance Power Mode")
                 foreach (Transform child in interactable.transform)
                 {
                     interactable.transform.GetChild(0).gameObject.SetActive(false);
+                    if (interactable.transform.childCount > 1)
+                    {
+                        interactable.transform.GetChild(1).gameObject.SetActive(false);
+                    }
                 }
             }
         }

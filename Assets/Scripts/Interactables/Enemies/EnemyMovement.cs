@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
-using UnityEngine.Rendering;
 
 public class EnemyMovement : MonoBehaviour, IPointerClickHandler
 {
@@ -32,6 +30,7 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
     public bool stunned = false;
     [SerializeField] float stunTime;
     private float stunTimer;
+  
 
     //Sound
     [SerializeField] AudioClip stunSfx;
@@ -51,9 +50,11 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
     protected virtual void Update()
     {
         audioSource.clip = walkingSfx;
+
         if (!stunned && Time.timeScale == 1)
         {
             HandleWalkingAudio();
+
             //se il player finisce nel raggio dell'enemy (e non è già in gabbia/ha caramelle)
             if (Physics.OverlapSphere(transform.position, triggerRadius, playerLayermask).Length > 0 && CanChasePlayer())
             {
@@ -66,6 +67,7 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
             {
                 SearchForET();
             }
+
             //lerp per l'animazione delle gambe del nemico
             legsTimer += Time.deltaTime;
             float anim = Mathf.PingPong(legsTimer / animDuration, 1f);
@@ -77,7 +79,7 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
 
         else
         {
-            // Se è stunnato o il gioco è in pausa, fermiamo l'audio
+            // Se è stunnato o il gioco è in pausa, fermiamo l'audio (e non cammina)
             if (audioSource.isPlaying) audioSource.Stop();
         }
     }
@@ -158,7 +160,16 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
 
     //Stun PowerUp
     public void OnPointerClick(PointerEventData eventData)
-    {
+    { 
+        //calcolo se il player è abbastanza vicino per interagire con l'oggetto
+        float dist = Vector3.Distance(transform.position, Movement.Instance.transform.position);
+
+        if (dist > GameManager.Instance.enemyInteractionDistance)
+        {
+            Debug.Log("Troppo lontano per interagire");
+            return;
+        }
+
         if (!stunned && Time.timeScale > 0)
         {
             //faccio partire il suono dello stun

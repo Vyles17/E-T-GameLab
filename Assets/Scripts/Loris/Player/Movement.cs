@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -203,6 +202,7 @@ public class Movement : MonoBehaviour
             PowerCandyManager.Instance.RemoveCandy(1);
         }
     }
+
     IEnumerator PlayFootsteps()
     {
         while (true)
