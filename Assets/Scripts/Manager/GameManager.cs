@@ -42,7 +42,9 @@ public class GameManager : MonoBehaviour
     //GameOver
     [SerializeField] AudioClip GameOverSfx;
     bool played = false;
-
+    
+    //BTN sfx
+    [SerializeField] AudioClip clickSfx;
     private void Awake()
     {
         if (Instance != null)
@@ -502,6 +504,11 @@ public class GameManager : MonoBehaviour
         SetGameStatus(GameStatus.Paused);
     }
 
+    public void ClickSfx()
+    {
+        //faccio partire l'SFX
+        AudioManager.instance.PlaySfx(clickSfx);
+    }
     public void Reload()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
