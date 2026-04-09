@@ -155,9 +155,12 @@ MonoBehaviour:
   powersLight: {fileID: 0}
   normalHand: {fileID: 0}
   powersHand: {fileID: 0}
+  enemyInteractionDistance: 15
+  objectInteractionDistance: 5
   enemies: {fileID: 0}
   assembledAntenna: {fileID: 0}
   winSpot: {fileID: 0}
+  GameOverSfx: {fileID: 0}
 --- !u!4 &190908775
 Transform:
   m_ObjectHideFlags: 0

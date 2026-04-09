@@ -8,13 +8,10 @@ public class EnemyDoctor : EnemyMovement
     private bool isCaged = false; //il bool per sapere se è in gabbia
     [SerializeField] AudioClip cageSfx;
 
-    private void Start()
-    {
-        isCaged = false; //di base,non è in gabbia quando il gioco comincia
-    }
+    
     protected override void Update()
     {
-        if (!isCaged)
+        if (!isCaged && !GameManager.Instance.isTutorial)
         {
             //esegue il comportamento base (movimento)
             base.Update();
@@ -40,7 +37,7 @@ public class EnemyDoctor : EnemyMovement
         }
     }
 
-    void CageET()
+    private void CageET()
     {
         AudioManager.instance.PlaySfx(cageSfx);
 

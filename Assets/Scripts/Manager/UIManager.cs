@@ -60,6 +60,7 @@ public class UIManager : MonoBehaviour
 
     public void Start()
     {
+        tutorialPanel.SetActive(true);
         pauseMenuUI1.SetActive(false);
         pauseMenuUI2.SetActive(false);
         pauseMenuUI3.SetActive(false);

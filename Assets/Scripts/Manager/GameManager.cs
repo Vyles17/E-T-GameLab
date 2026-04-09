@@ -8,7 +8,7 @@ public enum GameStatus
 {
     Running,
     Paused,
-    ETmode //status per quando stiamo usando i poteri
+    ETmode, //status per quando stiamo usando i poteri
 }
 
 public class GameManager : MonoBehaviour
@@ -17,11 +17,15 @@ public class GameManager : MonoBehaviour
 
     //Singleton del GM
     public static GameManager Instance;
+
     //bools per gli stati di gioco
     [HideInInspector] public bool isPaused = false;
     [HideInInspector] public bool isETing = false;
     [HideInInspector] public bool isGameOver = false;
     [HideInInspector] public bool isWinning = false;
+    [HideInInspector] public bool isTutorial = true;
+    public GameStatus status;
+
 
     //oggetti da attivare quando siamo in mod ET
     GameObject[] interactables => GameObject.FindGameObjectsWithTag("Interactable");
@@ -79,11 +83,17 @@ public class GameManager : MonoBehaviour
             Cursor.visible = true;
 
         else if (currentScene == mainLevel)
-            SetGameStatus(GameStatus.Running);
+        {
+            UIManager.Instance.tutorialPanel.SetActive(true);
+            isTutorial = true;
+        }
     }
 
     private void Update()
     {
+        if (isTutorial)
+            SetGameStatus(GameStatus.Paused);
+
         if (isETing)
         {
             foreach (GameObject interactable in interactables)
@@ -158,8 +168,8 @@ public class GameManager : MonoBehaviour
 
     public void Pause(InputAction.CallbackContext context)
     {
-        //se abbiamo perso o abbiamo vinto, non possiamo mettere in pausa
-        if (isGameOver || isWinning)
+        //abbiamo perso o abbiamo vinto, non possiamo mettere in pausa
+        if (isGameOver || isWinning || isTutorial)
             return;
 
         //se siamo nella prima schermata main, non possiamo mettere in pausa
@@ -187,8 +197,8 @@ public class GameManager : MonoBehaviour
 
     public void ETMode(InputAction.CallbackContext context)
     {
-        // se abbiamo perso o abbiamo vinto, non possiamo mettere in mod poteri
-        if (isGameOver || isWinning)
+        // siamo in pausa, abbiamo perso o abbiamo vinto, non possiamo mettere in mod poteri
+        if (isGameOver || isWinning || isPaused || isTutorial)
             return;
 
         //se siamo nella prima schermata main, non possiamo mettere in mod poteri
@@ -200,48 +210,52 @@ public class GameManager : MonoBehaviour
 
         isETing = !isETing;
 
-        //possiamo entrare in modalità ETing solo se non siamo in pausa
-        if (!isPaused)
-        {
-            //in base se siamo alla modalità poteri, possiamo usarli
-            if (isETing)
-            {
-                SetGameStatus(GameStatus.ETmode);
-                powersLight.SetActive(true);
-                normalHand.SetActive(false);
-                powersHand.SetActive(true);
 
-                foreach (GameObject interactable in interactables)
+        //in base se siamo alla modalità poteri, possiamo usarli
+        if (isETing)
+        {
+            SetGameStatus(GameStatus.ETmode);
+            powersLight.SetActive(true);
+            normalHand.SetActive(false);
+            powersHand.SetActive(true);
+
+            foreach (GameObject interactable in interactables)
+            {
+                //e ne attiviamo il figlio powermode
+                foreach (Transform child in interactable.transform)
                 {
-                    //e ne attiviamo il figlio powermode
-                    foreach (Transform child in interactable.transform)
-                    {
-                        interactable.transform.GetChild(0).gameObject.SetActive(true);
-                    }
+                    interactable.transform.GetChild(0).gameObject.SetActive(true);
                 }
             }
+        }
 
-            else
+        else
+        {
+            SetGameStatus(GameStatus.Running);
+            powersLight.SetActive(false);
+            normalHand.SetActive(true);
+            powersHand.SetActive(false);
+
+            foreach (GameObject interactable in interactables)
             {
-                SetGameStatus(GameStatus.Running);
-                powersLight.SetActive(false);
-                normalHand.SetActive(true);
-                powersHand.SetActive(false);
-
-                foreach (GameObject interactable in interactables)
+                //e ne disattiviamo i figli  (che è l'oggetto "powerMode" e l'oggetto "nearDistance Power Mode")
+                foreach (Transform child in interactable.transform)
                 {
-                    //e ne disattiviamo i figli  (che è l'oggetto "powerMode" e l'oggetto "nearDistance Power Mode")
-                    foreach (Transform child in interactable.transform)
+                    interactable.transform.GetChild(0).gameObject.SetActive(false);
+                    if (interactable.transform.childCount > 1)
                     {
-                        interactable.transform.GetChild(0).gameObject.SetActive(false);
-                        if (interactable.transform.childCount > 1)
-                        {
-                            interactable.transform.GetChild(1).gameObject.SetActive(false);
-                        }
+                        interactable.transform.GetChild(1).gameObject.SetActive(false);
                     }
                 }
             }
         }
+    }
+
+    public void GameRunning()
+    {
+        Debug.Log("premuto!");
+        isTutorial = false;
+        SetGameStatus (GameStatus.Running);
     }
 
     //mini metodo che mi serve per forzare l'uscita dalla modalità ET
