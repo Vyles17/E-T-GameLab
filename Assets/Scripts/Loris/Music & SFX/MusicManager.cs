@@ -47,7 +47,7 @@ public class MusicManager : MonoBehaviour
         AS.volume = volume;
         AS.Play();
         yield return new WaitForSeconds(AS.clip.length);
-
+        Debug.Log("yay");
         Destroy(AS);
     }
 }
