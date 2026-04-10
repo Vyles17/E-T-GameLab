@@ -5,6 +5,9 @@ public class EnemyThief : EnemyMovement
     public int stuffToSteal = 1; //roba che rubiamo al player
     private bool isRobbed;
 
+    //SFX
+    [SerializeField] AudioClip stealSfx;
+
     private void Start()
     {
         isRobbed = false;
@@ -18,7 +21,7 @@ public class EnemyThief : EnemyMovement
             base.Update();
 
             //se raggiunge il player
-            if (!enemyAgent.pathPending && enemyAgent.remainingDistance <= enemyAgent.stoppingDistance)
+            if (!enemyAgent.pathPending && enemyAgent.remainingDistance <= enemyAgent.stoppingDistance && !stunned)
             {
                 //arruba i possedimenti
                 RobET(stuffToSteal);
@@ -41,20 +44,19 @@ public class EnemyThief : EnemyMovement
     void RobET(int stuff)
     {
         //se il player ha dei pezzi dell'antenna
-        if (AntennaManager.Instance.antennaPiecesFound > 0)
+        if (AntennaManager.Instance.antennaPiecesFound > 0 && AntennaManager.Instance.antennaPiecesFound != AntennaManager.Instance.antennaPieces)
         {
             //sto ladro piezzemmerd gli ruba uno di quelli
             AntennaManager.Instance.RemoveAntennaPiece(stuff);
-
             isRobbed = true;
         }
 
         //sennò gli arruba le caramelle come a un bebè
-        else if (PowerCandyManager.Instance.currentCandies > 0)
+        else if (PowerCandyManager.Instance.currentCandies > 0 && AntennaManager.Instance.antennaPiecesFound != AntennaManager.Instance.antennaPieces)
         {
+            AudioManager.instance.PlaySfx(stealSfx);
             //metodo per rubargli una caramella e aggiornare la UI
             PowerCandyManager.Instance.RemoveCandy(stuff);
-            PowerCandyManager.Instance.RemoveSFX();
             isRobbed = true;
         }
     }

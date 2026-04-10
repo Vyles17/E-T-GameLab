@@ -119,7 +119,8 @@ MonoBehaviour:
   antennaPartChance: 35
   powerCandyChance: 15
   transitionDuration: 0
-  telekinesisSfx: {fileID: 8300000, guid: 5836146a9ad52fe4dada2765abf2d3dd, type: 3}
+  telekinesisSfx: {fileID: 8300000, guid: 8262a55659c69e140920c2922552491f, type: 3}
+  antennaSfx: {fileID: 8300000, guid: b192442f67406db43ac51437b6600d8e, type: 3}
   interacted: 0
 --- !u!65 &768832178731561044
 BoxCollider:
@@ -140,8 +141,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.7331619, y: 0.95710504, z: 1.9999924}
-  m_Center: {x: -0.06829947, y: -0.52785033, z: 0.0000008940697}
+  m_Size: {x: 1.8, y: 0.95710504, z: 2.1}
+  m_Center: {x: -0.043952584, y: -0.52785033, z: 0.0000009536743}
 --- !u!1 &4401358546644280199
 GameObject:
   m_ObjectHideFlags: 0
