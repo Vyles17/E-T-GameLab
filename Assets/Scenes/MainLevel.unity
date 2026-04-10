@@ -2410,6 +2410,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 315578125}
     - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
+      propertyPath: clickSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 503f6c8f6dd4a764a85a927e49e868df, type: 3}
+    - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: normalHand
       value: 
       objectReference: {fileID: 244016779}
@@ -2433,6 +2437,14 @@ PrefabInstance:
       propertyPath: assembledAntenna
       value: 
       objectReference: {fileID: 821142354}
+    - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
+      propertyPath: enemyInteractionDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
+      propertyPath: objectInteractionDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8245105017674058543, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.66138
@@ -4781,7 +4793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3654804704249711249, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -86.27
+      value: -120.61
       objectReference: {fileID: 0}
     - target: {fileID: 3654804704249711249, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4789,11 +4801,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3654804704249711249, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.783
+      value: 36.28
       objectReference: {fileID: 0}
     - target: {fileID: 3654804704249711249, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 0.7071062
       objectReference: {fileID: 0}
     - target: {fileID: 3654804704249711249, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: m_LocalRotation.x
@@ -4801,7 +4813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3654804704249711249, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0.7071075
       objectReference: {fileID: 0}
     - target: {fileID: 3654804704249711249, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: m_LocalRotation.z
@@ -4813,7 +4825,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3654804704249711249, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 90.0001
       objectReference: {fileID: 0}
     - target: {fileID: 3654804704249711249, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -4829,11 +4841,15 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: a44b9744a14fbe94abbaaa604e73228e, type: 3}
     - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: freezeTime
-      value: 7
+      value: 8.5
       objectReference: {fileID: 0}
     - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: moveEnergy
       value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
+      propertyPath: stunEnergy
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: footStepsSfx
@@ -4841,7 +4857,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: acf14770ee59395489b23712d8671795, type: 3}
     - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: sprintEnergy
-      value: 0.04
+      value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: freezeEnergySfx
@@ -4853,7 +4869,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 401a66bfdf800b24fa997a698271f7b2, type: 3}
     - target: {fileID: 6716237487088146548, guid: b1401a04edf609d48915999a32a2945c, type: 3}
       propertyPath: telekinesisEnergy
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
