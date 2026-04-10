@@ -26,6 +26,9 @@ public class AudioManager : MonoBehaviour
         audioSource.volume = volume;
         audioSource.Play();
 
+        if (GameManager.Instance.isPaused)
+            audioSource.Stop();
+
         yield return new WaitForSeconds(audioSource.clip.length);
 
         Destroy(audioSource);

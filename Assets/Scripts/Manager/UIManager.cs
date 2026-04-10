@@ -46,14 +46,11 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        //Movement.OnGameOver += GameOver;
         PowerCandyManager.Instance.OnCandiesChange += UpdateCandyCounter; //quando viene chiamato l'evento...
-        UpdateCandyCounter();  //...aggiorniamo il counter delle caramelle Poteri
         AntennaManager.Instance.OnAntennaChange += UpdateAntennaPieces;
     }
     private void OnDisable()
     {
-        //Movement.OnGameOver -= GameOver;
         PowerCandyManager.Instance.OnCandiesChange -= UpdateCandyCounter;
         AntennaManager.Instance.OnAntennaChange -= UpdateAntennaPieces;
     }
@@ -65,9 +62,6 @@ public class UIManager : MonoBehaviour
         pauseMenuUI2.SetActive(false);
         pauseMenuUI3.SetActive(false);
         blackPanel.SetActive(false);
-
-        //il counter di caramelle è a 0
-        powerCandyCounter.text = "x0";
 
         //il timer del freeze è a 0
         staminaIconTimer.fillAmount = 0;
@@ -89,6 +83,8 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        UpdateCandyCounter();
+
         //se ho la stamina freezata, sostituisco la sprite
         if (Movement.Instance.freezed)
         {

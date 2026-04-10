@@ -166,7 +166,6 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
 
         if (dist > GameManager.Instance.enemyInteractionDistance)
         {
-            Debug.Log("Troppo lontano per interagire");
             return;
         }
 
@@ -178,9 +177,7 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
             stunned = true;
             if (!Movement.Instance.freezed)
             {
-                Debug.Log("Initial Energy:" + Movement.Instance.currentEnergy);
                 Movement.Instance.currentEnergy -= Movement.Instance.stunEnergy;
-                Debug.Log(Movement.Instance.currentEnergy + "- Initial Energy =" + Movement.Instance.currentEnergy);
             }
 
             //usciamo dalla modalità ET
