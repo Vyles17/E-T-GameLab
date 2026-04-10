@@ -10,8 +10,6 @@ public class PowerCandyManager : MonoBehaviour
 
     public event Action OnCandiesChange; //evento per quando viene modificato il counter di caramelle
 
-    [SerializeField] AudioClip stealSfx;
-
     public static PowerCandyManager Instance;
 
     private void Awake()
@@ -53,9 +51,5 @@ public class PowerCandyManager : MonoBehaviour
             currentCandies-= candy;
             OnCandiesChange?.Invoke(); //iscritto all'evento
         }
-    }
-    public void RemoveSFX()
-    {
-            AudioManager.instance.PlaySfx(stealSfx);
     }
 }

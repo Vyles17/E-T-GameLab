@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class MusicManager : MonoBehaviour
 {
@@ -25,6 +24,7 @@ public class MusicManager : MonoBehaviour
     {
         StartCoroutine(PlayWinOrGO(audioClip, volume));
     }
+
     IEnumerator PlayBgMusic(AudioClip audioClip, float volume = 1f)
     {
         audioSource = gameObject.AddComponent<AudioSource>();
@@ -47,7 +47,6 @@ public class MusicManager : MonoBehaviour
         AS.volume = volume;
         AS.Play();
         yield return new WaitForSeconds(AS.clip.length);
-        Debug.Log("yay");
         Destroy(AS);
     }
 }

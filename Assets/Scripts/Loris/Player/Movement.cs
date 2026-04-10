@@ -13,7 +13,6 @@ public class Movement : MonoBehaviour
     public Vector3 Direction;
     [SerializeField] float speed;
     private float currentSpeed;
-    //public static event Action OnGameOver;
 
     [Header("Energy Stats")]
     public int maxEnergy;
@@ -55,7 +54,6 @@ public class Movement : MonoBehaviour
         Instance = this;
 
         rb = GetComponent<Rigidbody>();
-
     }
     private void Start()
     {
@@ -209,7 +207,7 @@ public class Movement : MonoBehaviour
     {
         while (true)
         {
-            if (Direction.magnitude > 0.1f && !Input.GetKey(KeyCode.LeftShift) && currentEnergy > 0)
+            if (Direction.magnitude > 0.1f && !Input.GetKey(KeyCode.LeftShift) && currentEnergy > 0 && AntennaManager.Instance.antennaPiecesFound != AntennaManager.Instance.antennaPieces)
             {
                 AudioManager.instance.PlaySfx(footStepsSfx);
             }
@@ -220,19 +218,11 @@ public class Movement : MonoBehaviour
     {
         while (true)
         {
-            if (Direction.magnitude > 0.1f && Input.GetKey(KeyCode.LeftShift) && currentEnergy > 0)
+            if (Direction.magnitude > 0.1f && Input.GetKey(KeyCode.LeftShift) && currentEnergy > 0 && AntennaManager.Instance.antennaPiecesFound != AntennaManager.Instance.antennaPieces)
             {
                 AudioManager.instance.PlaySfx(runnningStepsSfx);
             }
             yield return new WaitForSeconds(0.5f);
         }
     }
-
-    // scusa loris te lo commento perch� devo fare tutto da OnTriggerEnter :p
-
-    //private void TakeCandy(int candies)
-    //{
-    //    PowerCandyManager.Instance.AddCandy(1);
-    //    Destroy(CollObj);
-    //}
 }

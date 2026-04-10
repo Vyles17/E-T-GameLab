@@ -12,8 +12,9 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
     private float teleTimer;
     [SerializeField] float transitionDuration;
 
-    //Sound
+    //Sfx
     [SerializeField] AudioClip telekinesisSfx;
+    [SerializeField] AudioClip antennaSfx;
 
     //prefabs da spawnare
     [SerializeField] GameObject antennaPiecePrefab1, antennaPiecePrefab2, antennaPiecePrefab3, antennaPiecePrefab4, antennaPiecePrefab5;
@@ -31,32 +32,7 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
     {
         startPoint = transform.position;
     }
-    //private void Update()
-    //{
-    //    elapsedTime += Time.deltaTime;
-    //    float percentageComplate = elapsedTime / transitionDuration;
 
-    //    transform.position = Vector3.Lerp(startPoint, endPoint, percentageComplate);
-    //}
-    //protected virtual void FixedUpdate()
-    //{
-
-    //    if (interacted)
-    //    {
-    //        teleTimer += Time.fixedDeltaTime;
-    //        float percentageComplate = teleTimer / transitionDuration;
-
-    //        transform.position = Vector3.Lerp(startPoint, endPoint, percentageComplate);
-
-    //        if (transform.position == endPoint)
-    //        { 
-    //            interacted = false;
-    //            //transform.position = startPoint;
-    //            gameObject.SetActive(false);
-    //        }
-    //    }
-
-    //}
     public void OnPointerClick(PointerEventData eventData)
     {
         
@@ -68,7 +44,6 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
 
         if (dist > GameManager.Instance.objectInteractionDistance)
         {
-            Debug.Log("Troppo lontano per interagire");
             return;
         }
 
@@ -93,16 +68,11 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
             //faccio partire il suono della telecinesi
             AudioManager.instance.PlaySfx(telekinesisSfx);
 
-
             //usciamo dalla modalità ET
             GameManager.Instance.ExitETMode();
 
             if (!Movement.Instance.freezed || !GameManager.Instance.isWinning)
-            {
-                Debug.Log("Initial Energy:" + Movement.Instance.currentEnergy);
-                Movement.Instance.currentEnergy -= Movement.Instance.telekinesisEnergy;
-                Debug.Log(Movement.Instance.currentEnergy + "- Initial Energy =" + Movement.Instance.currentEnergy);
-            }
+            { Movement.Instance.currentEnergy -= Movement.Instance.telekinesisEnergy; }
         }
     }
 
@@ -166,7 +136,7 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
             prefabToSpawn = lifeCandyPrefab;
         }
 
-        Vector3 objSpawnPos = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+        Vector3 objSpawnPos = new (transform.position.x, transform.position.y + 0.5f, transform.position.z);
 
         //creo l'oggetto nella posizione originale del parent 
         GameObject spawnedObj = Instantiate(prefabToSpawn, objSpawnPos, Quaternion.identity);
@@ -201,6 +171,9 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
         //se l'oggetto è un pezzo di antenna
         if (spawnedObject.CompareTag("AntennaPiece"))
         {
+            //faccio partire l'SFX
+            AudioManager.instance.PlaySfx(antennaSfx);
+
             // la prendiamo, aggiorniamo l'inventario
             AntennaManager.Instance.AddAntennaPiece(1);
 
@@ -232,10 +205,10 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
             {
                 Movement.Instance.currentEnergy = Movement.Instance.maxEnergy;
             }
-
             Destroy(spawnedObject);
         }
 
+        //parte l'Sfx del Pickup
         AudioManager.instance.PlaySfx(Movement.Instance.pickUpSfx);
 
         // l'oggetto interagito aspetta un secondo
@@ -250,5 +223,4 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
 
         interacted = false;
     }
-
 }

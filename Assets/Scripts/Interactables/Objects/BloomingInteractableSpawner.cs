@@ -25,8 +25,9 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
     private float teleTimer;
     [SerializeField] float transitionDuration;
 
-    //Sound
+    //SFX
     [SerializeField] AudioClip telekinesisSfx;
+    [SerializeField] AudioClip antennaSfx;
 
     public bool interacted;
 
@@ -45,14 +46,10 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
         //calcolo se il player è abbastanza vicino per interagire con l'oggetto
         float dist = Vector3.Distance(transform.position, Movement.Instance.transform.position);
 
-        if (dist > GameManager.Instance.objectInteractionDistance)
-        {
-            Debug.Log("Troppo lontano per interagire");
-            return;
-        }
+        if (dist > GameManager.Instance.objectInteractionDistance) return;
 
-        //se il tag non è Interactable, ritorno
-        if (!transform.CompareTag("Interactable") && Time.timeScale > 0) return;
+        ////se il tag non è Interactable, ritorno
+        //if (!transform.CompareTag("Interactable") && Time.timeScale > 0) return;
 
         //appena clicco, il cespuglio cambia mesh in un cespuglio fiorito
         meshFilter.mesh = bloomedBush;
@@ -81,11 +78,7 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
             //usciamo dalla modalità ET
             GameManager.Instance.ExitETMode();
             if (!Movement.Instance.freezed)
-            {
-                Debug.Log("Initial Energy:" + Movement.Instance.currentEnergy);
-                Movement.Instance.currentEnergy -= Movement.Instance.telekinesisEnergy;
-                Debug.Log(Movement.Instance.currentEnergy + "- Initial Energy =" + Movement.Instance.currentEnergy);
-            }
+            { Movement.Instance.currentEnergy -= Movement.Instance.telekinesisEnergy; }
         }
     }
 
@@ -183,6 +176,9 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
         //se l'oggetto è un pezzo di antenna
         if (spawnedObject.CompareTag("AntennaPiece"))
         {
+            //faccio partire l'SFX
+            AudioManager.instance.PlaySfx(antennaSfx);
+
             // la prendiamo, aggiorniamo l'inventario
             AntennaManager.Instance.AddAntennaPiece(1);
 
