@@ -50,16 +50,22 @@ MonoBehaviour:
   isWinning: 0
   backgroundMusic: {fileID: 8300000, guid: 239d0793d56d51349a218149e2764dfc, type: 3}
   musicDuration: 28
+  gameOverJDuration: 19
+  winJDuration: 7.8
+  isPlaying: 0
   powersLight: {fileID: 0}
   normalHand: {fileID: 0}
   powersHand: {fileID: 0}
   enemyInteractionDistance: 15
-  objectInteractionDistance: 5
-  signalSfx: {fileID: 8300000, guid: 393bd6285ea68c34f92489c423f8956f, type: 3}
+  objectInteractionDistance: 7
   enemies: {fileID: 0}
   assembledAntenna: {fileID: 0}
   winSpot: {fileID: 0}
+  signalSfx: {fileID: 8300000, guid: c4c216d45c9935945807fe65a5db7a5f, type: 3}
+  winSfx: {fileID: 8300000, guid: 81eea9c7b9a5112488c8c535c75ed41b, type: 3}
+  WinJingle: {fileID: 8300000, guid: e52963a369f2f434f8bee0a0118e8804, type: 3}
   GameOverSfx: {fileID: 8300000, guid: d28d045943b7cc04abf560a159ed15ad, type: 3}
+  GameoverJingle: {fileID: 8300000, guid: 64e01843a5cf59845944ac9d0123735f, type: 3}
   clickSfx: {fileID: 8300000, guid: 8aff5c74c65e38241be9899d77435147, type: 3}
 --- !u!1 &1128814592076464309
 GameObject:
@@ -105,6 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0048ca8e246c58429e837987af4f454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MusicManager
+  audioSource: {fileID: 0}
 --- !u!1 &2323367817949717081
 GameObject:
   m_ObjectHideFlags: 0

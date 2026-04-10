@@ -2035,10 +2035,6 @@ PrefabInstance:
       propertyPath: 'interactableSpawners.Array.data[9]'
       value: 
       objectReference: {fileID: 1609067053}
-    - target: {fileID: 5760221724168008472, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
-      propertyPath: antennaPiecesFound
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6970693790262426979, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: handET
       value: 
@@ -2124,10 +2120,6 @@ PrefabInstance:
       value: Manager
       objectReference: {fileID: 0}
     - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
-      propertyPath: winSfx
-      value: 
-      objectReference: {fileID: 8300000, guid: 81eea9c7b9a5112488c8c535c75ed41b, type: 3}
-    - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: enemies
       value: 
       objectReference: {fileID: 1933645909}
@@ -2135,14 +2127,6 @@ PrefabInstance:
       propertyPath: winSpot
       value: 
       objectReference: {fileID: 315578125}
-    - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
-      propertyPath: WinJingle
-      value: 
-      objectReference: {fileID: 8300000, guid: e52963a369f2f434f8bee0a0118e8804, type: 3}
-    - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
-      propertyPath: signalSfx
-      value: 
-      objectReference: {fileID: 8300000, guid: c4c216d45c9935945807fe65a5db7a5f, type: 3}
     - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: normalHand
       value: 
@@ -2156,25 +2140,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1501789564}
     - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
-      propertyPath: winJDuration
-      value: 7.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
-      propertyPath: GameoverJingle
-      value: 
-      objectReference: {fileID: 8300000, guid: 64e01843a5cf59845944ac9d0123735f, type: 3}
-    - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: assembledAntenna
       value: 
       objectReference: {fileID: 821142354}
-    - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
-      propertyPath: gameOverJDuration
-      value: 19
-      objectReference: {fileID: 0}
-    - target: {fileID: 7963956007975387426, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
-      propertyPath: objectInteractionDistance
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 8245105017674058543, guid: b2639b7fa366c914fafad9b430fe874e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.66138
