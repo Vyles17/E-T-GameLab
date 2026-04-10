@@ -74,7 +74,7 @@ public class BloomingInteractableSpawner : MonoBehaviour, IPointerClickHandler
 
             //usciamo dalla modalità ET
             GameManager.Instance.ExitETMode();
-            if (!Movement.Instance.freezed)
+            if (!Movement.Instance.freezed || !GameManager.Instance.isWinning)
             { Movement.Instance.currentEnergy -= Movement.Instance.telekinesisEnergy; }
         }
     }
