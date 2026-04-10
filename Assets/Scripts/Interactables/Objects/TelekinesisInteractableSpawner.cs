@@ -14,7 +14,6 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
 
     //Sound
     [SerializeField] AudioClip telekinesisSfx;
-    [SerializeField] AudioClip antennaSfx;
 
     //prefabs da spawnare
     [SerializeField] GameObject antennaPiecePrefab1, antennaPiecePrefab2, antennaPiecePrefab3, antennaPiecePrefab4, antennaPiecePrefab5;
@@ -100,7 +99,9 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
 
             if (!Movement.Instance.freezed || !GameManager.Instance.isWinning)
             {
+                Debug.Log("Initial Energy:" + Movement.Instance.currentEnergy);
                 Movement.Instance.currentEnergy -= Movement.Instance.telekinesisEnergy;
+                Debug.Log(Movement.Instance.currentEnergy + "- Initial Energy =" + Movement.Instance.currentEnergy);
             }
         }
     }
@@ -200,9 +201,6 @@ public class TelekinesisInteractableSpawner : MonoBehaviour, IPointerClickHandle
         //se l'oggetto è un pezzo di antenna
         if (spawnedObject.CompareTag("AntennaPiece"))
         {
-            //faccio partire l'SFX
-            AudioManager.instance.PlaySfx(antennaSfx);
-
             // la prendiamo, aggiorniamo l'inventario
             AntennaManager.Instance.AddAntennaPiece(1);
 

@@ -48,70 +48,15 @@ MonoBehaviour:
   isETing: 0
   isGameOver: 0
   isWinning: 0
-  backgroundMusic: {fileID: 8300000, guid: 239d0793d56d51349a218149e2764dfc, type: 3}
-  musicDuration: 28
-  gameOverJDuration: 19
-  winJDuration: 7.8
-  isPlaying: 0
   powersLight: {fileID: 0}
   normalHand: {fileID: 0}
   powersHand: {fileID: 0}
   enemyInteractionDistance: 15
-  objectInteractionDistance: 7
+  objectInteractionDistance: 5
   enemies: {fileID: 0}
   assembledAntenna: {fileID: 0}
   winSpot: {fileID: 0}
-  signalSfx: {fileID: 8300000, guid: c4c216d45c9935945807fe65a5db7a5f, type: 3}
-  winSfx: {fileID: 8300000, guid: 81eea9c7b9a5112488c8c535c75ed41b, type: 3}
-  WinJingle: {fileID: 8300000, guid: e52963a369f2f434f8bee0a0118e8804, type: 3}
   GameOverSfx: {fileID: 8300000, guid: d28d045943b7cc04abf560a159ed15ad, type: 3}
-  GameoverJingle: {fileID: 8300000, guid: 64e01843a5cf59845944ac9d0123735f, type: 3}
-  clickSfx: {fileID: 8300000, guid: 8aff5c74c65e38241be9899d77435147, type: 3}
---- !u!1 &1128814592076464309
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 521292023629252628}
-  - component: {fileID: 3595159566513902185}
-  m_Layer: 0
-  m_Name: MusicManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &521292023629252628
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128814592076464309}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -39.60063, y: -10.51856, z: -26.294487}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8245105017674058543}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3595159566513902185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128814592076464309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0048ca8e246c58429e837987af4f454, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MusicManager
-  audioSource: {fileID: 0}
 --- !u!1 &2323367817949717081
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,7 +287,6 @@ Transform:
   - {fileID: 8319115980354475507}
   - {fileID: 1172458674341972943}
   - {fileID: 3415550455397146859}
-  - {fileID: 521292023629252628}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8626758812798299859
@@ -456,6 +400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PowerCandyManager
   candiesMaxCapacity: 5
   currentCandies: 0
+  stealSfx: {fileID: 8300000, guid: 33fb27a417951f747b07a6889a00243a, type: 3}
 --- !u!1 &8998334588255933509
 GameObject:
   m_ObjectHideFlags: 0
