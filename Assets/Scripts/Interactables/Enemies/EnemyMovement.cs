@@ -51,7 +51,7 @@ public class EnemyMovement : MonoBehaviour, IPointerClickHandler
     {
         audioSource.clip = walkingSfx;
 
-        if (!stunned && Time.timeScale == 1)
+        if (!stunned || Time.timeScale == 1)
         {
             HandleWalkingAudio();
 

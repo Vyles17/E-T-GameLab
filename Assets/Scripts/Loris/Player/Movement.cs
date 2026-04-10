@@ -14,6 +14,8 @@ public class Movement : MonoBehaviour
     [SerializeField] float speed;
     private float currentSpeed;
 
+    public Transform myDistance;
+
     [Header("Energy Stats")]
     public int maxEnergy;
     public float currentEnergy;
@@ -144,8 +146,6 @@ public class Movement : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        AudioManager.instance.PlaySfx(pickUpSfx);
-
         CollObj = other.gameObject;
 
         //se abbiamo pigliato una caramella poteri
@@ -153,6 +153,8 @@ public class Movement : MonoBehaviour
         {
             GameObject candy = other.gameObject;
             GameObject spawner = candy.transform.parent.gameObject; // il parent � lo spawner
+
+            AudioManager.instance.PlaySfx(pickUpSfx);
 
             // la prendiamo, aggiorniamo l'inventario, e la distruggiamo
             PowerCandyManager.Instance.AddCandy(1);
@@ -170,6 +172,8 @@ public class Movement : MonoBehaviour
         {
             GameObject candy = other.gameObject;
             GameObject spawner = candy.transform.parent.gameObject; // il parent � lo spawner
+
+            AudioManager.instance.PlaySfx(pickUpSfx);
 
             // la prendiamo, aggiorniamo la stamina, e la distruggiamo
             currentEnergy += addEnergy;

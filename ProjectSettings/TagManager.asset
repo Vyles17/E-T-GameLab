@@ -9,6 +9,7 @@ TagManager:
   - PowerCandy
   - LifeCandy
   - AntennaPiece
+  - UIIAI
   layers:
   - Default
   - TransparentFX
