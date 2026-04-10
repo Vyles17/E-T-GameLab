@@ -109,6 +109,10 @@ public class Movement : MonoBehaviour
         {
             detractEnergy = moveEnergy;
         }
+        if (Direction.magnitude > 0.1f && currentEnergy > 0 && !freezed)
+        {
+            currentEnergy -= detractEnergy;
+        }
         //Movement velocity calculator (la aggiorni in Update perch� deve tornare alla normalit� una volta che non si preme lo sprint)
         Vector3 targetVelocity = Time.fixedDeltaTime * currentSpeed * Direction;
         rb.linearVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
@@ -134,10 +138,6 @@ public class Movement : MonoBehaviour
         Direction = transform.TransformDirection(localDirection); //permette al Player di seguire la Camera
 
         Direction.Normalize();
-        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && currentEnergy > 0 && !freezed)
-        {
-            currentEnergy -= detractEnergy;
-        }
 
         if (currentEnergy <= 0)
         {

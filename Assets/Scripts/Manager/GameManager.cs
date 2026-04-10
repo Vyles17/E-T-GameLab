@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -40,7 +42,7 @@ public class GameManager : MonoBehaviour
     //distanza a cui vogliamo rendere interagibile gli oggetti
     public float enemyInteractionDistance = 15f;
     public float objectInteractionDistance = 5f;
-
+    public float EthelDistance;
     //Input map per gestire i comandi per la UI
     private InputMap inputMap;
 
@@ -64,6 +66,8 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
+
+        Application.targetFrameRate = 60;
 
         //ci gettiamo l'input map
         inputMap = new InputMap();
@@ -539,15 +543,12 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator bgMusic()
     {
-        while (true)
+        while (isPaused || !isPaused)
         {
-            if (!isPaused)
+            MusicManager.instance.PlayBg(backgroundMusic);
+            if (isWinning || isGameOver)
             {
-                MusicManager.instance.PlayBg(backgroundMusic);
-                if (isWinning || isGameOver)
-                {
-                    Destroy(MusicManager.instance.audioSource);
-                }
+                Destroy(MusicManager.instance.audioSource);
             }
             yield return new WaitForSeconds(musicDuration);
         }

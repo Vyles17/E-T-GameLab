@@ -84,6 +84,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         UpdateCandyCounter();
+        UpdateAntennaPieces();
 
         //se ho la stamina freezata, sostituisco la sprite
         if (Movement.Instance.freezed)

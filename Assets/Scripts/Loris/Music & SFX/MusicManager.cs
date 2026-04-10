@@ -36,6 +36,7 @@ public class MusicManager : MonoBehaviour
             yield break;
         }
         audioSource.Play();
+
         yield return new WaitForSeconds(audioSource.clip.length);
 
         Destroy(audioSource);

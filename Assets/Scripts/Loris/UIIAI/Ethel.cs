@@ -4,28 +4,43 @@ using UnityEngine.EventSystems;
 public class Ethel : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] AudioClip UIIAI;
-    [SerializeField] float UiiaiDuration;
+    [SerializeField] Animator _Ethel;
 
     AudioSource audioSource;
-    StopEthel stopEthel;
+    //InteractUIIAI interactUIIAI;
 
     private void Awake()
     {
-        stopEthel = GetComponentInChildren<StopEthel>();
+        //interactUIIAI = GetComponentInChildren<InteractUIIAI>();
         audioSource = GetComponent<AudioSource>();
     }
     private void Update()
     {
-        if ((GameManager.Instance.isPaused || stopEthel.stopUiiaing) && audioSource.isPlaying)
+        if (!GameManager.Instance.isPaused /*interactUIIAI.stopUiiaing*/)
         {
-            audioSource.Stop();
+            float dist = Vector3.Distance(transform.position, Movement.Instance.transform.position);
+
+            if (dist > GameManager.Instance.EthelDistance)
+            {
+                _Ethel.SetBool("isSpinning", false);
+                if (audioSource.isPlaying)
+                    audioSource.Stop();
+            }
         }
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        stopEthel.stopUiiaing = false;
-        audioSource.clip = UIIAI;
+        //if (!interactUIIAI)
+        //{
+        //calcolo se il player è abbastanza vicino per interagire con l'oggetto
+        float dist = Vector3.Distance(transform.position, Movement.Instance.transform.position);
 
-        audioSource.Play();
+        if (dist > GameManager.Instance.EthelDistance) return;
+
+        Debug.Log("UIIAI");
+            audioSource.clip = UIIAI;
+            _Ethel.SetBool("isSpinning", true);
+            audioSource.Play();
+        //}
     }
 }
